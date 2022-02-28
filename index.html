@@ -8,9 +8,19 @@
   <link rel="stylesheet" href="css/reset.css">
   <link rel="stylesheet" href="css/layout.css">
   <link rel="stylesheet" href="css/styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700&display=swap" rel="stylesheet">
 </head>
 <body>
-  <header>
+  <header class="display-flex flex-direction-column width-900px align-content-center margin-auto">
+    <div class="title bg-dark-blue font-white">
+      <h1 class="caveat font-size-25-rem margin-0 font-weight-500 padding-h-1-rem">Trivial Matters</h1>
+    </div>
+    <nav class="bg-gray display-flex space-between line-height-2-rem ">
+      <a href="#favorites" class="roboto text-decoration-none font-black padding-h-1-rem cursor-pointer grow font-weight-500 font-size-09-rem">Favorites</a>
+      <a href="#questions-correct" class="roboto text-decoration-none font-black padding-h-1-rem cursor-pointer grow font-weight-500 font-size-09-rem">Questions Correct: <span class="q-correct">0</span></a>
+      <a href="score" class="roboto text-decoration-none font-black padding-h-1-rem cursor-pointer grow font-weight-500 font-size-09-rem">Score: <span class="score">0</span></a>
+    </nav>
   </header>
   <main>
   </main>

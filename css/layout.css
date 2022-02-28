@@ -1,0 +1,41 @@
+.width-900px {
+  width: 500px;
+}
+
+/* display-flex */
+.display-flex {
+  display: flex;
+}
+
+.flex-direction-column {
+  flex-direction: column;
+}
+
+.space-between {
+  justify-content: space-between;
+}
+
+.align-content-center {
+  align-content: center;
+}
+
+/* margin & padding */
+.margin-auto {
+  margin: auto;
+}
+
+.margin-0 {
+  margin: 0;
+}
+
+/* .margin-1-rem {
+  margin: 1rem;
+} */
+
+.padding-1-rem {
+  padding: 1rem;
+}
+
+.padding-h-1-rem {
+  padding: 0 1rem;
+}
