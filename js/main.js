@@ -58,11 +58,17 @@ function displayClue() {
 // return to questions if overlay clicked
 $modal.addEventListener('click', handleModal);
 
+// var $views = document.querySelectorAll('.view');
+// var $
+// function showAnswer() {
+
+// }
+
 function handleModal(event) {
   // console.log('event.target', event.target);
   var $modalOn = document.querySelector('.modal-on');
   if (event.target !== $modalOn) {
-    // show answer
+    // showAnswer();
   } else {
     closeModal();
   }
