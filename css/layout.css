@@ -1,5 +1,13 @@
-.width-900px {
+.width-500px {
   width: 500px;
+}
+
+.wdith-450px {
+  width: 300px;
+}
+
+.column-third {
+  width: 33%;
 }
 
 /* display-flex */
@@ -11,6 +19,14 @@
   flex-direction: column;
 }
 
+.justify-content-center {
+  justify-content: center;
+}
+
+.space-around {
+  justify-content: space-around;
+}
+
 .space-between {
   justify-content: space-between;
 }
@@ -19,18 +35,34 @@
   align-content: center;
 }
 
+.flex-wrap {
+  flex-wrap: wrap;
+}
+
 /* margin & padding */
 .margin-auto {
   margin: auto;
+}
+
+.margin-b-1-rem {
+  margin-bottom: 1rem;
 }
 
 .margin-0 {
   margin: 0;
 }
 
-/* .margin-1-rem {
+.margin-v-1-rem {
+  margin: 1rem 0;
+}
+
+.margin-1-rem {
   margin: 1rem;
-} */
+}
+
+.padding-left-05-rem {
+  padding-left: 0.5rem;
+}
 
 .padding-1-rem {
   padding: 1rem;
@@ -38,4 +70,27 @@
 
 .padding-h-1-rem {
   padding: 0 1rem;
+}
+
+.padding-h-7-rem {
+  padding: 0 7rem;
+}
+
+button.clue {
+  cursor: pointer;
+  width: 70px;
+  height: 70px;
+  margin: 0.5rem;
+  text-align: right;
+  padding-top: 35px;
+  font-weight: 500;
+  font-family: Roboto, sans-serif;
+  font-size: 1.25rem;
+  color: white;
+  background-color: #1a374d;
+  border: none;
+}
+
+button.clue:hover {
+  background-color: #406882;
 }
