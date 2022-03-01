@@ -6,9 +6,6 @@ function getClues() {
   xhr.open('GET', 'http://jservice.io/api/random/?count=9');
   xhr.responseType = 'json';
   xhr.addEventListener('load', function () {
-    // console.log(xhr.status);
-    // console.log(xhr.response);
-
     for (var i = 0; i < xhr.response.length; i++) {
       var clueData = {
       };
@@ -26,10 +23,6 @@ function getClues() {
 
 getClues();
 
-// loadQuestion
-// closeModal
-
-// var $buttons = document.querySelectorAll('.clue');
 var $buttonContainer = document.querySelector('.button-container');
 $buttonContainer.addEventListener('click', openModal);
 
@@ -49,8 +42,8 @@ function displayClue() {
   for (var i = 0; i < data.clues.length; i++) {
     if (parseInt(event.target.textContent) === data.clues[i].entryId) {
       $clue.textContent = data.clues[i].question;
-      $answer.textContent = data.clues[i].answer;
-      $points.textContent = data.clues[i].points;
+      $answer.textContent = 'Answer: ' + data.clues[i].answer;
+      $points.textContent = 'Score: ' + data.clues[i].points;
       return;
     }
   }

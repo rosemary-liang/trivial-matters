@@ -11,10 +11,6 @@
 }
 
 /* modal */
-.hidden {
-  display: none;
-}
-
 .modal-on {
   position: absolute;
   z-index: 1;
