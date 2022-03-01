@@ -30,6 +30,14 @@
   background-color: #b6b6b6;
 }
 
+.bg-white {
+  background-color: white;
+}
+
+.border-solid {
+  border: solid;
+}
+
 .font-white {
   color: white;
 }
