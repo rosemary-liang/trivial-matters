@@ -74,7 +74,7 @@
 
 /* buttons */
 
-button.clue {
+/* button.clue {
   cursor: pointer;
   width: 70px;
   height: 70px;
@@ -87,7 +87,7 @@ button.clue {
   color: white;
   background-color: #1a374d;
   border: none;
-}
+} */
 
 button.clue:hover {
   background-color: #406882;

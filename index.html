@@ -12,68 +12,69 @@
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700&display=swap" rel="stylesheet">
   <script src="https://kit.fontawesome.com/d6062c30ca.js" crossorigin="anonymous"></script>
 </head>
-<body class="display-flex flex-direction-column margin-auto align-items-center">
-  <div class="modal-off" id="modal-container">
-    <div class="card bg-white width-500px">
-      <div class="favorite display-flex flex-end">
-        <i class="fa-solid fa-star"></i>
-      </div>
-      <p class="clue-text"></p>
-      <p class="answer"></p>
-      <p class="points"></p>
-      <div class="answered-correctly">
-        <p>Did you answer correctly?:</p>
-        <button class="answered-correctly" id="yes">YES</button>
-        <button class="answered-correctly" id="no">NO</button>
+<body>
+  <div class="container display-flex flex-direction-column margin-auto align-items-center">
+    <div class="modal-off" id="modal-container">
+      <div class="container card bg-white">
+        <div class="favorite display-flex flex-end">
+          <i class="fa-solid fa-star"></i>
+        </div>
+        <p class="clue-text"></p>
+        <p class="answer"></p>
+        <p class="points"></p>
+        <div class="answered-correctly">
+          <p>Did you answer correctly?:</p>
+          <button class="answered-correctly" id="yes">YES</button>
+          <button class="answered-correctly" id="no">NO</button>
+        </div>
       </div>
     </div>
+    <header class="container display-flex flex-direction-column align-content-center margin-auto ">
+      <div class="title bg-dark-blue font-white">
+        <h1 class="caveat font-size-25-rem margin-0 font-weight-500 padding-h-1-rem">Trivial Matters</h1>
+      </div>
+      <nav class="bg-gray display-flex space-between line-height-2-rem margin-b-1-rem">
+        <a href="#favorites" class="roboto text-decoration-none font-black padding-h-1-rem cursor-pointer grow font-weight-500 font-size-09-rem">Favorites</a>
+        <a href="#questions-correct" class="roboto text-decoration-none font-black padding-h-1-rem cursor-pointer grow font-weight-500 font-size-09-rem">Questions Correct: <span class="q-correct">0</span></a>
+        <a href="score" class="roboto text-decoration-none font-black padding-h-1-rem cursor-pointer grow font-weight-500 font-size-09-rem">Score: <span class="score">0</span></a>
+      </nav>
+    </header>
+    <main>
+
+      <div class="container clues-container">
+        <p class="roboto font-weight-500 margin-v-1-rem font-size-15-rem padding-left-05-rem ">Select a question</p>
+        <div class="row grid-container button-container margin-auto display-flex flex-wrap space-around ">
+          <div class="column-third  ">
+            <button class="clue grow">1</button>
+          </div>
+          <div class="column-third">
+            <button class="clue grow">2</button>
+          </div>
+          <div class="column-third">
+            <button class="clue grow">3</button>
+          </div>
+          <div class="column-third">
+            <button class="clue grow">4</button>
+          </div>
+          <div class="column-third">
+            <button class="clue grow">5</button>
+          </div>
+          <div class="column-third">
+            <button class="clue grow">6</button>
+          </div>
+          <div class="column-third">
+            <button class="clue grow">7</button>
+          </div>
+          <div class="column-third">
+            <button class="clue grow">8</button>
+          </div>
+          <div class="column-third">
+            <button class="clue grow">9</button>
+          </div>
+        </div>
+      </div>
+    </main>
   </div>
-  <header class="display-flex flex-direction-column width-500px align-content-center margin-auto ">
-    <div class="title bg-dark-blue font-white">
-      <h1 class="caveat font-size-25-rem margin-0 font-weight-500 padding-h-1-rem">Trivial Matters</h1>
-    </div>
-    <nav class="bg-gray display-flex space-between line-height-2-rem margin-b-1-rem">
-      <a href="#favorites" class="roboto text-decoration-none font-black padding-h-1-rem cursor-pointer grow font-weight-500 font-size-09-rem">Favorites</a>
-      <a href="#questions-correct" class="roboto text-decoration-none font-black padding-h-1-rem cursor-pointer grow font-weight-500 font-size-09-rem">Questions Correct: <span class="q-correct">0</span></a>
-      <a href="score" class="roboto text-decoration-none font-black padding-h-1-rem cursor-pointer grow font-weight-500 font-size-09-rem">Score: <span class="score">0</span></a>
-    </nav>
-  </header>
-  <main>
-
-    <div class="clues-container width-500px margin-auto padding-h-7-rem">
-      <p class="roboto font-weight-500 margin-v-1-rem font-size-15-rem padding-left-05-rem ">Select a question</p>
-      <div class="row button-container width-450px margin-auto display-flex flex-wrap space-around ">
-        <div class="column-third  ">
-          <button class="clue grow">1</button>
-        </div>
-        <div class="column-third">
-          <button class="clue grow">2</button>
-        </div>
-        <div class="column-third">
-          <button class="clue grow">3</button>
-        </div>
-        <div class="column-third">
-          <button class="clue grow">4</button>
-        </div>
-        <div class="column-third">
-          <button class="clue grow">5</button>
-        </div>
-        <div class="column-third">
-          <button class="clue grow">6</button>
-        </div>
-        <div class="column-third">
-          <button class="clue grow">7</button>
-        </div>
-        <div class="column-third">
-          <button class="clue grow">8</button>
-        </div>
-        <div class="column-third">
-          <button class="clue grow">9</button>
-        </div>
-      </div>
-    </div>
-
-  </main>
   <script src="js/data.js"></script>
   <script src="js/clues.js"></script>
   <script src="js/main.js"></script>
