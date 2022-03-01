@@ -32,6 +32,10 @@
   display: none;
 }
 
+.hidden {
+  display: none;
+}
+
 /* display-flex */
 .display-flex {
   display: flex;
@@ -80,6 +84,10 @@
   margin-bottom: 1rem;
 }
 
+.margin-b-2-rem {
+  margin-bottom: 2rem;
+}
+
 .margin-0 {
   margin: 0;
 }
@@ -90,6 +98,10 @@
 
 .padding-left-05-rem {
   padding-left: 0.5rem;
+}
+
+.padding-right-05-rem {
+  padding-right: 0.25rem;
 }
 
 .padding-1-rem {

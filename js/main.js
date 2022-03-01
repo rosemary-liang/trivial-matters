@@ -58,17 +58,25 @@ function displayClue() {
 // return to questions if overlay clicked
 $modal.addEventListener('click', handleModal);
 
-// var $views = document.querySelectorAll('.view');
-// var $
-// function showAnswer() {
+var $views = document.querySelectorAll('.view');
 
-// }
+function showAnswer() {
+  for (var i = 0; i < $views.length; i++) {
+    if ($views[i].getAttribute('data-modal') === 'answer') {
+      $views[i].classList.remove('hidden');
+    } else if ($views[i].getAttribute('data-modal') === 'click-to-see-answer') {
+      $views[i].classList.add('hidden');
+    }
+
+  }
+
+}
 
 function handleModal(event) {
   // console.log('event.target', event.target);
   var $modalOn = document.querySelector('.modal-on');
   if (event.target !== $modalOn) {
-    // showAnswer();
+    showAnswer();
   } else {
     closeModal();
   }
