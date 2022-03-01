@@ -42,6 +42,10 @@
   color: white;
 }
 
+.font-light-gray {
+  color: #dedede;
+}
+
 /* links */
 .text-decoration-none {
   text-decoration: none;

@@ -12,6 +12,7 @@ function getClues() {
       clueData.question = xhr.response[i].question;
       clueData.answer = xhr.response[i].answer;
       clueData.points = xhr.response[i].value;
+      clueData.completed = null;
       clueData.entryId = data.nextEntryId;
       data.clues.push(clueData);
       data.nextEntryId++;
@@ -34,6 +35,11 @@ function openModal(event) {
   displayClue();
 }
 
+function closeModal(event) {
+  $modal.classList.remove('modal-on');
+  $modal.classList.add('modal-off');
+}
+
 var $clue = document.querySelector('.clue-text');
 var $answer = document.querySelector('.answer');
 var $points = document.querySelector('.points');
@@ -43,8 +49,21 @@ function displayClue() {
     if (parseInt(event.target.textContent) === data.clues[i].entryId) {
       $clue.textContent = data.clues[i].question;
       $answer.textContent = 'Answer: ' + data.clues[i].answer;
-      $points.textContent = 'Score: ' + data.clues[i].points;
+      $points.textContent = 'Points: ' + data.clues[i].points;
       return;
     }
+  }
+}
+
+// return to questions if overlay clicked
+$modal.addEventListener('click', handleModal);
+
+function handleModal(event) {
+  // console.log('event.target', event.target);
+  var $modalOn = document.querySelector('.modal-on');
+  if (event.target !== $modalOn) {
+    // show answer
+  } else {
+    closeModal();
   }
 }

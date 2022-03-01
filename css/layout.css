@@ -88,16 +88,16 @@
   margin: 1rem 0;
 }
 
-.margin-1-rem {
-  margin: 1rem;
-}
-
 .padding-left-05-rem {
   padding-left: 0.5rem;
 }
 
 .padding-1-rem {
   padding: 1rem;
+}
+
+.padding-2-rem {
+  padding: 2rem;
 }
 
 .padding-h-1-rem {

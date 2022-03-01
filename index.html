@@ -16,16 +16,19 @@
   <div class="container display-flex flex-direction-column margin-auto align-items-center">
     <div class="modal-off" id="modal-container">
       <div class="container card bg-white">
-        <div class="favorite display-flex flex-end">
-          <i class="fa-solid fa-star"></i>
-        </div>
-        <p class="clue-text"></p>
-        <p class="answer"></p>
-        <p class="points"></p>
-        <div class="answered-correctly">
-          <p>Did you answer correctly?:</p>
-          <button class="answered-correctly" id="yes">YES</button>
-          <button class="answered-correctly" id="no">NO</button>
+        <div class="card-content padding-2-rem ">
+          <div class="favorite display-flex flex-end">
+            <i class="fa-solid fa-star font-size-15-rem"></i>
+          </div>
+          <p class="clue-text roboto font-weight-500"></p>
+          <p class="click-to-see-answer roboto font-light-gray">(click to see answer)</p>
+          <p class="answer roboto font-weight-500 margin-v-1-rem"></p>
+          <p class="points roboto font-weight-500"></p>
+          <div class="answered-correctly">
+            <p class="roboto">Did you answer correctly?:</p>
+            <button class="answered-correctly roboto" id="yes">YES</button>
+            <button class="answered-correctly roboto" id="no">NO</button>
+          </div>
         </div>
       </div>
     </div>
