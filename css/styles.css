@@ -46,6 +46,10 @@
   color: #dedede;
 }
 
+.font-light-blue {
+  color: #406882;
+}
+
 /* links */
 .text-decoration-none {
   text-decoration: none;
@@ -95,4 +99,17 @@
 
 button.clue:hover {
   background-color: #406882;
+}
+
+button.answered-correctly {
+  cursor: pointer;
+  margin: 0.5rem;
+  padding: 0.4rem 1.25rem;
+  width: 66px;
+  font-weight: 500;
+  font-family: Roboto, sans-serif;
+  font-size: 0.9rem;
+  color: white;
+  background-color: #406882;
+  border: none;
 }

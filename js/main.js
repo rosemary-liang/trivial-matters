@@ -1,5 +1,13 @@
 /* global data */
 /* exported data */
+var $buttonContainer = document.querySelector('.button-container');
+var $modal = document.querySelector('.modal-off');
+var $views = document.querySelectorAll('.view');
+var $clue = document.querySelector('.clue-text');
+var $answer = document.querySelector('.answer');
+var $points = document.querySelector('.points');
+var $yesButton = document.querySelector('#yes');
+// var $noButton = document.querySelector('#no');
 
 function getClues() {
   var xhr = new XMLHttpRequest();
@@ -17,17 +25,13 @@ function getClues() {
       data.clues.push(clueData);
       data.nextEntryId++;
     }
-
   });
   xhr.send();
 }
 
 getClues();
 
-var $buttonContainer = document.querySelector('.button-container');
 $buttonContainer.addEventListener('click', openModal);
-
-var $modal = document.querySelector('.modal-off');
 
 function openModal(event) {
   $modal.classList.remove('modal-off');
@@ -40,25 +44,29 @@ function closeModal(event) {
   $modal.classList.add('modal-off');
 }
 
-var $clue = document.querySelector('.clue-text');
-var $answer = document.querySelector('.answer');
-var $points = document.querySelector('.points');
-
 function displayClue() {
   for (var i = 0; i < data.clues.length; i++) {
     if (parseInt(event.target.textContent) === data.clues[i].entryId) {
       $clue.textContent = data.clues[i].question;
       $answer.textContent = 'Answer: ' + data.clues[i].answer;
       $points.textContent = 'Points: ' + data.clues[i].points;
+      data.currentlyAnswering = data.clues[i];
       return;
     }
   }
 }
 
-// return to questions if overlay clicked
 $modal.addEventListener('click', handleModal);
 
-var $views = document.querySelectorAll('.view');
+function handleModal(event) {
+  var $modalOn = document.querySelector('.modal-on');
+  if (event.target !== $modalOn) {
+    showAnswer();
+
+  } else {
+    closeModal();
+  }
+}
 
 function showAnswer() {
   for (var i = 0; i < $views.length; i++) {
@@ -67,17 +75,15 @@ function showAnswer() {
     } else if ($views[i].getAttribute('data-modal') === 'click-to-see-answer') {
       $views[i].classList.add('hidden');
     }
-
-  }
-
-}
-
-function handleModal(event) {
-  // console.log('event.target', event.target);
-  var $modalOn = document.querySelector('.modal-on');
-  if (event.target !== $modalOn) {
-    showAnswer();
-  } else {
-    closeModal();
   }
 }
+
+function handleYes() {
+  data.currentlyAnswering.completed = 'yes';
+  data.questionsCorrect.push(data.currentlyAnswering);
+  data.score += data.currentlyAnswering.points;
+  data.currentlyAnswering = null;
+  closeModal();
+}
+
+$yesButton.addEventListener('click', handleYes);
