@@ -16,8 +16,8 @@
   <div class="container display-flex flex-direction-column margin-auto align-items-center">
     <div class="modal-off" id="modal-container">
       <div class="container card bg-white">
-        <div class="card-content padding-2-rem ">
-          <div class="favorite display-flex flex-end">
+        <div class="card-content padding-2-rem">
+          <div class="favorite display-flex flex-end hidden">
             <i class="fa-solid fa-star font-size-15-rem"></i>
           </div>
           <div class="card-text-content padding-right-05-rem">
@@ -32,8 +32,10 @@
                 <button class="view hidden answered-correctly roboto" id="no" data-modal="answer">NO</button>
               </div>
             </div>
-            <p class="view hidden answer roboto font-weight-500" data-modal="return">Question already answered</p>
-            <button class="view hidden answered-correctly roboto" id="return" data-modal="return">RETURN TO QUESTIONS</button>
+            <div class="return-content display-flex flex-direction-column align-items-center">
+              <p class="view hidden return roboto font-weight-500 margin-v-1-rem" data-modal="return">Question already answered</p>
+              <button class="view hidden return roboto margin-v-1-rem" id="return" data-modal="return">RETURN TO QUESTIONS</button>
+            </div>
           </div>
         </div>
       </div>

@@ -12,6 +12,7 @@ var $noButton = document.querySelector('#no');
 var $qCorrectHeader = document.querySelector('span.q-correct');
 var $pointsHeader = document.querySelector('span.score');
 var buttonTarget;
+var $favoriteContainer = document.querySelector('.favorite');
 
 function getClues() {
   var xhr = new XMLHttpRequest();
@@ -104,6 +105,8 @@ function returnToQuestions() {
       $views[i].classList.add('hidden');
     }
   }
+
+  $favoriteContainer.classList.add('hidden');
 }
 
 function handleYes() {
@@ -135,6 +138,9 @@ function resetView() {
     } else if ($views[i].getAttribute('data-modal') === 'answer') {
       $views[i].classList.add('hidden');
     }
+  }
+  if ($favoriteContainer.classList.contains('hidden')) {
+    $favoriteContainer.classList.remove('hidden');
   }
 }
 

@@ -10,6 +10,11 @@
   padding: 0 7rem;
 }
 
+.card {
+  width: 450px;
+  height: 320px;
+}
+
 .column-third {
   width: 33%;
 }
@@ -34,6 +39,7 @@
 
 .hidden {
   display: none;
+  visibility: none;
 }
 
 /* display-flex */
@@ -94,6 +100,10 @@
 
 .margin-v-1-rem {
   margin: 1rem 0;
+}
+
+.margin-v-2-rem {
+  margin: 2rem 0;
 }
 
 .padding-left-05-rem {
