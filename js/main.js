@@ -11,6 +11,7 @@ var $yesButton = document.querySelector('#yes');
 var $noButton = document.querySelector('#no');
 var $qCorrectHeader = document.querySelector('span.q-correct');
 var $pointsHeader = document.querySelector('span.score');
+var buttonTarget;
 
 function getClues() {
   var xhr = new XMLHttpRequest();
@@ -39,12 +40,14 @@ $buttonContainer.addEventListener('click', openModal);
 function openModal(event) {
   $modal.classList.remove('modal-off');
   $modal.classList.add('modal-on');
+  buttonTarget = event.target;
   displayClue();
 }
 
 function closeModal(event) {
   $modal.classList.remove('modal-on');
   $modal.classList.add('modal-off');
+  resetView();
 }
 
 function displayClue() {
@@ -64,10 +67,18 @@ $modal.addEventListener('click', handleModal);
 function handleModal(event) {
   var $modalOn = document.querySelector('.modal-on');
   if (event.target !== $modalOn) {
+    // if you click inside the white card of the modal, then run this loop
+    for (var i = 0; i < $buttons.length; i++) {
+      if (buttonTarget === $buttons[i]) {
+        if (data.clues[i].completed === 'yes') {
+          returnToQuestions();
+        }
+      }
+    }
     showAnswer();
-
   } else {
     closeModal();
+
   }
 }
 
@@ -76,6 +87,17 @@ function showAnswer() {
     if ($views[i].getAttribute('data-modal') === 'answer') {
       $views[i].classList.remove('hidden');
     } else if ($views[i].getAttribute('data-modal') === 'click-to-see-answer') {
+      $views[i].classList.add('hidden');
+    }
+  }
+}
+
+function returnToQuestions() {
+  for (var i = 0; i < $views.length; i++) {
+    if ($views[i].getAttribute('data-modal') === 'return') {
+      $views[i].classList.remove('hidden');
+    } else if ($views[i].getAttribute('data-modal') === 'question' ||
+      $views[i].getAttribute('data-modal') === 'click-to-see-answer') {
       $views[i].classList.add('hidden');
     }
   }
@@ -90,6 +112,7 @@ function handleYes() {
   data.currentlyAnswering = null;
   grayClue();
   closeModal();
+
 }
 
 function handleNo() {
@@ -97,6 +120,19 @@ function handleNo() {
   data.currentlyAnswering = null;
   grayClue();
   closeModal();
+
+}
+
+function resetView() {
+  for (var i = 0; i < $views.length; i++) {
+    if ($views[i].getAttribute('data-modal') === 'question') {
+      $views[i].classList.remove('hidden');
+    } else if ($views[i].getAttribute('data-modal') === 'click-to-see-answer') {
+      $views[i].classList.remove('hidden');
+    } else if ($views[i].getAttribute('data-modal') === 'answer') {
+      $views[i].classList.add('hidden');
+    }
+  }
 }
 
 $yesButton.addEventListener('click', handleYes);
