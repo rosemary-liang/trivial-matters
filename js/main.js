@@ -8,6 +8,8 @@ var $answer = document.querySelector('.answer');
 var $points = document.querySelector('.points');
 var $yesButton = document.querySelector('#yes');
 var $noButton = document.querySelector('#no');
+var $qCorrectHeader = document.querySelector('span.q-correct');
+var $pointsHeader = document.querySelector('span.score');
 
 function getClues() {
   var xhr = new XMLHttpRequest();
@@ -82,6 +84,8 @@ function handleYes() {
   data.currentlyAnswering.completed = 'yes';
   data.questionsCorrect.push(data.currentlyAnswering);
   data.score += data.currentlyAnswering.points;
+  $qCorrectHeader.textContent = data.questionsCorrect.length;
+  $pointsHeader.textContent = data.score;
   data.currentlyAnswering = null;
   closeModal();
 }
