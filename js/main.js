@@ -1,6 +1,7 @@
 /* global data */
 /* exported data */
 var $buttonContainer = document.querySelector('.button-container');
+var $buttons = document.querySelectorAll('button.clue');
 var $modal = document.querySelector('.modal-off');
 var $views = document.querySelectorAll('.view');
 var $clue = document.querySelector('.clue-text');
@@ -87,14 +88,24 @@ function handleYes() {
   $qCorrectHeader.textContent = data.questionsCorrect.length;
   $pointsHeader.textContent = data.score;
   data.currentlyAnswering = null;
+  grayClue();
   closeModal();
 }
 
 function handleNo() {
   data.currentlyAnswering.completed = 'yes';
   data.currentlyAnswering = null;
+  grayClue();
   closeModal();
 }
 
 $yesButton.addEventListener('click', handleYes);
 $noButton.addEventListener('click', handleNo);
+
+function grayClue() {
+  for (var i = 0; i < data.clues.length; i++) {
+    if (data.clues[i].completed === 'yes') {
+      $buttons[i].setAttribute('id', 'answered');
+    }
+  }
+}

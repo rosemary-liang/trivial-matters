@@ -113,3 +113,7 @@ button.answered-correctly {
   background-color: #406882;
   border: none;
 }
+
+#answered {
+  background-color: #b6b6b6;
+}
