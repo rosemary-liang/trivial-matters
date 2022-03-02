@@ -13,6 +13,7 @@ var $qCorrectHeader = document.querySelector('span.q-correct');
 var $pointsHeader = document.querySelector('span.score');
 var buttonTarget;
 var $favoriteContainer = document.querySelector('.favorite');
+var $returnButton = document.querySelector('#return');
 
 function getClues() {
   var xhr = new XMLHttpRequest();
@@ -78,7 +79,13 @@ $modal.addEventListener('click', handleModal);
 function handleModal(event) {
   var $modalOn = document.querySelector('.modal-on');
   if (event.target !== $modalOn) {
-    showAnswer();
+    for (var i = 0; i < $buttons.length; i++) {
+      if (buttonTarget === $buttons[i] &&
+      data.clues[i].completed === null) {
+        showAnswer();
+        return;
+      }
+    }
   } else {
     closeModal();
   }
@@ -154,3 +161,4 @@ function grayClue() {
 
 $yesButton.addEventListener('click', handleYes);
 $noButton.addEventListener('click', handleNo);
+$returnButton.addEventListener('click', closeModal);
