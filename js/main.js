@@ -17,6 +17,8 @@ var $favoriteButton = document.querySelector('button.fa');
 var $starIcon = document.querySelector('.fa-star');
 var $returnButton = document.querySelector('#return');
 
+closeModal();
+
 function getClues() {
   var xhr = new XMLHttpRequest();
   xhr.open('GET', 'http://jservice.io/api/random/?count=9');
@@ -39,7 +41,19 @@ function getClues() {
   xhr.send();
 }
 
-getClues();
+if (data.clues.length === 0) {
+  getClues();
+}
+
+window.addEventListener('load', loadFromStorage);
+
+// load from storage
+function loadFromStorage() {
+  grayClue();
+  countCorrect();
+  $pointsHeader.textContent = data.score;
+  data.score += data.currentlyAnswering.points;
+}
 
 $buttonContainer.addEventListener('click', openModal);
 
@@ -49,7 +63,7 @@ function openModal(event) {
   buttonTarget = event.target;
   for (var i = 0; i < $buttons.length; i++) {
     if (buttonTarget === $buttons[i]) {
-      if (data.clues[i].completed === 'yes') {
+      if (data.clues[i].completed === true) {
         returnToQuestions();
         return;
       } else {
@@ -121,8 +135,8 @@ function returnToQuestions() {
 }
 
 function handleYes() {
-  data.currentlyAnswering.completed = 'yes';
-  data.currentlyAnswering.correct = 'yes';
+  data.currentlyAnswering.completed = true;
+  data.currentlyAnswering.correct = true;
   data.score += data.currentlyAnswering.points;
   countCorrect();
   $pointsHeader.textContent = data.score;
@@ -135,7 +149,7 @@ function handleYes() {
 function countCorrect() {
   var counter = 0;
   for (var i = 0; i < data.clues.length; i++) {
-    if (data.clues[i].correct === 'yes') {
+    if (data.clues[i].correct === true) {
       counter += 1;
     }
   }
@@ -144,8 +158,8 @@ function countCorrect() {
 }
 
 function handleNo() {
-  data.currentlyAnswering.completed = 'yes';
-  data.currentlyAnswering.correct = 'no';
+  data.currentlyAnswering.completed = true;
+  data.currentlyAnswering.correct = false;
   data.currentlyAnswering = null;
   grayClue();
   closeModal();
@@ -172,7 +186,7 @@ function resetView() {
 
 function grayClue() {
   for (var i = 0; i < data.clues.length; i++) {
-    if (data.clues[i].completed === 'yes') {
+    if (data.clues[i].completed === true) {
       $buttons[i].setAttribute('id', 'answered');
     }
   }
@@ -182,12 +196,6 @@ $yesButton.addEventListener('click', handleYes);
 $noButton.addEventListener('click', handleNo);
 $returnButton.addEventListener('click', closeModal);
 $favoriteButton.addEventListener('click', handleFavorite);
-
-// if favorite button clicked
-// check if in favorites array
-//
-// make yellow background or gray
-// update favorites array (match by entryId)
 
 function yellowStar() {
   if (!($starIcon.classList.contains('fa-star-yellow'))) {
@@ -211,11 +219,11 @@ function handleFavorite() {
   var buttonTargetId = parseInt(buttonTarget.textContent);
   for (var i = 0; i < data.clues.length; i++) {
     if (data.clues[i].entryId === buttonTargetId &&
-        data.clues[i].favorite !== 'yes') {
-      data.clues[i].favorite = 'yes';
+        data.clues[i].favorite !== true) {
+      data.clues[i].favorite = true;
       yellowStar();
     } else if (data.clues[i].entryId === buttonTargetId &&
-      data.clues[i].favorite === 'yes') {
+      data.clues[i].favorite === true) {
       data.clues[i].favorite = null;
       grayStar();
     }

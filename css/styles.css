@@ -98,6 +98,7 @@ button.clue:hover {
 button.fa {
   background-color: transparent;
   border: none;
+  cursor: pointer;
 }
 
 button.answered-correctly {
