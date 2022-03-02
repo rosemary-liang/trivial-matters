@@ -41,7 +41,17 @@ function openModal(event) {
   $modal.classList.remove('modal-off');
   $modal.classList.add('modal-on');
   buttonTarget = event.target;
-  displayClue();
+  for (var i = 0; i < $buttons.length; i++) {
+    if (buttonTarget === $buttons[i]) {
+      if (data.clues[i].completed === 'yes') {
+        returnToQuestions();
+        return;
+      } else {
+        displayClue();
+        return;
+      }
+    }
+  }
 }
 
 function closeModal(event) {
@@ -67,18 +77,9 @@ $modal.addEventListener('click', handleModal);
 function handleModal(event) {
   var $modalOn = document.querySelector('.modal-on');
   if (event.target !== $modalOn) {
-    // if you click inside the white card of the modal, then run this loop
-    for (var i = 0; i < $buttons.length; i++) {
-      if (buttonTarget === $buttons[i]) {
-        if (data.clues[i].completed === 'yes') {
-          returnToQuestions();
-        }
-      }
-    }
     showAnswer();
   } else {
     closeModal();
-
   }
 }
 
@@ -92,12 +93,14 @@ function showAnswer() {
   }
 }
 
+// remove favorites star
 function returnToQuestions() {
   for (var i = 0; i < $views.length; i++) {
     if ($views[i].getAttribute('data-modal') === 'return') {
       $views[i].classList.remove('hidden');
     } else if ($views[i].getAttribute('data-modal') === 'question' ||
-      $views[i].getAttribute('data-modal') === 'click-to-see-answer') {
+      $views[i].getAttribute('data-modal') === 'click-to-see-answer' ||
+      $views[i].getAttribute('data-modal') === 'answer') {
       $views[i].classList.add('hidden');
     }
   }
@@ -135,9 +138,6 @@ function resetView() {
   }
 }
 
-$yesButton.addEventListener('click', handleYes);
-$noButton.addEventListener('click', handleNo);
-
 function grayClue() {
   for (var i = 0; i < data.clues.length; i++) {
     if (data.clues[i].completed === 'yes') {
@@ -145,3 +145,6 @@ function grayClue() {
     }
   }
 }
+
+$yesButton.addEventListener('click', handleYes);
+$noButton.addEventListener('click', handleNo);
