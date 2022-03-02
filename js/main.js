@@ -14,6 +14,7 @@ var $pointsHeader = document.querySelector('span.score');
 var buttonTarget;
 var $favoriteContainer = document.querySelector('.favorite');
 var $favoriteButton = document.querySelector('button.fa');
+var $starIcon = document.querySelector('.fa-star');
 var $returnButton = document.querySelector('#return');
 
 function getClues() {
@@ -28,6 +29,8 @@ function getClues() {
       clueData.answer = xhr.response[i].answer;
       clueData.points = xhr.response[i].value;
       clueData.completed = null;
+      clueData.favorite = null;
+      clueData.correct = null;
       clueData.entryId = data.nextEntryId;
       data.clues.push(clueData);
       data.nextEntryId++;
@@ -103,6 +106,7 @@ function showAnswer() {
   if ($favoriteContainer.classList.contains('hidden')) {
     $favoriteContainer.classList.remove('hidden');
   }
+  // if question is in favorites array, make star yellow
 }
 
 // remove favorites star
@@ -122,9 +126,9 @@ function returnToQuestions() {
 
 function handleYes() {
   data.currentlyAnswering.completed = 'yes';
-  data.questionsCorrect.push(data.currentlyAnswering);
+  data.currentlyAnswering.correct = 'yes';
   data.score += data.currentlyAnswering.points;
-  $qCorrectHeader.textContent = data.questionsCorrect.length;
+  $qCorrectHeader.textContent = null;
   $pointsHeader.textContent = data.score;
   data.currentlyAnswering = null;
   grayClue();
@@ -134,6 +138,7 @@ function handleYes() {
 
 function handleNo() {
   data.currentlyAnswering.completed = 'yes';
+  data.currentlyAnswering.correct = 'no';
   data.currentlyAnswering = null;
   grayClue();
   closeModal();
@@ -171,6 +176,58 @@ $noButton.addEventListener('click', handleNo);
 $returnButton.addEventListener('click', closeModal);
 $favoriteButton.addEventListener('click', handleFavorite);
 
+// if favorite button clicked
+// check if in favorites array
+//
+// make yellow background or gray
+// update favorites array (match by entryId)
+
+function yellowStar() {
+  if (!($starIcon.classList.contains('fa-star-yellow'))) {
+    $starIcon.classList.add('fa-star-yellow');
+  }
+  if ($starIcon.classList.contains('fa-star-gray')) {
+    $starIcon.classList.remove('fa-star-gray');
+  }
+}
+
+// function grayStar() {
+//   if (!($starIcon.classList.contains('fa-star-gray'))) {
+//     $starIcon.classList.add('fa-star-gray');
+//   }
+//   if ($starIcon.classList.contains('fa-star-yellow')) {
+//     $starIcon.classList.remove('fa-star-yellow');
+//   }
+// }
+
 function handleFavorite() {
+  var buttonTargetId = parseInt(buttonTarget.textContent);
+  // console.log('click event listener works');
+  // console.log(typeof buttonTargetId, buttonTargetId);
+
+  for (var i = 0; i < data.favorites.length; i++) {
+    if (!(data.favorites[i].entryId === buttonTargetId)) {
+      yellowStar();
+      data.favorites.push(data.currentlyAnswering);
+
+    }
+  }
+
+  //     for (var j = 0; j < data.favorites.length; j++) {
+  //       if ((!data.favorites[j].includes(data.clues[i].entryId))) {
+  //         yellowStar();
+  //         // push to array
+  //         console.log(data.favorites);
+  //         data.favorites.push(data.currentlyAnswering);
+  //         console.log(data.favorites);
+  //         return;
+  //       } else {
+  //         grayStar();
+  //         // splice from array
+  //       }
+
+  //     }
+  //   }
+  // }
 
 }

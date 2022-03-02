@@ -76,8 +76,12 @@
 }
 
 /* font-awesome */
-.fa-star {
+.fa-star-gray {
   color: whitesmoke;
+}
+
+.fa-star-yellow {
+  color: rgb(255, 217, 0);
 }
 
 .fa-star:hover {

@@ -3,8 +3,8 @@ var data = {
   clues: [],
   currentlyAnswering: null,
   score: 0,
-  favorites: [],
-  questionsCorrect: [],
+  // favorites: [],
+  // questionsCorrect: [],
   nextEntryId: 1
 
 };
