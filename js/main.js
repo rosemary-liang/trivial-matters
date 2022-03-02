@@ -7,7 +7,7 @@ var $clue = document.querySelector('.clue-text');
 var $answer = document.querySelector('.answer');
 var $points = document.querySelector('.points');
 var $yesButton = document.querySelector('#yes');
-// var $noButton = document.querySelector('#no');
+var $noButton = document.querySelector('#no');
 
 function getClues() {
   var xhr = new XMLHttpRequest();
@@ -86,4 +86,11 @@ function handleYes() {
   closeModal();
 }
 
+function handleNo() {
+  data.currentlyAnswering.completed = 'yes';
+  data.currentlyAnswering = null;
+  closeModal();
+}
+
 $yesButton.addEventListener('click', handleYes);
+$noButton.addEventListener('click', handleNo);
