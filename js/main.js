@@ -191,43 +191,26 @@ function yellowStar() {
   }
 }
 
-// function grayStar() {
-//   if (!($starIcon.classList.contains('fa-star-gray'))) {
-//     $starIcon.classList.add('fa-star-gray');
-//   }
-//   if ($starIcon.classList.contains('fa-star-yellow')) {
-//     $starIcon.classList.remove('fa-star-yellow');
-//   }
-// }
+function grayStar() {
+  if (!($starIcon.classList.contains('fa-star-gray'))) {
+    $starIcon.classList.add('fa-star-gray');
+  }
+  if ($starIcon.classList.contains('fa-star-yellow')) {
+    $starIcon.classList.remove('fa-star-yellow');
+  }
+}
 
 function handleFavorite() {
   var buttonTargetId = parseInt(buttonTarget.textContent);
-  // console.log('click event listener works');
-  // console.log(typeof buttonTargetId, buttonTargetId);
-
-  for (var i = 0; i < data.favorites.length; i++) {
-    if (!(data.favorites[i].entryId === buttonTargetId)) {
+  for (var i = 0; i < data.clues.length; i++) {
+    if (data.clues[i].entryId === buttonTargetId &&
+        data.clues[i].favorite !== 'yes') {
+      data.clues[i].favorite = 'yes';
       yellowStar();
-      data.favorites.push(data.currentlyAnswering);
-
+    } else if (data.clues[i].entryId === buttonTargetId &&
+      data.clues[i].favorite === 'yes') {
+      data.clues[i].favorite = null;
+      grayStar();
     }
   }
-
-  //     for (var j = 0; j < data.favorites.length; j++) {
-  //       if ((!data.favorites[j].includes(data.clues[i].entryId))) {
-  //         yellowStar();
-  //         // push to array
-  //         console.log(data.favorites);
-  //         data.favorites.push(data.currentlyAnswering);
-  //         console.log(data.favorites);
-  //         return;
-  //       } else {
-  //         grayStar();
-  //         // splice from array
-  //       }
-
-  //     }
-  //   }
-  // }
-
 }
