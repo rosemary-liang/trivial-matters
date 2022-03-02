@@ -106,10 +106,8 @@ function showAnswer() {
   if ($favoriteContainer.classList.contains('hidden')) {
     $favoriteContainer.classList.remove('hidden');
   }
-  // if question is in favorites array, make star yellow
 }
 
-// remove favorites star
 function returnToQuestions() {
   for (var i = 0; i < $views.length; i++) {
     if ($views[i].getAttribute('data-modal') === 'return') {
@@ -120,20 +118,29 @@ function returnToQuestions() {
       $views[i].classList.add('hidden');
     }
   }
-
-  // $favoriteContainer.classList.add('hidden');
 }
 
 function handleYes() {
   data.currentlyAnswering.completed = 'yes';
   data.currentlyAnswering.correct = 'yes';
   data.score += data.currentlyAnswering.points;
-  $qCorrectHeader.textContent = null;
+  countCorrect();
   $pointsHeader.textContent = data.score;
   data.currentlyAnswering = null;
   grayClue();
   closeModal();
 
+}
+
+function countCorrect() {
+  var counter = 0;
+  for (var i = 0; i < data.clues.length; i++) {
+    if (data.clues[i].correct === 'yes') {
+      counter += 1;
+    }
+  }
+  $qCorrectHeader.textContent = counter;
+  counter = 0;
 }
 
 function handleNo() {
