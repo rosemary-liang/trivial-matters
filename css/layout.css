@@ -38,8 +38,7 @@
 }
 
 .hidden {
-  display: none;
-  visibility: none;
+  display: none !important;
 }
 
 /* display-flex */

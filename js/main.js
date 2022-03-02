@@ -13,6 +13,7 @@ var $qCorrectHeader = document.querySelector('span.q-correct');
 var $pointsHeader = document.querySelector('span.score');
 var buttonTarget;
 var $favoriteContainer = document.querySelector('.favorite');
+var $favoriteButton = document.querySelector('button.fa');
 var $returnButton = document.querySelector('#return');
 
 function getClues() {
@@ -99,6 +100,9 @@ function showAnswer() {
       $views[i].classList.add('hidden');
     }
   }
+  if ($favoriteContainer.classList.contains('hidden')) {
+    $favoriteContainer.classList.remove('hidden');
+  }
 }
 
 // remove favorites star
@@ -113,7 +117,7 @@ function returnToQuestions() {
     }
   }
 
-  $favoriteContainer.classList.add('hidden');
+  // $favoriteContainer.classList.add('hidden');
 }
 
 function handleYes() {
@@ -144,10 +148,13 @@ function resetView() {
       $views[i].classList.remove('hidden');
     } else if ($views[i].getAttribute('data-modal') === 'answer') {
       $views[i].classList.add('hidden');
+    } else if ($views[i].getAttribute('data-modal') === 'return') {
+      $views[i].classList.add('hidden');
     }
   }
-  if ($favoriteContainer.classList.contains('hidden')) {
-    $favoriteContainer.classList.remove('hidden');
+
+  if (!($favoriteContainer.classList.contains('hidden'))) {
+    $favoriteContainer.classList.add('hidden');
   }
 }
 
@@ -162,3 +169,8 @@ function grayClue() {
 $yesButton.addEventListener('click', handleYes);
 $noButton.addEventListener('click', handleNo);
 $returnButton.addEventListener('click', closeModal);
+$favoriteButton.addEventListener('click', handleFavorite);
+
+function handleFavorite() {
+
+}

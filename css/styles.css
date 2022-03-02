@@ -80,10 +80,20 @@
   color: whitesmoke;
 }
 
+.fa-star:hover {
+  color: rgb(255, 217, 0);
+  stroke: black;
+}
+
 /* buttons */
 
 button.clue:hover {
   background-color: #406882;
+}
+
+button.fa {
+  background-color: transparent;
+  border: none;
 }
 
 button.answered-correctly {
