@@ -21,7 +21,7 @@ var $starIcon = document.querySelector('.fa-star');
 var $returnButton = document.querySelector('#return');
 var $navViews = document.querySelectorAll('.nav-view');
 var $cardContainerQCorrect = document.querySelector('.container-questions-correct');
-var $backToQuestionsButton = document.querySelector('#back-to-questions');
+var $backToQuestionsButton = document.querySelector('button.back-to-questions');
 var $qCorrectButton = document.querySelector('#nav-questions-correct');
 var headerLinkClicked;
 
