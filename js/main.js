@@ -41,6 +41,7 @@ $backToQuestionsButton2.addEventListener('click', navToGrid);
 $qCorrectButton.addEventListener('click', navToQuestionsCorrect);
 $favoritesButton.addEventListener('click', navToFavorites);
 $cardContainerFavorites.addEventListener('click', handleFavoriteinCardList);
+$cardContainerQCorrect.addEventListener('click', handleFavoriteinCardList);
 
 // function calls
 
@@ -287,8 +288,12 @@ function renderQuestionsCorrect() {
       divFavorite.appendChild(buttonFa);
 
       var iStar = document.createElement('i');
-      // set attribute based on whether is favorite or not
-      iStar.setAttribute('class', 'fa-solid fa-star font-size-15-rem grow fa-star-gray');
+      if (data.clues[i].favorite === true) {
+        iStar.setAttribute('class', 'fa-solid fa-star font-size-15-rem grow favorites-page fa-star-yellow');
+      } else {
+        iStar.setAttribute('class', 'fa-solid fa-star font-size-15-rem grow favorites-page fa-star-gray');
+      }
+      iStar.setAttribute('data-entryid', data.clues[i].entryId);
       buttonFa.appendChild(iStar);
 
       var divCardTextContent = document.createElement('div');
@@ -334,7 +339,6 @@ function renderFavorites() {
       divFavorite.appendChild(buttonFa);
 
       var iStar = document.createElement('i');
-      // set attribute based on whether is favorite or not
       iStar.setAttribute('class', 'fa-solid fa-star font-size-15-rem grow favorites-page fa-star-yellow');
       iStar.setAttribute('data-entryid', data.clues[i].entryId);
       buttonFa.appendChild(iStar);
