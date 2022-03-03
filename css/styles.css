@@ -101,30 +101,6 @@ button.fa {
   cursor: pointer;
 }
 
-button.answered-correctly {
-  cursor: pointer;
-  margin: 0.5rem;
-  padding: 0.4rem 1.25rem;
-  width: 66px;
-  font-weight: 500;
-  font-family: Roboto, sans-serif;
-  font-size: 0.9rem;
-  color: white;
-  background-color: #406882;
-  border: none;
-}
-
-button.return {
-  cursor: pointer;
-  padding: 0.4rem 1.25rem;
-  font-weight: 500;
-  font-family: Roboto, sans-serif;
-  font-size: 0.9rem;
-  color: white;
-  background-color: #406882;
-  border: none;
-}
-
 #answered {
   background-color: #b6b6b6;
 }

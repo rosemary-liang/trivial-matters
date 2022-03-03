@@ -47,12 +47,10 @@ if (data.clues.length === 0) {
 
 window.addEventListener('load', loadFromStorage);
 
-// load from storage
 function loadFromStorage() {
   grayClue();
   countCorrect();
   $pointsHeader.textContent = data.score;
-  data.score += data.currentlyAnswering.points;
 }
 
 $buttonContainer.addEventListener('click', openModal);

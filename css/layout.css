@@ -143,6 +143,10 @@
     font-size: 3.25rem;
   }
 
+  .card {
+    height: 500px;
+  }
+
   .grid-container {
     width: 400px;
   }
@@ -171,6 +175,39 @@
     border: none;
   }
 
+  .card-text-content > p,
+  .answered-correctly > p {
+    font-size: 1.25rem;
+  }
+
+  p.return {
+    font-size: 1.25rem;
+    margin-top: 4rem;
+  }
+
+  button.answered-correctly {
+    cursor: pointer;
+    margin: 1rem;
+    padding: 0.5rem 1.25rem;
+    width: 100px;
+    font-weight: 500;
+    font-family: Roboto, sans-serif;
+    font-size: 1.25rem;
+    color: white;
+    background-color: #406882;
+    border: none;
+  }
+
+  button.return {
+    cursor: pointer;
+    padding: 0.5rem 1.5rem;
+    font-family: Roboto, sans-serif;
+    font-size: 1.25rem;
+    color: white;
+    background-color: #406882;
+    border: none;
+  }
+
   .padding-h-7-rem {
     padding: 0;
   }
@@ -181,6 +218,10 @@
 
   .margin-v-1-rem {
     margin: 2rem 0;
+  }
+
+  .margin-b-2-rem {
+    margin-bottom: 5rem;
   }
 }
 
@@ -197,6 +238,30 @@
     font-size: 1.25rem;
     color: white;
     background-color: #1a374d;
+    border: none;
+  }
+
+  button.answered-correctly {
+    cursor: pointer;
+    margin: 0.5rem;
+    padding: 0.4rem 1.25rem;
+    width: 66px;
+    font-weight: 500;
+    font-family: Roboto, sans-serif;
+    font-size: 0.9rem;
+    color: white;
+    background-color: #406882;
+    border: none;
+  }
+
+  button.return {
+    cursor: pointer;
+    padding: 0.4rem 1.25rem;
+    font-weight: 500;
+    font-family: Roboto, sans-serif;
+    font-size: 0.9rem;
+    color: white;
+    background-color: #406882;
     border: none;
   }
 }
