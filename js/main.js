@@ -237,7 +237,7 @@ function renderQuestionsCorrect() {
     if (data.clues[i].correct === true) {
 
       var divCard = document.createElement('div');
-      divCard.setAttribute('class', 'container card bg-white');
+      divCard.setAttribute('class', 'container card bg-white margin-v-2-rem padding-1-rem border-solid border-thin box-shadow ');
       $cardContainerQCorrect.appendChild(divCard);
 
       var divCardContent = document.createElement('div');
@@ -246,7 +246,7 @@ function renderQuestionsCorrect() {
 
       var divFavorite = document.createElement('div');
       divFavorite.setAttribute('class', 'favorite display-flex flex-end');
-      divCard.appendChild(divFavorite);
+      divCard.prepend(divFavorite);
 
       var buttonFa = document.createElement('button');
       buttonFa.setAttribute('class', 'fa');

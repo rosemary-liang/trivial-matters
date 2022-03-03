@@ -38,6 +38,14 @@
   border: solid;
 }
 
+.border-thin {
+  border-width: thin;
+}
+
+.box-shadow {
+  box-shadow: 3px 3px 5px gray;
+}
+
 .font-white {
   color: white;
 }

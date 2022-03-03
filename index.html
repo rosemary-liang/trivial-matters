@@ -13,8 +13,8 @@
   <script src="https://kit.fontawesome.com/d6062c30ca.js" crossorigin="anonymous"></script>
 </head>
 <body>
-  <div class="hidden container display-flex flex-direction-column margin-auto align-items-center" data-view="grid">
-    <div class="modal-off" id="modal-container">
+  <div class="container display-flex flex-direction-column margin-auto align-items-center" data-view="grid">
+    <div class="modal-off" id="modal-container" data-view="grid">
       <div class="container card bg-white">
         <div class="card-content padding-2-rem">
           <div class="favorite display-flex flex-end hidden">
@@ -51,8 +51,8 @@
       </nav>
     </header>
     <main>
-
-      <div class="container clues-container">
+      <!-- hidden -->
+      <div class="hidden container clues-container" data-view="grid">
         <p class="roboto font-weight-500 margin-v-1-rem font-size-15-rem padding-left-05-rem ">Select a question</p>
         <div class="row grid-container button-container margin-auto display-flex flex-wrap space-around ">
           <div class="column-third  ">
@@ -84,11 +84,14 @@
           </div>
         </div>
       </div>
+      <!-- questions correct -->
+      <div
+        class="container container-questions-correct display-flex flex-direction-column align-items-center justify-content-center margin-auto"
+        data-view="questions-correct">
+      </div>
     </main>
   </div>
-  <!-- questions correct -->
-  <div class="container container-questions-correct" data-view="questions-correct">
-  </div>
+
 
   <script src="js/data.js"></script>
   <script src="js/main.js"></script>
