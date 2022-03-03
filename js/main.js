@@ -22,7 +22,7 @@ var $returnButton = document.querySelector('#return');
 var $navViews = document.querySelectorAll('.nav-view');
 var $cardContainerQCorrect = document.querySelector('.container-questions-correct');
 var $backToQuestionsButton = document.querySelector('#back-to-questions');
-var $questionsCorrectButton = document.querySelector;
+var $questionsCorrectButton = document.querySelector('#nav-questins-correct');
 
 // event listeners
 

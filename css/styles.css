@@ -10,6 +10,10 @@
   font-size: 0.9rem;
 }
 
+.font-size-1-rem {
+  font-size: 1rem;
+}
+
 .font-size-15-rem {
   font-size: 1.5rem;
 }
@@ -32,6 +36,10 @@
 
 .bg-white {
   background-color: white;
+}
+
+.border-none {
+  border: none;
 }
 
 .border-solid {
