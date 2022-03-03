@@ -40,6 +40,7 @@ $backToQuestionsButton.addEventListener('click', navToGrid);
 $backToQuestionsButton2.addEventListener('click', navToGrid);
 $qCorrectButton.addEventListener('click', navToQuestionsCorrect);
 $favoritesButton.addEventListener('click', navToFavorites);
+$cardContainerFavorites.addEventListener('click', handleFavoriteinCardList);
 
 // function calls
 
@@ -214,25 +215,26 @@ function grayClue() {
   }
 }
 
-function yellowStar() {
-  if (!($starIcon.classList.contains('fa-star-yellow'))) {
-    $starIcon.classList.add('fa-star-yellow');
+function yellowStar(icon) {
+  if (!(icon.classList.contains('fa-star-yellow'))) {
+    icon.classList.add('fa-star-yellow');
   }
-  if ($starIcon.classList.contains('fa-star-gray')) {
-    $starIcon.classList.remove('fa-star-gray');
+  if (icon.classList.contains('fa-star-gray')) {
+    icon.classList.remove('fa-star-gray');
   }
 }
 
-function grayStar() {
-  if (!($starIcon.classList.contains('fa-star-gray'))) {
-    $starIcon.classList.add('fa-star-gray');
+function grayStar(icon) {
+  if (!(icon.classList.contains('fa-star-gray'))) {
+    icon.classList.add('fa-star-gray');
   }
-  if ($starIcon.classList.contains('fa-star-yellow')) {
-    $starIcon.classList.remove('fa-star-yellow');
+  if (icon.classList.contains('fa-star-yellow')) {
+    icon.classList.remove('fa-star-yellow');
   }
 }
 
 function handleFavorite() {
+  var icon = $starIcon;
   var buttonTargetId = parseInt(buttonTarget.textContent);
   for (var i = 0; i < data.clues.length; i++) {
     if (data.clues[i].entryId === buttonTargetId &&
@@ -243,6 +245,23 @@ function handleFavorite() {
       data.clues[i].favorite === true) {
       data.clues[i].favorite = null;
       grayStar();
+    }
+  }
+  return icon;
+}
+
+function handleFavoriteinCardList(event) {
+  var buttonTargetId = parseInt(event.target.getAttribute('data-entryid'));
+  var icon = event.target;
+  for (var i = 0; i < data.clues.length; i++) {
+    if (data.clues[i].entryId === buttonTargetId &&
+      data.clues[i].favorite !== true) {
+      data.clues[i].favorite = true;
+      yellowStar(icon);
+    } else if (data.clues[i].entryId === buttonTargetId &&
+      data.clues[i].favorite === true) {
+      data.clues[i].favorite = null;
+      grayStar(icon);
     }
   }
 }
@@ -316,7 +335,8 @@ function renderFavorites() {
 
       var iStar = document.createElement('i');
       // set attribute based on whether is favorite or not
-      iStar.setAttribute('class', 'fa-solid fa-star font-size-15-rem grow fa-star-gray');
+      iStar.setAttribute('class', 'fa-solid fa-star font-size-15-rem grow favorites-page fa-star-yellow');
+      iStar.setAttribute('data-entryid', data.clues[i].entryId);
       buttonFa.appendChild(iStar);
 
       var divCardTextContent = document.createElement('div');
@@ -341,6 +361,7 @@ function renderFavorites() {
   }
 }
 
+// header nav buttons
 function navToGrid() {
   for (var i = 0; i < $navViews.length; i++) {
     if ($navViews[i].getAttribute('data-view') === 'grid' && $navViews[i].classList.contains('hidden')) {
