@@ -10,6 +10,10 @@
   font-size: 0.9rem;
 }
 
+.font-size-1-rem {
+  font-size: 1rem;
+}
+
 .font-size-15-rem {
   font-size: 1.5rem;
 }
@@ -34,8 +38,24 @@
   background-color: white;
 }
 
+.bg-transparent {
+  background-color: transparent;
+}
+
+.border-none {
+  border: none;
+}
+
 .border-solid {
   border: solid;
+}
+
+.border-thin {
+  border-width: thin;
+}
+
+.box-shadow {
+  box-shadow: 3px 3px 5px gray;
 }
 
 .font-white {
@@ -51,16 +71,13 @@
 }
 
 /* links */
-.text-decoration-none {
-  text-decoration: none;
-}
 
 .cursor-pointer {
   cursor: pointer;
 }
 
 .grow {
-  transition: all 0.2s ease-in-out;
+  transition: all 0.1s ease-in-out;
 }
 
 .grow:hover {

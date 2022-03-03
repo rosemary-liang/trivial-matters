@@ -13,8 +13,8 @@
   <script src="https://kit.fontawesome.com/d6062c30ca.js" crossorigin="anonymous"></script>
 </head>
 <body>
-  <div class="container display-flex flex-direction-column margin-auto align-items-center">
-    <div class="modal-off" id="modal-container">
+  <div class="container display-flex flex-direction-column margin-auto align-items-center" data-view="grid">
+    <div class="modal-off nav-view" id="modal-container" data-view="grid">
       <div class="container card bg-white">
         <div class="card-content padding-2-rem">
           <div class="favorite display-flex flex-end hidden">
@@ -45,14 +45,13 @@
         <h1 class="caveat font-size-25-rem margin-0 font-weight-500 padding-h-1-rem">Trivial Matters</h1>
       </div>
       <nav class="bg-gray display-flex space-between line-height-2-rem margin-b-1-rem">
-        <a href="#favorites" class="roboto text-decoration-none font-black padding-h-1-rem cursor-pointer grow font-weight-500 font-size-09-rem">Favorites</a>
-        <a href="#questions-correct" class="roboto text-decoration-none font-black padding-h-1-rem cursor-pointer grow font-weight-500 font-size-09-rem">Questions Correct: <span class="q-correct">0</span></a>
-        <a href="score" class="roboto text-decoration-none font-black padding-h-1-rem cursor-pointer grow font-weight-500 font-size-09-rem">Score: <span class="score">0</span></a>
+        <button class="roboto border-none bg-transparent font-size-1-rem font-black padding-h-1-rem cursor-pointer grow font-weight-500 font-size-09-rem" id="nav-favorites">Favorites</button>
+        <button class="roboto border-none bg-transparent font-size-1-rem font-black padding-h-1-rem cursor-pointer grow font-weight-500 font-size-09-rem" id="nav-questions-correct">Questions Correct: <span class="q-correct">0</span></button>
+        <button class="roboto border-none bg-transparent font-size-1-rem font-black padding-h-1-rem cursor-pointer grow font-weight-500 font-size-09-rem" id="nav-score">Score: <span class="score">0</span></button>
       </nav>
     </header>
     <main>
-
-      <div class="container clues-container">
+      <div class="nav-view container clues-container" data-view="grid">
         <p class="roboto font-weight-500 margin-v-1-rem font-size-15-rem padding-left-05-rem ">Select a question</p>
         <div class="row grid-container button-container margin-auto display-flex flex-wrap space-around ">
           <div class="column-third  ">
@@ -84,8 +83,18 @@
           </div>
         </div>
       </div>
+      <div
+        class="nav-view container container-questions-correct display-flex flex-direction-column align-items-center justify-content-center margin-auto"
+        data-view="questions-correct">
+        <div class="nav-buttons container display-flex space-between padding-h-275-rem">
+          <p class="roboto font-weight-500 margin-0">Questions Correct</p>
+          <button class="roboto border-none bg-transparent font-size-1-rem  font-light-blue font-weight-500 grow" id="back-to-questions">Back to Questions</button>
+        </div>
+      </div>
     </main>
   </div>
+
+
   <script src="js/data.js"></script>
   <script src="js/main.js"></script>
 </body>

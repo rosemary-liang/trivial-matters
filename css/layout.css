@@ -15,8 +15,17 @@
   height: 350px;
 }
 
+.card-in-list {
+  width: 500px;
+  height: 350px;
+}
+
 .column-third {
   width: 33%;
+}
+
+nav {
+  height: 1.25rem;
 }
 
 /* modal */
@@ -97,6 +106,10 @@
   margin: 0;
 }
 
+.margin-t-05-rem {
+  margin-top: 0.5rem;
+}
+
 .margin-v-1-rem {
   margin: 1rem 0;
 }
@@ -125,6 +138,10 @@
   padding: 0 1rem;
 }
 
+.padding-h-15-rem {
+  padding: 0;
+}
+
 .padding-h-7-rem {
   padding: 0 7rem;
 }
@@ -145,6 +162,14 @@
 
   .card {
     height: 600px;
+  }
+
+  .card-in-list {
+    width: 420px;
+  }
+
+  .padding-h-275-rem {
+    padding: 0 2.75rem;
   }
 
   .grid-container {
