@@ -16,16 +16,16 @@ var $qCorrectHeader = document.querySelector('span.q-correct');
 var $pointsHeader = document.querySelector('span.score');
 var buttonTarget;
 var $favoriteContainer = document.querySelector('.favorite');
-var $favoriteButton = document.querySelector('button.fa');
+var $starButton = document.querySelector('button.fa');
 var $starIcon = document.querySelector('.fa-star');
 var $returnButton = document.querySelector('#return');
 var $navViews = document.querySelectorAll('.nav-view');
 var $cardContainerQCorrect = document.querySelector('.container-questions-correct');
-var $backToQuestionsButton = document.querySelector('button.back-to-questions');
+var $backToQuestionsButton = document.querySelector('button.back-to-questions-1');
+var $backToQuestionsButton2 = document.querySelector('button.back-to-questions-2');
 var $qCorrectButton = document.querySelector('#nav-questions-correct');
 var $cardContainerFavorites = document.querySelector('.container-favorites');
 var $favoritesButton = document.querySelector('#nav-favorites');
-var headerLinkClicked;
 
 // event listeners
 
@@ -35,13 +35,11 @@ $modal.addEventListener('click', handleModal);
 $yesButton.addEventListener('click', handleYes);
 $noButton.addEventListener('click', handleNo);
 $returnButton.addEventListener('click', closeModal);
-$favoriteButton.addEventListener('click', handleFavorite);
+$starButton.addEventListener('click', handleFavorite);
 $backToQuestionsButton.addEventListener('click', navToGrid);
-$backToQuestionsButton.addEventListener('click', blackHeaderLink);
+$backToQuestionsButton2.addEventListener('click', navToGrid);
 $qCorrectButton.addEventListener('click', navToQuestionsCorrect);
-$qCorrectButton.addEventListener('click', blueHeaderLink);
 $favoritesButton.addEventListener('click', navToFavorites);
-$favoritesButton.addEventListener('click', blueHeaderLink);
 
 // function calls
 
@@ -353,6 +351,9 @@ function navToGrid() {
       $navViews[i].classList.add('hidden');
     }
   }
+  navButtonBlack($favoritesButton);
+  navButtonBlack($qCorrectButton);
+
 }
 
 function navToQuestionsCorrect() {
@@ -365,6 +366,9 @@ function navToQuestionsCorrect() {
       $navViews[i].classList.add('hidden');
     }
   }
+  navButtonBlue($qCorrectButton);
+  navButtonBlack($favoritesButton);
+
 }
 
 function navToFavorites() {
@@ -377,17 +381,24 @@ function navToFavorites() {
       $navViews[i].classList.add('hidden');
     }
   }
+  navButtonBlue($favoritesButton);
+  navButtonBlack($qCorrectButton);
 }
 
-function blueHeaderLink(event) {
-  headerLinkClicked = event.target;
-  headerLinkClicked.classList.remove('font-black');
-  headerLinkClicked.classList.add('font-light-blue');
-
+function navButtonBlue(button) {
+  if (button.classList.contains('font-black')) {
+    button.classList.remove('font-black');
+    button.classList.add('font-light-blue');
+  } else {
+    button.classList.add('font-light-blue');
+  }
 }
 
-function blackHeaderLink() {
-  headerLinkClicked.classList.remove('font-light-blue');
-  headerLinkClicked.classList.add('font-black');
-  headerLinkClicked = null;
+function navButtonBlack(button) {
+  if (button.classList.contains('font-light-blue')) {
+    button.classList.remove('font-light-blue');
+    button.classList.add('font-black');
+  } else {
+    button.classList.add('font-black');
+  }
 }
