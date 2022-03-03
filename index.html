@@ -16,16 +16,27 @@
   <div class="container display-flex flex-direction-column margin-auto align-items-center">
     <div class="modal-off" id="modal-container">
       <div class="container card bg-white">
-        <div class="favorite display-flex flex-end">
-          <i class="fa-solid fa-star"></i>
-        </div>
-        <p class="clue-text"></p>
-        <p class="answer"></p>
-        <p class="points"></p>
-        <div class="answered-correctly">
-          <p>Did you answer correctly?:</p>
-          <button class="answered-correctly" id="yes">YES</button>
-          <button class="answered-correctly" id="no">NO</button>
+        <div class="card-content padding-2-rem">
+          <div class="favorite display-flex flex-end hidden">
+            <button class="fa"><i class="fa-solid fa-star font-size-15-rem grow fa-star-gray"></i></button>
+          </div>
+          <div class="card-text-content padding-right-05-rem">
+            <p class="view clue-text roboto font-weight-500 margin-b-2-rem" data-modal="question"></p>
+            <p class="view click-to-see-answer roboto font-light-gray" data-modal="click-to-see-answer">(click to see answer)</p>
+            <p class="view hidden answer roboto font-weight-500" data-modal="answer"></p>
+            <p class="view hidden points roboto font-weight-500 margin-b-2-rem" data-modal="answer"></p>
+            <div class="view hidden answered-correctly" data-modal="answer">
+              <p class="view hidden roboto font-weight-500 font-light-blue margin-0" data-modal="answer">Did you answer correctly?:</p>
+              <div class="answered-correctly-button-container display-flex space-around">
+                <button class="view hidden answered-correctly roboto" id="yes" data-modal="answer">YES</button>
+                <button class="view hidden answered-correctly roboto" id="no" data-modal="answer">NO</button>
+              </div>
+            </div>
+            <div class="return-content display-flex flex-direction-column align-items-center">
+              <p class="view hidden return roboto font-weight-500 margin-v-1-rem" data-modal="return">Question already answered</p>
+              <button class="view hidden return roboto margin-v-1-rem" id="return" data-modal="return">RETURN TO QUESTIONS</button>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -76,7 +87,6 @@
     </main>
   </div>
   <script src="js/data.js"></script>
-  <script src="js/clues.js"></script>
   <script src="js/main.js"></script>
 </body>
 </html>

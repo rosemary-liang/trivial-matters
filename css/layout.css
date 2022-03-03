@@ -10,6 +10,11 @@
   padding: 0 7rem;
 }
 
+.card {
+  width: 450px;
+  height: 350px;
+}
+
 .column-third {
   width: 33%;
 }
@@ -30,6 +35,10 @@
 
 .modal-off {
   display: none;
+}
+
+.hidden {
+  display: none !important;
 }
 
 /* display-flex */
@@ -80,6 +89,10 @@
   margin-bottom: 1rem;
 }
 
+.margin-b-2-rem {
+  margin-bottom: 2rem;
+}
+
 .margin-0 {
   margin: 0;
 }
@@ -88,16 +101,24 @@
   margin: 1rem 0;
 }
 
-.margin-1-rem {
-  margin: 1rem;
+.margin-v-2-rem {
+  margin: 2rem 0;
 }
 
 .padding-left-05-rem {
   padding-left: 0.5rem;
 }
 
+.padding-right-05-rem {
+  padding-right: 0.5rem;
+}
+
 .padding-1-rem {
   padding: 1rem;
+}
+
+.padding-2-rem {
+  padding: 2rem;
 }
 
 .padding-h-1-rem {
@@ -120,6 +141,10 @@
 
   .title > h1 {
     font-size: 3.25rem;
+  }
+
+  .card {
+    height: 600px;
   }
 
   .grid-container {
@@ -150,6 +175,39 @@
     border: none;
   }
 
+  .card-text-content > p,
+  .answered-correctly > p {
+    font-size: 1.25rem;
+  }
+
+  p.return {
+    font-size: 1.25rem;
+    margin-top: 4rem;
+  }
+
+  button.answered-correctly {
+    cursor: pointer;
+    margin: 1rem;
+    padding: 0.5rem 1.25rem;
+    width: 100px;
+    font-weight: 500;
+    font-family: Roboto, sans-serif;
+    font-size: 1.25rem;
+    color: white;
+    background-color: #406882;
+    border: none;
+  }
+
+  button.return {
+    cursor: pointer;
+    padding: 0.5rem 1.5rem;
+    font-family: Roboto, sans-serif;
+    font-size: 1.25rem;
+    color: white;
+    background-color: #406882;
+    border: none;
+  }
+
   .padding-h-7-rem {
     padding: 0;
   }
@@ -160,6 +218,10 @@
 
   .margin-v-1-rem {
     margin: 2rem 0;
+  }
+
+  .margin-b-2-rem {
+    margin-bottom: 5rem;
   }
 }
 
@@ -176,6 +238,30 @@
     font-size: 1.25rem;
     color: white;
     background-color: #1a374d;
+    border: none;
+  }
+
+  button.answered-correctly {
+    cursor: pointer;
+    margin: 0.5rem;
+    padding: 0.4rem 1.25rem;
+    width: 66px;
+    font-weight: 500;
+    font-family: Roboto, sans-serif;
+    font-size: 0.9rem;
+    color: white;
+    background-color: #406882;
+    border: none;
+  }
+
+  button.return {
+    cursor: pointer;
+    padding: 0.4rem 1.25rem;
+    font-weight: 500;
+    font-family: Roboto, sans-serif;
+    font-size: 0.9rem;
+    color: white;
+    background-color: #406882;
     border: none;
   }
 }
