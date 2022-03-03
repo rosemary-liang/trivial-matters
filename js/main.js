@@ -21,6 +21,8 @@ var $starIcon = document.querySelector('.fa-star');
 var $returnButton = document.querySelector('#return');
 var $navViews = document.querySelectorAll('.nav-view');
 var $cardContainerQCorrect = document.querySelector('.container-questions-correct');
+var $backToQuestionsButton = document.querySelector('#back-to-questions');
+var $questionsCorrectButton = document.querySelector;
 
 // event listeners
 
@@ -288,17 +290,29 @@ function renderQuestionsCorrect() {
 // nav to favorites
 
 function navToGrid() {
-  // view swap to grid
-  // all data-view: grid is visible; all others hidden
   for (var i = 0; i < $navViews.length; i++) {
-    if ($navViews[i].getAttribute('data-view') === 'grid' && $navViews.classList.contains('hidden')) {
+    if ($navViews[i].getAttribute('data-view') === 'grid' && $navViews[i].classList.contains('hidden')) {
       $navViews[i].classList.remove('hidden');
-    } else if ($navViews[i].getAttribute('data-view') === 'questions-correct' && (!$navViews.classList.contains('hidden'))) {
+    } else if ($navViews[i].getAttribute('data-view') === 'questions-correct' && (!$navViews[i].classList.contains('hidden'))) {
       $navViews[i].classList.add('hidden');
-    } else if ($navViews[i].getAttribute('data-view') === 'favorites' && (!$navViews.classList.contains('hidden'))) {
+    } else if ($navViews[i].getAttribute('data-view') === 'favorites' && (!$navViews[i].classList.contains('hidden'))) {
       $navViews[i].classList.add('hidden');
     }
   }
 }
 
-navToGrid();
+$backToQuestionsButton.addEventListener('click', navToGrid);
+
+function navToQuestionsCorrect() {
+  for (var i = 0; i < $navViews.length; i++) {
+    if ($navViews[i].getAttribute('data-view') === 'questions-correct' && $navViews[i].classList.contains('hidden')) {
+      $navViews[i].classList.remove('hidden');
+    } else if ($navViews[i].getAttribute('data-view') === 'grid' && (!$navViews[i].classList.contains('hidden'))) {
+      $navViews[i].classList.add('hidden');
+    } else if ($navViews[i].getAttribute('data-view') === 'favorites' && (!$navViews[i].classList.contains('hidden'))) {
+      $navViews[i].classList.add('hidden');
+    }
+  }
+}
+
+$questionsCorrectButton.addEventListener('click', navToQuestionsCorrect);
