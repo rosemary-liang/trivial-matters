@@ -227,3 +227,56 @@ function handleFavorite() {
     }
   }
 }
+
+// for each data.clues[i].favorite === true, render it in a card
+// var $cardTextContent = document.querySelector('card-text-content');
+var $cardContainerQCorrect = document.querySelector('.container-questions-correct');
+
+function renderQuestionsCorrect() {
+  for (var i = 0; i < data.clues.length; i++) {
+    if (data.clues[i].correct === true) {
+
+      var divCard = document.createElement('div');
+      divCard.setAttribute('class', 'container card bg-white');
+      $cardContainerQCorrect.appendChild(divCard);
+
+      var divCardContent = document.createElement('div');
+      divCardContent.setAttribute('class', 'card-content padding-2-rem');
+      divCard.appendChild(divCardContent);
+
+      var divFavorite = document.createElement('div');
+      divFavorite.setAttribute('class', 'favorite display-flex flex-end');
+      divCard.appendChild(divFavorite);
+
+      var buttonFa = document.createElement('button');
+      buttonFa.setAttribute('class', 'fa');
+      divFavorite.appendChild(buttonFa);
+
+      var iStar = document.createElement('i');
+      // set attribute based on whether is favorite or not
+      iStar.setAttribute('class', 'fa-solid fa-star font-size-15-rem grow fa-star-gray');
+      buttonFa.appendChild(iStar);
+
+      var divCardTextContent = document.createElement('div');
+      divCardTextContent.setAttribute('class', 'card-text-content padding-right-05-rem');
+      divCardContent.appendChild(divCardTextContent);
+
+      var pClueText = document.createElement('p');
+      pClueText.setAttribute('class', 'clue-text roboto font-weight-500 margin-b-2-rem');
+      pClueText.textContent = data.clues[i].question;
+      divCardContent.appendChild(pClueText);
+
+      var pAnswer = document.createElement('p');
+      pAnswer.setAttribute('class', 'answer roboto font-weight-500');
+      pAnswer.textContent = 'Answer: ' + data.clues[i].answer;
+      divCardContent.appendChild(pAnswer);
+
+      var pPoints = document.createElement('p');
+      pPoints.setAttribute('class', 'points roboto font-weight-500 margin-b-2-rem');
+      pPoints.textContent = 'Points: ' + data.clues[i].points;
+      divCardContent.appendChild(pPoints);
+    }
+  }
+}
+
+renderQuestionsCorrect();
