@@ -14,7 +14,7 @@
 </head>
 <body>
   <div class="container display-flex flex-direction-column margin-auto align-items-center" data-view="grid">
-    <div class="modal-off" id="modal-container" data-view="grid">
+    <div class="modal-off nav-view" id="modal-container" data-view="grid">
       <div class="container card bg-white">
         <div class="card-content padding-2-rem">
           <div class="favorite display-flex flex-end hidden">
@@ -52,7 +52,7 @@
     </header>
     <main>
       <!-- hidden -->
-      <div class="hidden container clues-container" data-view="grid">
+      <div class="hidden  nav-view container clues-container" data-view="grid">
         <p class="roboto font-weight-500 margin-v-1-rem font-size-15-rem padding-left-05-rem ">Select a question</p>
         <div class="row grid-container button-container margin-auto display-flex flex-wrap space-around ">
           <div class="column-third  ">
@@ -86,8 +86,12 @@
       </div>
       <!-- questions correct -->
       <div
-        class="container container-questions-correct display-flex flex-direction-column align-items-center justify-content-center margin-auto"
+        class="nav-view container container-questions-correct display-flex flex-direction-column align-items-center justify-content-center margin-auto"
         data-view="questions-correct">
+        <div class="nav-buttons container display-flex space-between padding-h-275-rem">
+          <p class="roboto font-weight-500 margin-0">Questions Correct</p>
+          <a href="#grid" class="roboto text-decoration-none font-light-blue font-weight-500">Back to Questions</a>
+        </div>
       </div>
     </main>
   </div>
