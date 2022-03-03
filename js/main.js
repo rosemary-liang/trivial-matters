@@ -23,7 +23,8 @@ var $navViews = document.querySelectorAll('.nav-view');
 var $cardContainerQCorrect = document.querySelector('.container-questions-correct');
 var $backToQuestionsButton = document.querySelector('button.back-to-questions');
 var $qCorrectButton = document.querySelector('#nav-questions-correct');
-// var $favoritesButton = document.querySelector('#nav-favorites');
+var $cardContainerFavorites = document.querySelector('.container-favorites');
+var $favoritesButton = document.querySelector('#nav-favorites');
 var headerLinkClicked;
 
 // event listeners
@@ -39,6 +40,8 @@ $backToQuestionsButton.addEventListener('click', navToGrid);
 $backToQuestionsButton.addEventListener('click', blackHeaderLink);
 $qCorrectButton.addEventListener('click', navToQuestionsCorrect);
 $qCorrectButton.addEventListener('click', blueHeaderLink);
+$favoritesButton.addEventListener('click', navToFavorites);
+$favoritesButton.addEventListener('click', blueHeaderLink);
 
 // function calls
 
@@ -299,7 +302,7 @@ function renderFavorites() {
 
       var divCard = document.createElement('div');
       divCard.setAttribute('class', 'container card-in-list bg-white margin-b-1-rem margin-t-05-rem padding-1-rem border-solid border-thin box-shadow ');
-      $cardContainerQCorrect.appendChild(divCard);
+      $cardContainerFavorites.appendChild(divCard);
 
       var divCardContent = document.createElement('div');
       divCardContent.setAttribute('class', 'card-content padding-2-rem');
@@ -359,6 +362,18 @@ function navToQuestionsCorrect() {
     } else if ($navViews[i].getAttribute('data-view') === 'grid' && (!$navViews[i].classList.contains('hidden'))) {
       $navViews[i].classList.add('hidden');
     } else if ($navViews[i].getAttribute('data-view') === 'favorites' && (!$navViews[i].classList.contains('hidden'))) {
+      $navViews[i].classList.add('hidden');
+    }
+  }
+}
+
+function navToFavorites() {
+  for (var i = 0; i < $navViews.length; i++) {
+    if ($navViews[i].getAttribute('data-view') === 'favorites' && $navViews[i].classList.contains('hidden')) {
+      $navViews[i].classList.remove('hidden');
+    } else if ($navViews[i].getAttribute('data-view') === 'grid' && (!$navViews[i].classList.contains('hidden'))) {
+      $navViews[i].classList.add('hidden');
+    } else if ($navViews[i].getAttribute('data-view') === 'questions-correct' && (!$navViews[i].classList.contains('hidden'))) {
       $navViews[i].classList.add('hidden');
     }
   }
