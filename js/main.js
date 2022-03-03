@@ -22,7 +22,8 @@ var $returnButton = document.querySelector('#return');
 var $navViews = document.querySelectorAll('.nav-view');
 var $cardContainerQCorrect = document.querySelector('.container-questions-correct');
 var $backToQuestionsButton = document.querySelector('#back-to-questions');
-var $questionsCorrectButton = document.querySelector('#nav-questins-correct');
+var $qCorrectButton = document.querySelector('#nav-questions-correct');
+var headerLinkClicked;
 
 // event listeners
 
@@ -33,12 +34,17 @@ $yesButton.addEventListener('click', handleYes);
 $noButton.addEventListener('click', handleNo);
 $returnButton.addEventListener('click', closeModal);
 $favoriteButton.addEventListener('click', handleFavorite);
+$backToQuestionsButton.addEventListener('click', navToGrid);
+$backToQuestionsButton.addEventListener('click', blackHeaderLink);
+$qCorrectButton.addEventListener('click', navToQuestionsCorrect);
+$qCorrectButton.addEventListener('click', blueHeaderLink);
 
 // function calls
 
 closeModal();
 getClues();
 renderQuestionsCorrect();
+navToGrid();
 
 // function definitions
 
@@ -285,10 +291,6 @@ function renderQuestionsCorrect() {
   }
 }
 
-// nav to grid
-// nav to questions-correct
-// nav to favorites
-
 function navToGrid() {
   for (var i = 0; i < $navViews.length; i++) {
     if ($navViews[i].getAttribute('data-view') === 'grid' && $navViews[i].classList.contains('hidden')) {
@@ -300,8 +302,6 @@ function navToGrid() {
     }
   }
 }
-
-$backToQuestionsButton.addEventListener('click', navToGrid);
 
 function navToQuestionsCorrect() {
   for (var i = 0; i < $navViews.length; i++) {
@@ -315,4 +315,15 @@ function navToQuestionsCorrect() {
   }
 }
 
-$questionsCorrectButton.addEventListener('click', navToQuestionsCorrect);
+function blueHeaderLink(event) {
+  headerLinkClicked = event.target;
+  headerLinkClicked.classList.remove('font-black');
+  headerLinkClicked.classList.add('font-light-blue');
+
+}
+
+function blackHeaderLink() {
+  headerLinkClicked.classList.remove('font-light-blue');
+  headerLinkClicked.classList.add('font-black');
+  headerLinkClicked = null;
+}

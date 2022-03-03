@@ -38,6 +38,10 @@
   background-color: white;
 }
 
+.bg-transparent {
+  background-color: transparent;
+}
+
 .border-none {
   border: none;
 }
