@@ -106,6 +106,8 @@ function closeModal(event) {
   resetView();
 }
 
+// && data.clues[i].completed === false, then do first part
+// else if parseint && data.clues[i].completed === true, then reset the form
 function displayClue() {
   for (var i = 0; i < data.clues.length; i++) {
     if (parseInt(event.target.textContent) === data.clues[i].entryId) {
@@ -158,6 +160,27 @@ function returnToQuestions() {
   }
 }
 
+function resetAll() {
+  data.clues = [];
+  data.score = 0;
+  data.nextEntryId = 1;
+}
+
+function checkIfAllAnswered() {
+  var allAnswered;
+  for (var i = 0; i < data.clues.length; i++) {
+    if (data.clues[i].completed !== true) {
+      allAnswered = false;
+    }
+  }
+  if (allAnswered !== false) {
+    resetAll();
+    // format modal to show something else
+  } else {
+    closeModal();
+  }
+}
+
 function handleYes() {
   data.currentlyAnswering.completed = true;
   data.currentlyAnswering.correct = true;
@@ -166,7 +189,7 @@ function handleYes() {
   $pointsHeader.textContent = data.score;
   data.currentlyAnswering = null;
   grayClue();
-  closeModal();
+  checkIfAllAnswered();
 
 }
 
@@ -186,7 +209,7 @@ function handleNo() {
   data.currentlyAnswering.correct = false;
   data.currentlyAnswering = null;
   grayClue();
-  closeModal();
+  checkIfAllAnswered();
 
 }
 
@@ -383,7 +406,6 @@ function renderFavorites() {
   for (var i = 0; i < data.clues.length; i++) {
     if (data.clues[i].favorite === true) {
       renderFavorite(data.clues[i]);
-
     }
   }
 }
