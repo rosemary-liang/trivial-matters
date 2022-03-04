@@ -87,10 +87,12 @@ function openModal(event) {
   $modal.classList.remove('modal-off');
   $modal.classList.add('modal-on');
   buttonTarget = event.target;
+
   for (var i = 0; i < $buttons.length; i++) {
     if (buttonTarget === $buttons[i]) {
       if (data.clues[i].completed === true) {
         returnToQuestions();
+        checkIfAllAnswered();
         return;
       } else {
         displayClue();
@@ -98,6 +100,7 @@ function openModal(event) {
       }
     }
   }
+
 }
 
 function closeModal(event) {
@@ -160,11 +163,11 @@ function returnToQuestions() {
   }
 }
 
-function resetAll() {
-  data.clues = [];
-  data.score = 0;
-  data.nextEntryId = 1;
-}
+// function resetAll() {
+//   data.clues = [];
+//   data.score = 0;
+//   data.nextEntryId = 1;
+// }
 
 function checkIfAllAnswered() {
   var allAnswered;
@@ -174,7 +177,7 @@ function checkIfAllAnswered() {
     }
   }
   if (allAnswered !== false) {
-    resetAll();
+
     showReset();
     // format modal to show something else
     // when button clicked, reset the grid and reset the modal
