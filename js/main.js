@@ -259,10 +259,12 @@ function handleFavoriteinCardList(event) {
       data.clues[i].favorite !== true) {
       data.clues[i].favorite = true;
       yellowStar(icon);
+
     } else if (data.clues[i].entryId === buttonTargetId &&
       data.clues[i].favorite === true) {
       data.clues[i].favorite = null;
       grayStar(icon);
+
     }
   }
 }
@@ -318,49 +320,54 @@ function renderQuestionsCorrect() {
   }
 }
 
+function renderFavorite(clue) {
+  var divCard = document.createElement('div');
+  divCard.setAttribute('class', 'container card-in-list bg-white margin-b-1-rem margin-t-05-rem padding-1-rem border-solid border-thin box-shadow ');
+  divCard.setAttribute('data-entryid-fav', clue.entryId);
+  $cardContainerFavorites.appendChild(divCard);
+
+  var divCardContent = document.createElement('div');
+  divCardContent.setAttribute('class', 'card-content padding-2-rem');
+  divCard.appendChild(divCardContent);
+
+  var divFavorite = document.createElement('div');
+  divFavorite.setAttribute('class', 'favorite display-flex flex-end');
+  divCard.prepend(divFavorite);
+
+  var buttonFa = document.createElement('button');
+  buttonFa.setAttribute('class', 'fa');
+  divFavorite.appendChild(buttonFa);
+
+  var iStar = document.createElement('i');
+  iStar.setAttribute('class', 'fa-solid fa-star font-size-15-rem grow favorites-page fa-star-yellow');
+  iStar.setAttribute('data-entryid-fav', clue.entryId);
+  buttonFa.appendChild(iStar);
+
+  var divCardTextContent = document.createElement('div');
+  divCardTextContent.setAttribute('class', 'card-text-content padding-right-05-rem');
+  divCardContent.appendChild(divCardTextContent);
+
+  var pClueText = document.createElement('p');
+  pClueText.setAttribute('class', 'clue-text roboto font-weight-500 margin-b-2-rem');
+  pClueText.textContent = clue.question;
+  divCardContent.appendChild(pClueText);
+
+  var pAnswer = document.createElement('p');
+  pAnswer.setAttribute('class', 'answer roboto font-weight-500');
+  pAnswer.textContent = 'Answer: ' + clue.answer;
+  divCardContent.appendChild(pAnswer);
+
+  var pPoints = document.createElement('p');
+  pPoints.setAttribute('class', 'points roboto font-weight-500 margin-b-2-rem');
+  pPoints.textContent = 'Points: ' + clue.points;
+  divCardContent.appendChild(pPoints);
+}
+
 function renderFavorites() {
   for (var i = 0; i < data.clues.length; i++) {
     if (data.clues[i].favorite === true) {
+      renderFavorite(data.clues[i]);
 
-      var divCard = document.createElement('div');
-      divCard.setAttribute('class', 'container card-in-list bg-white margin-b-1-rem margin-t-05-rem padding-1-rem border-solid border-thin box-shadow ');
-      $cardContainerFavorites.appendChild(divCard);
-
-      var divCardContent = document.createElement('div');
-      divCardContent.setAttribute('class', 'card-content padding-2-rem');
-      divCard.appendChild(divCardContent);
-
-      var divFavorite = document.createElement('div');
-      divFavorite.setAttribute('class', 'favorite display-flex flex-end');
-      divCard.prepend(divFavorite);
-
-      var buttonFa = document.createElement('button');
-      buttonFa.setAttribute('class', 'fa');
-      divFavorite.appendChild(buttonFa);
-
-      var iStar = document.createElement('i');
-      iStar.setAttribute('class', 'fa-solid fa-star font-size-15-rem grow favorites-page fa-star-yellow');
-      iStar.setAttribute('data-entryid', data.clues[i].entryId);
-      buttonFa.appendChild(iStar);
-
-      var divCardTextContent = document.createElement('div');
-      divCardTextContent.setAttribute('class', 'card-text-content padding-right-05-rem');
-      divCardContent.appendChild(divCardTextContent);
-
-      var pClueText = document.createElement('p');
-      pClueText.setAttribute('class', 'clue-text roboto font-weight-500 margin-b-2-rem');
-      pClueText.textContent = data.clues[i].question;
-      divCardContent.appendChild(pClueText);
-
-      var pAnswer = document.createElement('p');
-      pAnswer.setAttribute('class', 'answer roboto font-weight-500');
-      pAnswer.textContent = 'Answer: ' + data.clues[i].answer;
-      divCardContent.appendChild(pAnswer);
-
-      var pPoints = document.createElement('p');
-      pPoints.setAttribute('class', 'points roboto font-weight-500 margin-b-2-rem');
-      pPoints.textContent = 'Points: ' + data.clues[i].points;
-      divCardContent.appendChild(pPoints);
     }
   }
 }
@@ -408,6 +415,27 @@ function navToFavorites() {
   }
   navButtonBlue($favoritesButton);
   navButtonBlack($qCorrectButton);
+  reRenderFavorites();
+
+}
+
+function reRenderFavorites() {
+  var $favoriteEntryIds = document.querySelectorAll('div[data-entryid-fav]');
+  for (var i = 0; i < data.clues.length; i++) {
+    for (var j = 0; j < $favoriteEntryIds.length; j++) {
+      if (data.clues[i].favorite === null) {
+        if (data.clues[i].entryId === parseInt($favoriteEntryIds[j].getAttribute('data-entryid-fav'))) {
+          $favoriteEntryIds[j].remove();
+        }
+      } else if (data.clues[i].favorite === true) {
+        if (data.clues[i].entryId === parseInt($favoriteEntryIds[j].getAttribute('data-entryid-fav'))) {
+          return;
+        } else {
+          $cardContainerFavorites.appendChild(renderFavorite(data.clues[i]));
+        }
+      }
+    }
+  }
 }
 
 function navButtonBlue(button) {
@@ -427,3 +455,5 @@ function navButtonBlack(button) {
     button.classList.add('font-black');
   }
 }
+
+// do this in nav to favorites
