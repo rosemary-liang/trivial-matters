@@ -173,7 +173,6 @@ function handleYes() {
   data.currentlyAnswering = null;
   grayClue();
   checkIfAllAnswered();
-  closeModal();
 
 }
 
@@ -194,7 +193,6 @@ function handleNo() {
   data.currentlyAnswering = null;
   grayClue();
   checkIfAllAnswered();
-  closeModal();
 
 }
 
@@ -520,6 +518,8 @@ function checkIfAllAnswered() {
   }
   if (allAnswered !== false) {
     showReset();
+  } else {
+    closeModal();
   }
 }
 
