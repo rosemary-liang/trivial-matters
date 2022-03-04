@@ -26,6 +26,7 @@ var $backToQuestionsButton2 = document.querySelector('button.back-to-questions-2
 var $qCorrectButton = document.querySelector('#nav-questions-correct');
 var $cardContainerFavorites = document.querySelector('.container-favorites');
 var $favoritesButton = document.querySelector('#nav-favorites');
+var $resetButton = document.querySelector('#reset');
 
 // event listeners
 
@@ -42,6 +43,7 @@ $qCorrectButton.addEventListener('click', navToQuestionsCorrect);
 $favoritesButton.addEventListener('click', navToFavorites);
 $cardContainerFavorites.addEventListener('click', handleFavoriteinFavCardList);
 $cardContainerQCorrect.addEventListener('click', handleFavoriteinQCardList);
+$resetButton.addEventListener('click', resetAll);
 
 // function calls
 
@@ -163,11 +165,12 @@ function returnToQuestions() {
   }
 }
 
-// function resetAll() {
-//   data.clues = [];
-//   data.score = 0;
-//   data.nextEntryId = 1;
-// }
+function resetAll() {
+  data.clues = [];
+  data.score = 0;
+  data.nextEntryId = 1;
+  closeModal();
+}
 
 function checkIfAllAnswered() {
   var allAnswered;
