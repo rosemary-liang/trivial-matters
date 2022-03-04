@@ -40,8 +40,8 @@ $backToQuestionsButton.addEventListener('click', navToGrid);
 $backToQuestionsButton2.addEventListener('click', navToGrid);
 $qCorrectButton.addEventListener('click', navToQuestionsCorrect);
 $favoritesButton.addEventListener('click', navToFavorites);
-$cardContainerFavorites.addEventListener('click', handleFavoriteinCardList);
-$cardContainerQCorrect.addEventListener('click', handleFavoriteinCardList);
+$cardContainerFavorites.addEventListener('click', handleFavoriteinFavCardList);
+$cardContainerQCorrect.addEventListener('click', handleFavoriteinQCardList);
 
 // function calls
 
@@ -241,17 +241,17 @@ function handleFavorite() {
     if (data.clues[i].entryId === buttonTargetId &&
         data.clues[i].favorite !== true) {
       data.clues[i].favorite = true;
-      yellowStar();
+      yellowStar(icon);
     } else if (data.clues[i].entryId === buttonTargetId &&
       data.clues[i].favorite === true) {
       data.clues[i].favorite = null;
-      grayStar();
+      grayStar(icon);
     }
   }
   return icon;
 }
 
-function handleFavoriteinCardList(event) {
+function handleFavoriteinQCardList(event) {
   var buttonTargetId = parseInt(event.target.getAttribute('data-entryid'));
   var icon = event.target;
   for (var i = 0; i < data.clues.length; i++) {
@@ -264,7 +264,23 @@ function handleFavoriteinCardList(event) {
       data.clues[i].favorite === true) {
       data.clues[i].favorite = null;
       grayStar(icon);
+    }
+  }
+}
 
+function handleFavoriteinFavCardList(event) {
+  var buttonTargetId = parseInt(event.target.getAttribute('data-entryid-fav'));
+  var icon = event.target;
+  for (var i = 0; i < data.clues.length; i++) {
+    if (data.clues[i].entryId === buttonTargetId &&
+      data.clues[i].favorite !== true) {
+      data.clues[i].favorite = true;
+      yellowStar(icon);
+
+    } else if (data.clues[i].entryId === buttonTargetId &&
+      data.clues[i].favorite === true) {
+      data.clues[i].favorite = null;
+      grayStar(icon);
     }
   }
 }
