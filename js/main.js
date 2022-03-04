@@ -416,6 +416,19 @@ function navToQuestionsCorrect() {
   navButtonBlue($qCorrectButton);
   navButtonBlack($favoritesButton);
 
+  var $qEntryIds = document.querySelectorAll('i[data-entryid]');
+  for (var j = 0; j < $qEntryIds.length; j++) {
+    for (var k = 0; i < data.clues.length; k++) {
+      if (data.clues[k].entryId === parseInt($qEntryIds[j].getAttribute('data-entryid')) &&
+      data.clues[k].favorite === true) {
+        yellowStar($qEntryIds[j]);
+      } else if (data.clues[k].entryId === parseInt($qEntryIds[j].getAttribute('data-entryid')) &&
+      data.clues[k].favorite === null) {
+        grayStar($qEntryIds[j]);
+      }
+    }
+  }
+
 }
 
 function navToFavorites() {
