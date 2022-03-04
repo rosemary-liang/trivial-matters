@@ -27,6 +27,7 @@ var $qCorrectButton = document.querySelector('#nav-questions-correct');
 var $cardContainerFavorites = document.querySelector('.container-favorites');
 var $favoritesButton = document.querySelector('#nav-favorites');
 var $resetButton = document.querySelector('#reset');
+var $finalScore = document.querySelector('#final-score');
 
 // event listeners
 
@@ -206,6 +207,9 @@ function showReset() {
   if (!($favoriteContainer.classList.contains('hidden'))) {
     $favoriteContainer.classList.add('hidden');
   }
+
+  $finalScore.textContent = 'You scored ' + data.score + ' points!';
+
 }
 
 function handleYes() {
