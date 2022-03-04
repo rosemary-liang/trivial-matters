@@ -175,9 +175,30 @@ function checkIfAllAnswered() {
   }
   if (allAnswered !== false) {
     resetAll();
+    showReset();
     // format modal to show something else
+    // when button clicked, reset the grid and reset the modal
   } else {
     closeModal();
+  }
+}
+
+function showReset() {
+  for (var i = 0; i < $views.length; i++) {
+    if ($views[i].getAttribute('data-modal') === 'reset') {
+      $views[i].classList.remove('hidden');
+    } else if ($views[i].getAttribute('data-modal') === 'click-to-see-answer') {
+      $views[i].classList.add('hidden');
+    } else if ($views[i].getAttribute('data-modal') === 'question') {
+      $views[i].classList.add('hidden');
+    } else if ($views[i].getAttribute('data-modal') === 'answer') {
+      $views[i].classList.add('hidden');
+    } else if ($views[i].getAttribute('data-modal') === 'return') {
+      $views[i].classList.add('hidden');
+    }
+  }
+  if (!($favoriteContainer.classList.contains('hidden'))) {
+    $favoriteContainer.classList.add('hidden');
   }
 }
 
