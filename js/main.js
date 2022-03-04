@@ -112,8 +112,6 @@ function closeModal(event) {
   resetView();
 }
 
-// && data.clues[i].completed === false, then do first part
-// else if parseint && data.clues[i].completed === true, then reset the form
 function displayClue() {
   for (var i = 0; i < data.clues.length; i++) {
     if (parseInt(event.target.textContent) === data.clues[i].entryId) {
@@ -166,60 +164,6 @@ function returnToQuestions() {
   }
 }
 
-function resetAll() {
-  data.clues = [];
-  data.score = 0;
-  data.nextEntryId = 1;
-  getClues();
-  blueAllClues();
-  closeModal();
-}
-
-function blueAllClues() {
-  for (var i = 0; i < $buttons.length; i++) {
-    $buttons[i].removeAttribute('id');
-  }
-}
-
-function checkIfAllAnswered() {
-  var allAnswered;
-  for (var i = 0; i < data.clues.length; i++) {
-    if (data.clues[i].completed !== true) {
-      allAnswered = false;
-    }
-  }
-  if (allAnswered !== false) {
-
-    showReset();
-    // format modal to show something else
-    // when button clicked, reset the grid and reset the modal
-  } else {
-    closeModal();
-  }
-}
-
-function showReset() {
-  for (var i = 0; i < $views.length; i++) {
-    if ($views[i].getAttribute('data-modal') === 'reset') {
-      $views[i].classList.remove('hidden');
-    } else if ($views[i].getAttribute('data-modal') === 'click-to-see-answer') {
-      $views[i].classList.add('hidden');
-    } else if ($views[i].getAttribute('data-modal') === 'question') {
-      $views[i].classList.add('hidden');
-    } else if ($views[i].getAttribute('data-modal') === 'answer') {
-      $views[i].classList.add('hidden');
-    } else if ($views[i].getAttribute('data-modal') === 'return') {
-      $views[i].classList.add('hidden');
-    }
-  }
-  if (!($favoriteContainer.classList.contains('hidden'))) {
-    $favoriteContainer.classList.add('hidden');
-  }
-
-  $finalScore.textContent = data.score;
-
-}
-
 function handleYes() {
   data.currentlyAnswering.completed = true;
   data.currentlyAnswering.correct = true;
@@ -229,6 +173,7 @@ function handleYes() {
   data.currentlyAnswering = null;
   grayClue();
   checkIfAllAnswered();
+  closeModal();
 
 }
 
@@ -249,6 +194,7 @@ function handleNo() {
   data.currentlyAnswering = null;
   grayClue();
   checkIfAllAnswered();
+  closeModal();
 
 }
 
@@ -314,6 +260,8 @@ function handleFavorite() {
   }
   return icon;
 }
+
+// favorites & questions correct views
 
 function handleFavoriteinQCardList(event) {
   var buttonTargetId = parseInt(event.target.getAttribute('data-entryid'));
@@ -545,4 +493,54 @@ function navButtonBlack(button) {
   } else {
     button.classList.add('font-black');
   }
+}
+
+// reset - try more questions
+function resetAll() {
+  data.clues = [];
+  data.score = 0;
+  data.nextEntryId = 1;
+  getClues();
+  blueAllClues();
+  closeModal();
+}
+
+function blueAllClues() {
+  for (var i = 0; i < $buttons.length; i++) {
+    $buttons[i].removeAttribute('id');
+  }
+}
+
+function checkIfAllAnswered() {
+  var allAnswered;
+  for (var i = 0; i < data.clues.length; i++) {
+    if (data.clues[i].completed !== true) {
+      allAnswered = false;
+    }
+  }
+  if (allAnswered !== false) {
+    showReset();
+  }
+}
+
+function showReset() {
+  for (var i = 0; i < $views.length; i++) {
+    if ($views[i].getAttribute('data-modal') === 'reset') {
+      $views[i].classList.remove('hidden');
+    } else if ($views[i].getAttribute('data-modal') === 'click-to-see-answer') {
+      $views[i].classList.add('hidden');
+    } else if ($views[i].getAttribute('data-modal') === 'question') {
+      $views[i].classList.add('hidden');
+    } else if ($views[i].getAttribute('data-modal') === 'answer') {
+      $views[i].classList.add('hidden');
+    } else if ($views[i].getAttribute('data-modal') === 'return') {
+      $views[i].classList.add('hidden');
+    }
+  }
+  if (!($favoriteContainer.classList.contains('hidden'))) {
+    $favoriteContainer.classList.add('hidden');
+  }
+
+  $finalScore.textContent = data.score;
+
 }
