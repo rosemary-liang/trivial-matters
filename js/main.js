@@ -388,7 +388,6 @@ function renderFavorites() {
   }
 }
 
-// header nav buttons
 function navToGrid() {
   for (var i = 0; i < $navViews.length; i++) {
     if ($navViews[i].getAttribute('data-view') === 'grid' && $navViews[i].classList.contains('hidden')) {
@@ -436,8 +435,8 @@ function navToFavorites() {
 }
 
 function reRenderFavorites() {
-  var $favoriteEntryIds = document.querySelectorAll('div[data-entryid-fav]');
   for (var i = 0; i < data.clues.length; i++) {
+    var $favoriteEntryIds = document.querySelectorAll('div[data-entryid-fav]');
     for (var j = 0; j < $favoriteEntryIds.length; j++) {
       if (data.clues[i].favorite === null) {
         if (data.clues[i].entryId === parseInt($favoriteEntryIds[j].getAttribute('data-entryid-fav'))) {
@@ -471,5 +470,3 @@ function navButtonBlack(button) {
     button.classList.add('font-black');
   }
 }
-
-// do this in nav to favorites
