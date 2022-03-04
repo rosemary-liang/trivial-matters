@@ -128,10 +128,10 @@ function displayClue() {
 
 function handleModal(event) {
   var $modalOn = document.querySelector('.modal-on');
-  if (event.target !== $modalOn) {
+  if (event.target !== $modalOn && event.target !== $resetButton) {
     for (var i = 0; i < $buttons.length; i++) {
       if (buttonTarget === $buttons[i] &&
-      data.clues[i].completed === null) {
+      data.clues[i].completed !== true) {
         showAnswer();
         return;
       }
@@ -170,7 +170,15 @@ function resetAll() {
   data.clues = [];
   data.score = 0;
   data.nextEntryId = 1;
+  getClues();
+  blueAllClues();
   closeModal();
+}
+
+function blueAllClues() {
+  for (var i = 0; i < $buttons.length; i++) {
+    $buttons[i].removeAttribute('id');
+  }
 }
 
 function checkIfAllAnswered() {
@@ -208,7 +216,7 @@ function showReset() {
     $favoriteContainer.classList.add('hidden');
   }
 
-  $finalScore.textContent = 'You scored ' + data.score + ' points!';
+  $finalScore.textContent = data.score;
 
 }
 
@@ -253,6 +261,8 @@ function resetView() {
     } else if ($views[i].getAttribute('data-modal') === 'answer') {
       $views[i].classList.add('hidden');
     } else if ($views[i].getAttribute('data-modal') === 'return') {
+      $views[i].classList.add('hidden');
+    } else if ($views[i].getAttribute('data-modal') === 'reset') {
       $views[i].classList.add('hidden');
     }
   }
