@@ -94,7 +94,6 @@ function openModal(event) {
   for (var i = 0; i < $buttons.length; i++) {
     if (buttonTarget === $buttons[i]) {
       if (data.clues[i].completed === true) {
-        returnToQuestions();
         checkIfAllAnswered();
         return;
       } else {
@@ -165,6 +164,7 @@ function returnToQuestions() {
 }
 
 function handleYes() {
+  buttonTarget = event.target;
   data.currentlyAnswering.completed = true;
   data.currentlyAnswering.correct = true;
   data.score += data.currentlyAnswering.points;
@@ -188,6 +188,7 @@ function countCorrect() {
 }
 
 function handleNo() {
+  buttonTarget = event.target;
   data.currentlyAnswering.completed = true;
   data.currentlyAnswering.correct = false;
   data.currentlyAnswering = null;
@@ -514,12 +515,22 @@ function checkIfAllAnswered() {
   for (var i = 0; i < data.clues.length; i++) {
     if (data.clues[i].completed !== true) {
       allAnswered = false;
+      break;
     }
   }
   if (allAnswered !== false) {
     showReset();
-  } else {
-    closeModal();
+  }
+  if (allAnswered === false) {
+    for (var j = 0; j < $buttons.length; j++) {
+      if (buttonTarget === $buttons[j]) {
+        returnToQuestions();
+        break;
+      } else if (buttonTarget === $yesButton || buttonTarget === $noButton) {
+        closeModal();
+        break;
+      }
+    }
   }
 }
 
