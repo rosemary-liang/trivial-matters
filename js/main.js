@@ -541,6 +541,8 @@ function resetAll() {
   data.clues = [];
   data.score = 0;
   data.nextEntryId = 1;
+  countCorrect();
+  $pointsHeader.textContent = data.score;
   getClues();
   blueAllClues();
   closeModal();
