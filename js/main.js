@@ -535,8 +535,7 @@ function navButtonBlack(button) {
 }
 
 // reset - try more questions
-// remove all DOM from favorites and questions correct
-// reset header scores
+
 function resetAll() {
   data.clues = [];
   data.score = 0;
