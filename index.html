@@ -32,9 +32,14 @@
                 <button class="view hidden answered-correctly roboto" id="no" data-modal="answer">NO</button>
               </div>
             </div>
-            <div class="return-content display-flex flex-direction-column align-items-center">
+            <div class="return-content display-flex flex-direction-column align-items-center" data-modal="return">
               <p class="view hidden return roboto font-weight-500 margin-v-1-rem" data-modal="return">Question already answered</p>
               <button class="view hidden return roboto margin-v-1-rem" id="return" data-modal="return">RETURN TO QUESTIONS</button>
+            </div>
+            <div class="reset-questions-content display-flex flex-direction-column align-items-center">
+              <p class="view hidden return roboto font-weight-500 margin-v-1-rem" data-modal="reset">All Questions Answered!</p>
+              <p class="view hidden return roboto font-weight-500 margin-v-1-rem" data-modal="reset">You scored <span class="font-light-blue" id="final-score"></span> points!</p>
+              <button class="view hidden return roboto margin-v-1-rem" id="reset" data-modal="reset">TRY MORE QUESTIONS</button>
             </div>
           </div>
         </div>
