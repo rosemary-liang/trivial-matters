@@ -6,9 +6,9 @@
   width: 500px;
 }
 
-.grid-container {
+/* .grid-container {
   width: 300px;
-}
+} */
 
 .clues-container {
   padding: 0 7rem;
@@ -184,9 +184,9 @@ nav {
     padding: 0 2.75rem;
   }
 
-  .grid-container {
+  /* .grid-container {
     width: 400px;
-  }
+  } */
 
   .clues-container {
     padding: 2rem;
@@ -196,9 +196,9 @@ nav {
     font-weight: 700;
   }
 
-  button.clue {
-    width: 100px;
-    height: 100px;
+  /* button.clue {
+    width: 230px;
+    height: 70px;
     cursor: pointer;
     margin: 0.5rem;
     text-align: right;
@@ -207,10 +207,10 @@ nav {
     font-weight: 500;
     font-family: Roboto, sans-serif;
     font-size: 1.5rem;
-    color: white;
+    color: #6a5ae0;
     background-color: #1a374d;
     border: none;
-  }
+  } */
 
   .card-text-content > p,
   .answered-correctly > p {
@@ -265,17 +265,19 @@ nav {
 @media screen and (min-width: 768px) {
   button.clue {
     cursor: pointer;
-    width: 70px;
-    height: 70px;
-    margin: 0.5rem;
+    width: 150px;
+    height: 100px;
+    margin: 0.25rem;
     text-align: right;
     padding-top: 35px;
+    padding-right: 35px;
     font-weight: 500;
     font-family: Roboto, sans-serif;
     font-size: 1.25rem;
-    color: white;
-    background-color: #1a374d;
+    color: #6a5ae0;
+    background-color: #efeefc;
     border: none;
+    border-radius: 10px;
   }
 
   button.answered-correctly {
