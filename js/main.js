@@ -112,6 +112,7 @@ function closeModal(event) {
 }
 
 function displayClue() {
+  grayStar($starIcon);
   for (var i = 0; i < data.clues.length; i++) {
     if (parseInt(event.target.textContent) === data.clues[i].entryId) {
       $clue.textContent = data.clues[i].question;
@@ -413,8 +414,8 @@ function navToGrid() {
       $navViews[i].classList.add('hidden');
     }
   }
-  navButtonBlack($favoritesButton);
-  navButtonBlack($qCorrectButton);
+  // navButtonBlack($favoritesButton);
+  // navButtonBlack($qCorrectButton);
 
 }
 
@@ -428,8 +429,8 @@ function navToQuestionsCorrect() {
       $navViews[i].classList.add('hidden');
     }
   }
-  navButtonBlue($qCorrectButton);
-  navButtonBlack($favoritesButton);
+  // navButtonBlue($qCorrectButton);
+  // navButtonBlack($favoritesButton);
   reRenderQuestionsCorrect();
 
   var $qEntryIds = document.querySelectorAll('i[data-entryid]');
@@ -485,8 +486,8 @@ function navToFavorites() {
       $navViews[i].classList.add('hidden');
     }
   }
-  navButtonBlue($favoritesButton);
-  navButtonBlack($qCorrectButton);
+  // navButtonBlue($favoritesButton);
+  // navButtonBlack($qCorrectButton);
   reRenderFavorites();
 
 }
@@ -516,23 +517,23 @@ function reRenderFavorites() {
   }
 }
 
-function navButtonBlue(button) {
-  if (button.classList.contains('font-black')) {
-    button.classList.remove('font-black');
-    button.classList.add('font-light-blue');
-  } else {
-    button.classList.add('font-light-blue');
-  }
-}
+// function navButtonBlue(button) {
+//   if (button.classList.contains('font-black')) {
+//     button.classList.remove('font-black');
+//     button.classList.add('font-light-blue');
+//   } else {
+//     button.classList.add('font-light-blue');
+//   }
+// }
 
-function navButtonBlack(button) {
-  if (button.classList.contains('font-light-blue')) {
-    button.classList.remove('font-light-blue');
-    button.classList.add('font-black');
-  } else {
-    button.classList.add('font-black');
-  }
-}
+// function navButtonBlack(button) {
+//   if (button.classList.contains('font-light-blue')) {
+//     button.classList.remove('font-light-blue');
+//     button.classList.add('font-black');
+//   } else {
+//     button.classList.add('font-black');
+//   }
+// }
 
 // reset - try more questions
 
