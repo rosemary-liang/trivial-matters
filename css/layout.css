@@ -14,11 +14,6 @@
   padding: 0 7rem;
 }
 
-.card {
-  width: 450px;
-  height: 350px;
-}
-
 .card-in-list {
   width: 500px;
   height: 350px;
@@ -30,24 +25,6 @@
 
 nav {
   height: 1.25rem;
-}
-
-/* modal */
-.modal-on {
-  position: absolute;
-  z-index: 1;
-  width: 100vw;
-  height: 100vh;
-  left: 0;
-  right: 0;
-  background-color: rgb(0 0 0 / 75%);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.modal-off {
-  display: none;
 }
 
 .hidden {

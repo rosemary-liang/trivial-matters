@@ -141,9 +141,9 @@ function handleModal(event) {
 
 function showAnswer() {
   for (var i = 0; i < $views.length; i++) {
-    if ($views[i].getAttribute('data-modal') === 'answer') {
+    if ($views[i].getAttribute('data-clue') === 'answer') {
       $views[i].classList.remove('hidden');
-    } else if ($views[i].getAttribute('data-modal') === 'click-to-see-answer') {
+    } else if ($views[i].getAttribute('data-clue') === 'click-to-see-answer') {
       $views[i].classList.add('hidden');
     }
   }
@@ -154,11 +154,11 @@ function showAnswer() {
 
 function returnToQuestions() {
   for (var i = 0; i < $views.length; i++) {
-    if ($views[i].getAttribute('data-modal') === 'return') {
+    if ($views[i].getAttribute('data-clue') === 'return') {
       $views[i].classList.remove('hidden');
-    } else if ($views[i].getAttribute('data-modal') === 'question' ||
-      $views[i].getAttribute('data-modal') === 'click-to-see-answer' ||
-      $views[i].getAttribute('data-modal') === 'answer') {
+    } else if ($views[i].getAttribute('data-clue') === 'question' ||
+      $views[i].getAttribute('data-clue') === 'click-to-see-answer' ||
+      $views[i].getAttribute('data-clue') === 'answer') {
       $views[i].classList.add('hidden');
     }
   }
@@ -200,15 +200,15 @@ function handleNo() {
 
 function resetView() {
   for (var i = 0; i < $views.length; i++) {
-    if ($views[i].getAttribute('data-modal') === 'question') {
+    if ($views[i].getAttribute('data-clue') === 'question') {
       $views[i].classList.remove('hidden');
-    } else if ($views[i].getAttribute('data-modal') === 'click-to-see-answer') {
+    } else if ($views[i].getAttribute('data-clue') === 'click-to-see-answer') {
       $views[i].classList.remove('hidden');
-    } else if ($views[i].getAttribute('data-modal') === 'answer') {
+    } else if ($views[i].getAttribute('data-clue') === 'answer') {
       $views[i].classList.add('hidden');
-    } else if ($views[i].getAttribute('data-modal') === 'return') {
+    } else if ($views[i].getAttribute('data-clue') === 'return') {
       $views[i].classList.add('hidden');
-    } else if ($views[i].getAttribute('data-modal') === 'reset') {
+    } else if ($views[i].getAttribute('data-clue') === 'reset') {
       $views[i].classList.add('hidden');
     }
   }
@@ -580,15 +580,15 @@ function checkIfAllAnswered() {
 
 function showReset() {
   for (var i = 0; i < $views.length; i++) {
-    if ($views[i].getAttribute('data-modal') === 'reset') {
+    if ($views[i].getAttribute('data-clue') === 'reset') {
       $views[i].classList.remove('hidden');
-    } else if ($views[i].getAttribute('data-modal') === 'click-to-see-answer') {
+    } else if ($views[i].getAttribute('data-clue') === 'click-to-see-answer') {
       $views[i].classList.add('hidden');
-    } else if ($views[i].getAttribute('data-modal') === 'question') {
+    } else if ($views[i].getAttribute('data-clue') === 'question') {
       $views[i].classList.add('hidden');
-    } else if ($views[i].getAttribute('data-modal') === 'answer') {
+    } else if ($views[i].getAttribute('data-clue') === 'answer') {
       $views[i].classList.add('hidden');
-    } else if ($views[i].getAttribute('data-modal') === 'return') {
+    } else if ($views[i].getAttribute('data-clue') === 'return') {
       $views[i].classList.add('hidden');
     }
   }

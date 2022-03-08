@@ -16,37 +16,7 @@
   <div class="container-outer margin-auto">
     <div class="container-outer margin-05-rem bg-purple border-radius-1-rem">
       <div class="container display-flex flex-direction-column margin-auto align-items-center bg-purple border-radius-1-rem" data-view="grid">
-        <div class="modal-off nav-view" id="modal-container" data-view="grid">
-          <div class="container card bg-white">
-            <div class="card-content padding-2-rem">
-              <div class="favorite display-flex flex-end hidden">
-                <button class="fa"><i class="fa-solid fa-star font-size-15-rem grow fa-star-gray"></i></button>
-              </div>
-              <div class="card-text-content padding-right-05-rem">
-                <p class="view clue-text roboto font-weight-500 margin-b-2-rem" data-modal="question"></p>
-                <p class="view click-to-see-answer roboto font-light-gray" data-modal="click-to-see-answer">(click to see answer)</p>
-                <p class="view hidden answer roboto font-weight-500" data-modal="answer"></p>
-                <p class="view hidden points roboto font-weight-500 margin-b-2-rem" data-modal="answer"></p>
-                <div class="view hidden answered-correctly" data-modal="answer">
-                  <p class="view hidden roboto font-weight-500 font-light-blue margin-0" data-modal="answer">Did you answer correctly?:</p>
-                  <div class="answered-correctly-button-container display-flex space-around">
-                    <button class="view hidden answered-correctly roboto" id="yes" data-modal="answer">YES</button>
-                    <button class="view hidden answered-correctly roboto" id="no" data-modal="answer">NO</button>
-                  </div>
-                </div>
-                <div class="return-content display-flex flex-direction-column align-items-center" data-modal="return">
-                  <p class="view hidden return roboto font-weight-500 margin-v-1-rem" data-modal="return">Question already answered</p>
-                  <button class="view hidden return roboto margin-v-1-rem" id="return" data-modal="return">RETURN TO QUESTIONS</button>
-                </div>
-                <div class="reset-questions-content display-flex flex-direction-column align-items-center">
-                  <p class="view hidden return roboto font-weight-500 margin-v-1-rem" data-modal="reset">All Questions Answered!</p>
-                  <p class="view hidden return roboto font-weight-500 margin-v-1-rem" data-modal="reset">You scored <span class="font-light-blue" id="final-score"></span> points!</p>
-                  <button class="view hidden return roboto margin-v-1-rem" id="reset" data-modal="reset">TRY MORE QUESTIONS</button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+
         <header class="container display-flex flex-direction-column align-content-center align-items-center margin-auto border-radius-05-rem">
           <div class="title bg-purple font-white border-radius-1-rem">
             <h1 class="roboto font-size-2-rem margin-0 font-weight-500 padding-1-rem">trivial matters</h1>
@@ -91,6 +61,46 @@
               </div>
             </div>
           </div>
+          <!-- modal -->
+          <div class="modal-off nav-view" id="modal-container" data-view="clue">
+            <div class="container card bg-white">
+              <div class="card-content padding-2-rem">
+                <div class="favorite display-flex flex-end hidden">
+                  <button class="fa"><i class="fa-solid fa-star font-size-15-rem grow fa-star-gray"></i></button>
+                </div>
+                <div class="card-text-content padding-right-05-rem">
+                  <p class="view clue-text roboto font-weight-500 margin-b-2-rem" data-clue="question"></p>
+                  <p class="view click-to-see-answer roboto font-light-gray" data-clue="click-to-see-answer">(click to see
+                    answer)</p>
+                  <p class="view hidden answer roboto font-weight-500" data-clue="answer"></p>
+                  <p class="view hidden points roboto font-weight-500 margin-b-2-rem" data-clue="answer"></p>
+                  <div class="view hidden answered-correctly" data-clue="answer">
+                    <p class="view hidden roboto font-weight-500 font-light-blue margin-0" data-clue="answer">Did you answer
+                      correctly?:</p>
+                    <div class="answered-correctly-button-container display-flex space-around">
+                      <button class="view hidden answered-correctly roboto" id="yes" data-clue="answer">YES</button>
+                      <button class="view hidden answered-correctly roboto" id="no" data-clue="answer">NO</button>
+                    </div>
+                  </div>
+                  <div class="return-content display-flex flex-direction-column align-items-center" data-clue="return">
+                    <p class="view hidden return roboto font-weight-500 margin-v-1-rem" data-clue="return">Question already
+                      answered</p>
+                    <button class="view hidden return roboto margin-v-1-rem" id="return" data-clue="return">RETURN TO
+                      QUESTIONS</button>
+                  </div>
+                  <div class="reset-questions-content display-flex flex-direction-column align-items-center">
+                    <p class="view hidden return roboto font-weight-500 margin-v-1-rem" data-clue="reset">All Questions Answered!
+                    </p>
+                    <p class="view hidden return roboto font-weight-500 margin-v-1-rem" data-clue="reset">You scored <span
+                        class="font-light-blue" id="final-score"></span> points!</p>
+                    <button class="view hidden return roboto margin-v-1-rem" id="reset" data-clue="reset">TRY MORE
+                      QUESTIONS</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- modal end -->
           <div
             class="nav-view container container-questions-correct display-flex flex-direction-column align-items-center justify-content-center margin-auto"
             data-view="questions-correct">
