@@ -63,8 +63,8 @@
           </div>
           <!-- modal -->
           <div class="nav-view hidden" data-view="clue">
-            <div class="container card bg-white border-radius-10-px padding-05-rem margin-v-1-rem">
-              <div class="card-header-container display-flex space-between margin-b-2-rem padding-h-05-rem">
+            <div class="container card bg-white border-radius-10-px padding-1-rem margin-v-1-rem">
+              <div class="card-header-container display-flex space-between margin-b-2-rem padding-h-05-rem ">
                 <div class="return-button display-flex flex-start">
                   <button class="back-to-grid bg-transparent border-none cursor-pointer grow"><i class="fas fa-arrow-left font-size-15-rem"></i></button>
                 </div>
@@ -77,34 +77,39 @@
                   <p class="question-number roboto font-weight-500 font-gray font-size-09-rem" data-clue="question"></p>
                   <p class="view clue-text roboto font-weight-500 margin-b-3-rem " data-clue="question"></p>
                   <button class="view see-answer roboto font-white bg-purple border cursor-pointer grow margin-v-1-rem" data-clue="see-answer">See Answer</button>
-                  <p class="view hidden answer roboto font-weight-500" data-clue="answer"></p>
-                  <p class="view hidden points roboto font-weight-500 margin-b-2-rem" data-clue="answer"></p>
-                  <div class="view hidden answered-correctly" data-clue="answer">
-                    <p class="view hidden roboto font-weight-500 font-light-blue margin-0" data-clue="answer">Did you answer
-                      correctly?:</p>
-                    <div class="answered-correctly-button-container display-flex space-around">
-                      <button class="view hidden answered-correctly roboto" id="yes" data-clue="answer">YES</button>
-                      <button class="view hidden answered-correctly roboto" id="no" data-clue="answer">NO</button>
-                    </div>
-                  </div>
-                  <div class="return-content display-flex flex-direction-column align-items-center" data-clue="return">
-                    <p class="view hidden return roboto font-weight-500 margin-v-1-rem" data-clue="return">Question already
-                      answered</p>
-                    <button class="view hidden return roboto margin-v-1-rem" id="return" data-clue="return">RETURN TO
-                      QUESTIONS</button>
-                  </div>
-                  <div class="reset-questions-content display-flex flex-direction-column align-items-center">
-                    <p class="view hidden return roboto font-weight-500 margin-v-1-rem" data-clue="reset">All Questions Answered!
-                    </p>
-                    <p class="view hidden return roboto font-weight-500 margin-v-1-rem" data-clue="reset">You scored <span
-                        class="font-light-blue" id="final-score"></span> points!</p>
-                    <button class="view hidden return roboto margin-v-1-rem" id="reset" data-clue="reset">TRY MORE
-                      QUESTIONS</button>
+                  <div class="answer-container margin-b-3-rem">
+                    <p class="view hidden answer roboto font-weight-500 font-purple margin-0" data-clue="answer"></p>
+                    <p class="view hidden points roboto font-weight-500 font-purple margin-0" data-clue="answer"></p>
+                    <div class="view hidden answered-correctly" data-clue="answer"> </div>
                   </div>
                 </div>
               </div>
+              <!-- new break -->
+              <div class="view answered-correctly-container bg-light-gray border-radius-10-px padding-1-rem">
+                <p class="view hidden roboto font-weight-500 font-light-blue margin-0" data-clue="answer">Did you answer
+                  correctly?:</p>
+                <div class="answered-correctly-button-container display-flex space-around">
+                  <button class="view hidden answered-correctly roboto" id="yes" data-clue="answer">YES</button>
+                  <button class="view hidden answered-correctly roboto" id="no" data-clue="answer">NO</button>
+                </div>
+              </div>
+              <div class="return-content display-flex flex-direction-column align-items-center" data-clue="return">
+                <p class="view hidden return roboto font-weight-500 margin-v-1-rem" data-clue="return">Question already
+                  answered</p>
+                <button class="view hidden return roboto margin-v-1-rem" id="return" data-clue="return">RETURN TO
+                  QUESTIONS</button>
+              </div>
+              <div class="reset-questions-content display-flex flex-direction-column align-items-center">
+                <p class="view hidden return roboto font-weight-500 margin-v-1-rem" data-clue="reset">All Questions Answered!
+                </p>
+                <p class="view hidden return roboto font-weight-500 margin-v-1-rem" data-clue="reset">You scored <span
+                    class="font-light-blue" id="final-score"></span> points!</p>
+                <button class="view hidden return roboto margin-v-1-rem" id="reset" data-clue="reset">TRY MORE
+                  QUESTIONS</button>
+              </div>
             </div>
           </div>
+
           <!-- modal end -->
           <div
             class="nav-view container container-questions-correct display-flex flex-direction-column align-items-center justify-content-center margin-auto"
