@@ -96,6 +96,10 @@ nav {
   margin-top: 0.5rem;
 }
 
+.margin-v-05-rem {
+  margin: 0.5rem 0;
+}
+
 .margin-v-1-rem {
   margin: 1rem 0;
 }
@@ -283,6 +287,12 @@ nav {
     font-size: 1.5rem;
     color: black;
     background-color: transparent;
+    border: none;
+  }
+
+  button.see-answer {
+    padding: 0.4rem 1.25rem;
+    border-radius: 10px;
     border: none;
   }
 }
