@@ -5,7 +5,7 @@
 
 var $buttonContainer = document.querySelector('.button-container');
 var $buttons = document.querySelectorAll('button.clue');
-var $modal = document.querySelector('.modal-off');
+var $clueContainer = document.querySelector('[data-view="clue"]');
 var $views = document.querySelectorAll('.view');
 var $clue = document.querySelector('.clue-text');
 var $answer = document.querySelector('.answer');
@@ -32,8 +32,8 @@ var $finalScore = document.querySelector('#final-score');
 // event listeners
 
 window.addEventListener('load', loadFromStorage);
-$buttonContainer.addEventListener('click', openModal);
-$modal.addEventListener('click', handleModal);
+$buttonContainer.addEventListener('click', navToClue);
+$clueContainer.addEventListener('click', handleModal);
 $yesButton.addEventListener('click', handleYes);
 $noButton.addEventListener('click', handleNo);
 $returnButton.addEventListener('click', closeModal);
@@ -86,14 +86,25 @@ function loadFromStorage() {
   $pointsHeader.textContent = data.score;
 }
 
-function openModal(event) {
-  $modal.classList.remove('modal-off');
-  $modal.classList.add('modal-on');
-  buttonTarget = event.target;
+function navToClue(event) {
+  if ($clueContainer.classList.contains('hidden')) {
+    $clueContainer.classList.remove('hidden');
+  }
 
-  for (var i = 0; i < $buttons.length; i++) {
-    if (buttonTarget === $buttons[i]) {
-      if (data.clues[i].completed === true) {
+  for (var i = 0; i < $navViews.length; i++) {
+    if ($navViews[i].getAttribute('data-view') === 'questions-correct' && (!$navViews[i].classList.contains('hidden'))) {
+      $navViews[i].classList.add('hidden');
+    } else if ($navViews[i].getAttribute('data-view') === 'grid' && (!$navViews[i].classList.contains('hidden'))) {
+      $navViews[i].classList.add('hidden');
+    } else if ($navViews[i].getAttribute('data-view') === 'favorites' && (!$navViews[i].classList.contains('hidden'))) {
+      $navViews[i].classList.add('hidden');
+    }
+  }
+
+  buttonTarget = event.target;
+  for (var j = 0; j < $buttons.length; j++) {
+    if (buttonTarget === $buttons[j]) {
+      if (data.clues[j].completed === true) {
         checkIfAllAnswered();
         return;
       } else {
@@ -106,8 +117,8 @@ function openModal(event) {
 }
 
 function closeModal(event) {
-  $modal.classList.remove('modal-on');
-  $modal.classList.add('modal-off');
+  // $modal.classList.remove('modal-on');
+  // $modal.classList.add('modal-off');
   resetView();
 }
 
