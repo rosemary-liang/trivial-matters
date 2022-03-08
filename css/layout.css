@@ -11,6 +11,10 @@
   width: 300px;
 } */
 
+.card {
+  min-height: 300px;
+}
+
 .clues-container {
   padding: 0 7rem;
 }
@@ -80,8 +84,8 @@ nav {
   margin-bottom: 1rem;
 }
 
-.margin-b-2-rem {
-  margin-bottom: 2rem;
+.margin-b-3-rem {
+  margin-bottom: 3rem;
 }
 
 .margin-0 {
@@ -130,6 +134,10 @@ nav {
 
 .padding-2-rem {
   padding: 2rem;
+}
+
+.padding-h-05-rem {
+  padding: 0 0.5rem;
 }
 
 .padding-h-1-rem {
@@ -223,12 +231,7 @@ nav {
 
   button.return {
     cursor: pointer;
-    padding: 0.5rem 1.5rem;
-    font-family: Roboto, sans-serif;
-    font-size: 1.25rem;
-    color: black;
-    background-color: transparent;
-    border: none;
+    padding: 0.6rem 1.5rem;
   }
 
   .padding-h-7-rem {
@@ -243,7 +246,7 @@ nav {
     margin: 2rem 0;
   }
 
-  .margin-b-2-rem {
+  .margin-b-3-rem {
     margin-bottom: 5rem;
   }
 }
@@ -281,12 +284,11 @@ nav {
 
   button.return {
     cursor: pointer;
-    padding: 0.4rem 1.25rem;
+    padding: 0.5rem 1.25rem;
     font-weight: 500;
     font-family: Roboto, sans-serif;
     font-size: 1.5rem;
     color: black;
-    background-color: transparent;
     border: none;
   }
 

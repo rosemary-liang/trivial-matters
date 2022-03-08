@@ -64,18 +64,19 @@
           <!-- modal -->
           <div class="nav-view hidden" data-view="clue">
             <div class="container card bg-white border-radius-10-px padding-05-rem margin-v-1-rem">
-              <div class="card-header-container display-flex space-between">
+              <div class="card-header-container display-flex space-between margin-b-2-rem padding-h-05-rem">
                 <div class="return-button display-flex flex-start">
-                  <button class="back-to-grid"><i class="fas fa-arrow-left"></i></button>
+                  <button class="back-to-grid bg-transparent border-none cursor-pointer grow"><i class="fas fa-arrow-left font-size-15-rem"></i></button>
                 </div>
                 <div class="favorite display-flex flex-end hidden">
                   <button class="fa"><i class="fa-solid fa-star font-size-15-rem grow fa-star-gray"></i></button>
                 </div>
               </div>
-              <div class="card-content padding-h-2-rem">
-                <div class="card-text-content padding-right-05-rem">
-                  <p class="view clue-text roboto font-weight-500 margin-b-2-rem " data-clue="question"></p>
-                  <button class="view see-answer roboto font-white bg-purple border cursor-pointer grow" data-clue="see-answer">See Answer</button>
+              <div class="card-content padding-h-1-rem">
+                <div class="card-text-content ">
+                  <p class="question-number roboto font-weight-500 font-gray font-size-09-rem" data-clue="question"></p>
+                  <p class="view clue-text roboto font-weight-500 margin-b-3-rem " data-clue="question"></p>
+                  <button class="view see-answer roboto font-white bg-purple border cursor-pointer grow margin-v-1-rem" data-clue="see-answer">See Answer</button>
                   <p class="view hidden answer roboto font-weight-500" data-clue="answer"></p>
                   <p class="view hidden points roboto font-weight-500 margin-b-2-rem" data-clue="answer"></p>
                   <div class="view hidden answered-correctly" data-clue="answer">

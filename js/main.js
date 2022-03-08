@@ -8,6 +8,8 @@ var $buttons = document.querySelectorAll('button.clue');
 var $clueContainer = document.querySelector('[data-view="clue"]');
 var $views = document.querySelectorAll('.view');
 var $backButton = document.querySelector('.back-to-grid');
+var $seeAnswerButton = document.querySelector('button.see-answer');
+var $questionNumber = document.querySelector('p.question-number');
 var $clue = document.querySelector('.clue-text');
 var $answer = document.querySelector('.answer');
 var $points = document.querySelector('.points');
@@ -19,7 +21,7 @@ var buttonTarget;
 var $favoriteContainer = document.querySelector('.favorite');
 var $starButton = document.querySelector('button.fa');
 var $starIcon = document.querySelector('.fa-star');
-var $returnButton = document.querySelector('#return');
+// var $returnButton = document.querySelector('#return');
 var $navViews = document.querySelectorAll('.nav-view');
 var $cardContainerQCorrect = document.querySelector('.container-questions-correct');
 var $backToQuestionsButton = document.querySelector('button.back-to-questions-1');
@@ -34,11 +36,12 @@ var $finalScore = document.querySelector('#final-score');
 
 window.addEventListener('load', loadFromStorage);
 $buttonContainer.addEventListener('click', navToClue);
-$clueContainer.addEventListener('click', handleModal);
+// $clueContainer.addEventListener('click', handleModal);
+$seeAnswerButton.addEventListener('click', showAnswer);
 $yesButton.addEventListener('click', handleYes);
 $noButton.addEventListener('click', handleNo);
 $backButton.addEventListener('click', navToGrid);
-$returnButton.addEventListener('click', closeModal);
+// $returnButton.addEventListener('click', closeModal);
 $starButton.addEventListener('click', handleFavorite);
 $backToQuestionsButton.addEventListener('click', navToGrid);
 $backToQuestionsButton2.addEventListener('click', navToGrid);
@@ -50,7 +53,7 @@ $resetButton.addEventListener('click', resetAll);
 
 // function calls
 
-closeModal();
+// closeModal();
 getClues();
 renderQuestionsCorrect();
 renderFavorites();
@@ -118,16 +121,17 @@ function navToClue(event) {
 
 }
 
-function closeModal(event) {
-  // $modal.classList.remove('modal-on');
-  // $modal.classList.add('modal-off');
-  resetView();
-}
+// function closeModal(event) {
+// $modal.classList.remove('modal-on');
+// $modal.classList.add('modal-off');
+//   resetView();
+// }
 
 function displayClue() {
   grayStar($starIcon);
   for (var i = 0; i < data.clues.length; i++) {
     if (parseInt(event.target.textContent) === data.clues[i].entryId) {
+      $questionNumber.textContent = 'QUESTION ' + data.clues[i].entryId;
       $clue.textContent = data.clues[i].question;
       $answer.textContent = 'Answer: ' + data.clues[i].answer;
       $points.textContent = 'Points: ' + data.clues[i].points;
@@ -137,20 +141,20 @@ function displayClue() {
   }
 }
 
-function handleModal(event) {
-  var $modalOn = document.querySelector('.modal-on');
-  if (event.target !== $modalOn && event.target !== $resetButton) {
-    for (var i = 0; i < $buttons.length; i++) {
-      if (buttonTarget === $buttons[i] &&
-      data.clues[i].completed !== true) {
-        showAnswer();
-        return;
-      }
-    }
-  } else {
-    closeModal();
-  }
-}
+// function handleModal(event) {
+//   var $modalOn = document.querySelector('.modal-on');
+//   if (event.target !== $modalOn && event.target !== $resetButton) {
+//     for (var i = 0; i < $buttons.length; i++) {
+//       if (buttonTarget === $buttons[i] &&
+//       data.clues[i].completed !== true) {
+//         showAnswer();
+//         return;
+//       }
+//     }
+//   } else {
+//     closeModal();
+//   }
+// }
 
 function showAnswer() {
   for (var i = 0; i < $views.length; i++) {
@@ -211,7 +215,7 @@ function handleNo() {
 
 }
 
-function resetView() {
+function resetClueView() {
   for (var i = 0; i < $views.length; i++) {
     if ($views[i].getAttribute('data-clue') === 'question') {
       $views[i].classList.remove('hidden');
@@ -429,6 +433,7 @@ function navToGrid() {
       $navViews[i].classList.add('hidden');
     }
   }
+  resetClueView();
   // navButtonBlack($favoritesButton);
   // navButtonBlack($qCorrectButton);
 
@@ -560,7 +565,7 @@ function resetAll() {
   $pointsHeader.textContent = data.score;
   getClues();
   blueAllClues();
-  closeModal();
+  // closeModal();
 }
 
 function blueAllClues() {
@@ -586,7 +591,7 @@ function checkIfAllAnswered() {
         returnToQuestions();
         break;
       } else if (buttonTarget === $yesButton || buttonTarget === $noButton) {
-        closeModal();
+        // closeModal();
         break;
       }
     }

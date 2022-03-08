@@ -86,6 +86,10 @@
   color: #406882;
 }
 
+.font-gray {
+  color: #939393;
+}
+
 /* links */
 
 .cursor-pointer {
@@ -97,7 +101,7 @@
 }
 
 .grow:hover {
-  transform: scale(1.1);
+  transform: scale(1.025);
 }
 
 .font-black {
