@@ -64,7 +64,7 @@
           <!-- modal -->
           <div class="nav-view hidden" data-view="clue">
             <div class="container card bg-white border-radius-10-px padding-1-rem margin-v-1-rem">
-              <div class="card-header-container display-flex space-between margin-b-2-rem padding-h-05-rem ">
+              <div class="card-header-container display-flex space-between margin-b-1-rem padding-h-05-rem ">
                 <div class="return-button display-flex flex-start">
                   <button class="back-to-grid bg-transparent border-none cursor-pointer grow"><i class="fas fa-arrow-left font-size-15-rem"></i></button>
                 </div>
@@ -84,13 +84,12 @@
                   </div>
                 </div>
               </div>
-              <!-- new break -->
-              <div class="view answered-correctly-container bg-light-gray border-radius-10-px padding-1-rem">
-                <p class="view hidden roboto font-weight-500 font-light-blue margin-0" data-clue="answer">Did you answer
+              <div class="view answered-correctly-container bg-light-gray border-radius-10-px padding-1-rem " data-clue="answer">
+                <p class="view hidden roboto font-weight-500 font-black text-align-center margin-b-1-rem margin-t-0" data-clue="answer">Did you answer
                   correctly?:</p>
-                <div class="answered-correctly-button-container display-flex space-around">
-                  <button class="view hidden answered-correctly roboto" id="yes" data-clue="answer">YES</button>
-                  <button class="view hidden answered-correctly roboto" id="no" data-clue="answer">NO</button>
+                <div class="answered-correctly-button-container display-flex justify-content-center">
+                  <button class="view hidden answered-correctly roboto cursor-pointer border-none border-radius-10-px margin-h-1-rem" id="yes" data-clue="answer">Yes</button>
+                  <button class="view hidden answered-correctly roboto cursor-pointer border-none border-radius-10-px margin-h-1-rem" id="no" data-clue="answer">No</button>
                 </div>
               </div>
               <div class="return-content display-flex flex-direction-column align-items-center" data-clue="return">

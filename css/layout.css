@@ -73,6 +73,10 @@ nav {
   flex-wrap: wrap;
 }
 
+.text-align-center {
+  text-align: center;
+}
+
 /* modal */
 
 /* margin & padding */
@@ -82,6 +86,10 @@ nav {
 
 .margin-b-1-rem {
   margin-bottom: 1rem;
+}
+
+.margin-b-2-rem {
+  margin-bottom: 2rem;
 }
 
 .margin-b-3-rem {
@@ -96,6 +104,10 @@ nav {
   margin: 0.5rem;
 }
 
+.margin-t-0 {
+  margin-top: 0;
+}
+
 .margin-t-05-rem {
   margin-top: 0.5rem;
 }
@@ -106,6 +118,10 @@ nav {
 
 .margin-v-1-rem {
   margin: 1rem 0;
+}
+
+.margin-h-1-rem {
+  margin: 0 1rem;
 }
 
 .margin-v-2-rem {
@@ -224,17 +240,19 @@ nav {
     margin-top: 4rem;
   }
 
-  button.answered-correctly {
-    cursor: pointer;
-    margin: 1rem;
+  #yes,
+  #no {
     padding: 0.5rem 1.25rem;
     width: 100px;
     font-weight: 500;
-    font-family: Roboto, sans-serif;
     font-size: 1.25rem;
     color: white;
-    background-color: #406882;
+    background-color: #5fd5c1;
     border: none;
+  }
+
+  #no {
+    background-color: #ff8fa2;
   }
 
   button.return {
@@ -254,7 +272,7 @@ nav {
     margin: 2rem 0;
   }
 
-  .margin-b-3-rem {
+  .margin-b-2-rem {
     margin-bottom: 5rem;
   }
 }
@@ -277,27 +295,24 @@ nav {
     border-radius: 10px;
   }
 
-  button.answered-correctly {
-    cursor: pointer;
-    margin: 0.5rem;
-    padding: 0.4rem 1.25rem;
-    width: 66px;
+  #yes,
+  #no {
+    padding: 0.5rem 3.75rem;
     font-weight: 500;
-    font-family: Roboto, sans-serif;
     font-size: 0.9rem;
     color: white;
-    background-color: #406882;
-    border: none;
+    background-color: #5fd5c1;
+  }
+
+  #no {
+    background-color: #ff8fa2;
   }
 
   button.return {
-    cursor: pointer;
     padding: 0.5rem 1.25rem;
     font-weight: 500;
-    font-family: Roboto, sans-serif;
     font-size: 1.5rem;
     color: black;
-    border: none;
   }
 
   button.see-answer {
