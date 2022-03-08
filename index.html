@@ -62,12 +62,17 @@
             </div>
           </div>
           <!-- modal -->
-          <div class="modal-off nav-view" id="modal-container" data-view="clue">
-            <div class="container card bg-white">
-              <div class="card-content padding-2-rem">
+          <div class=" nav-view " data-view="clue">
+            <div class="container card bg-white border-radius-10-px padding-05-rem">
+              <div class="card-header-container display-flex space-between">
+                <div class="return-button display-flex flex-start">
+                  <button class="back-to-questions"><i class="fas fa-arrow-left"></i></button>
+                </div>
                 <div class="favorite display-flex flex-end hidden">
                   <button class="fa"><i class="fa-solid fa-star font-size-15-rem grow fa-star-gray"></i></button>
                 </div>
+              </div>
+              <div class="card-content padding-h-2-rem">
                 <div class="card-text-content padding-right-05-rem">
                   <p class="view clue-text roboto font-weight-500 margin-b-2-rem" data-clue="question"></p>
                   <p class="view click-to-see-answer roboto font-light-gray" data-clue="click-to-see-answer">(click to see
