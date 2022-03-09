@@ -83,6 +83,10 @@ nav {
   margin: auto;
 }
 
+.margin-b-05-rem {
+  margin-bottom: 0.5rem;
+}
+
 .margin-b-1-rem {
   margin-bottom: 1rem;
 }
@@ -157,6 +161,10 @@ nav {
 
 .padding-h-05-rem {
   padding: 0 0.5rem;
+}
+
+.padding-card-in-list {
+  padding: 0 1rem 1rem;
 }
 
 .padding-h-1-rem {

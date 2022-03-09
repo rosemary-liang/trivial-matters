@@ -350,43 +350,52 @@ function renderQuestionCorrect(clue) {
 
 function renderFavorite(clue) {
   var divCard = document.createElement('div');
-  divCard.setAttribute('class', 'container card-in-list margin-b-1-rem border-radius-10-px bg-light-gray');
+  divCard.setAttribute('class', 'container card-in-list margin-v-1-rem border-radius-10-px bg-light-gray');
   divCard.setAttribute('data-entryid-fav', clue.entryId);
   $cardContainerFavorites.appendChild(divCard);
 
-  var divCardContent = document.createElement('div');
-  divCardContent.setAttribute('class', 'card-content padding-1-rem');
-  divCard.appendChild(divCardContent);
+  var divCardContentOuter = document.createElement('div');
+  divCardContentOuter.setAttribute('class', 'padding-card-in-list');
+  divCard.appendChild(divCardContentOuter);
 
   var divFavorite = document.createElement('div');
-  divFavorite.setAttribute('class', 'favorite display-flex flex-end padding-1-rem');
-  divCard.prepend(divFavorite);
+  divFavorite.setAttribute('class', 'favorite display-flex space-between ');
+  divCardContentOuter.prepend(divFavorite);
+
+  var pQuestionNumber = document.createElement('p');
+  pQuestionNumber.setAttribute('class', 'question-number roboto font-gray font-size-08-rem');
+  pQuestionNumber.textContent = 'QUESTION ' + clue.entryId;
+  divFavorite.appendChild(pQuestionNumber);
 
   var buttonFa = document.createElement('button');
   buttonFa.setAttribute('class', 'fa');
   divFavorite.appendChild(buttonFa);
 
   var iStar = document.createElement('i');
-  iStar.setAttribute('class', 'fa-solid fa-star font-size-15-rem grow favorites-page fa-star-yellow');
+  iStar.setAttribute('class', 'fa-solid fa-star font-size-125-rem grow favorites-page fa-star-yellow');
   iStar.setAttribute('data-entryid-fav', clue.entryId);
   buttonFa.appendChild(iStar);
+
+  var divCardContent = document.createElement('div');
+  divCardContent.setAttribute('class', 'card-content ');
+  divCardContentOuter.appendChild(divCardContent);
 
   var divCardTextContent = document.createElement('div');
   divCardTextContent.setAttribute('class', 'card-text-content padding-right-05-rem');
   divCardContent.appendChild(divCardTextContent);
 
   var pClueText = document.createElement('p');
-  pClueText.setAttribute('class', 'clue-text roboto font-weight-500 margin-b-2-rem');
+  pClueText.setAttribute('class', 'clue-text roboto font-weight-500 margin-b-2-rem  margin-t-0');
   pClueText.textContent = clue.question;
   divCardContent.appendChild(pClueText);
 
   var pAnswer = document.createElement('p');
-  pAnswer.setAttribute('class', 'answer roboto font-weight-500');
+  pAnswer.setAttribute('class', 'answer roboto font-weight-500 font-purple margin-b-05-rem');
   pAnswer.textContent = 'Answer: ' + clue.answer;
   divCardContent.appendChild(pAnswer);
 
   var pPoints = document.createElement('p');
-  pPoints.setAttribute('class', 'points roboto font-weight-500 margin-b-2-rem');
+  pPoints.setAttribute('class', 'points roboto font-weight-500  font-purple margin-0');
   pPoints.textContent = 'Points: ' + clue.points;
   divCardContent.appendChild(pPoints);
 }
