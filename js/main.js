@@ -36,7 +36,6 @@ var $finalScore = document.querySelector('#final-score');
 
 window.addEventListener('load', loadFromStorage);
 $buttonContainer.addEventListener('click', navToClue);
-// $clueContainer.addEventListener('click', handleModal);
 $seeAnswerButton.addEventListener('click', showAnswer);
 $yesButton.addEventListener('click', handleYes);
 $noButton.addEventListener('click', handleNo);
@@ -140,21 +139,6 @@ function displayClue() {
     }
   }
 }
-
-// function handleModal(event) {
-//   var $modalOn = document.querySelector('.modal-on');
-//   if (event.target !== $modalOn && event.target !== $resetButton) {
-//     for (var i = 0; i < $buttons.length; i++) {
-//       if (buttonTarget === $buttons[i] &&
-//       data.clues[i].completed !== true) {
-//         showAnswer();
-//         return;
-//       }
-//     }
-//   } else {
-//     closeModal();
-//   }
-// }
 
 function showAnswer() {
   for (var i = 0; i < $views.length; i++) {
