@@ -20,8 +20,7 @@
 }
 
 .card-in-list {
-  width: 500px;
-  height: 350px;
+  width: 470px;
 }
 
 .column-third {
@@ -194,9 +193,9 @@ nav {
     height: 600px;
   }
 
-  .card-in-list {
+  /* .card-in-list {
     width: 420px;
-  }
+  } */
 
   .padding-h-275-rem {
     padding: 0 2.75rem;

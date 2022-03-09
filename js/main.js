@@ -350,16 +350,16 @@ function renderQuestionCorrect(clue) {
 
 function renderFavorite(clue) {
   var divCard = document.createElement('div');
-  divCard.setAttribute('class', 'container card-in-list bg-white margin-b-1-rem margin-t-05-rem padding-1-rem border-solid border-thin box-shadow ');
+  divCard.setAttribute('class', 'container card-in-list margin-b-1-rem border-radius-10-px bg-light-gray');
   divCard.setAttribute('data-entryid-fav', clue.entryId);
   $cardContainerFavorites.appendChild(divCard);
 
   var divCardContent = document.createElement('div');
-  divCardContent.setAttribute('class', 'card-content padding-2-rem');
+  divCardContent.setAttribute('class', 'card-content padding-1-rem');
   divCard.appendChild(divCardContent);
 
   var divFavorite = document.createElement('div');
-  divFavorite.setAttribute('class', 'favorite display-flex flex-end');
+  divFavorite.setAttribute('class', 'favorite display-flex flex-end padding-1-rem');
   divCard.prepend(divFavorite);
 
   var buttonFa = document.createElement('button');
@@ -421,9 +421,7 @@ function navToQuestionsCorrect() {
   for (var i = 0; i < $navViews.length; i++) {
     if ($navViews[i].getAttribute('data-view') === 'questions-correct' && $navViews[i].classList.contains('hidden')) {
       $navViews[i].classList.remove('hidden');
-    } else if ($navViews[i].getAttribute('data-view') === 'grid' && (!$navViews[i].classList.contains('hidden'))) {
-      $navViews[i].classList.add('hidden');
-    } else if ($navViews[i].getAttribute('data-view') === 'favorites' && (!$navViews[i].classList.contains('hidden'))) {
+    } else if ($navViews[i].getAttribute('data-view') !== 'questions-correct' && (!$navViews[i].classList.contains('hidden'))) {
       $navViews[i].classList.add('hidden');
     }
   }
@@ -478,9 +476,7 @@ function navToFavorites() {
   for (var i = 0; i < $navViews.length; i++) {
     if ($navViews[i].getAttribute('data-view') === 'favorites' && $navViews[i].classList.contains('hidden')) {
       $navViews[i].classList.remove('hidden');
-    } else if ($navViews[i].getAttribute('data-view') === 'grid' && (!$navViews[i].classList.contains('hidden'))) {
-      $navViews[i].classList.add('hidden');
-    } else if ($navViews[i].getAttribute('data-view') === 'questions-correct' && (!$navViews[i].classList.contains('hidden'))) {
+    } else if ($navViews[i].getAttribute('data-view') !== 'favorites' && (!$navViews[i].classList.contains('hidden'))) {
       $navViews[i].classList.add('hidden');
     }
   }
