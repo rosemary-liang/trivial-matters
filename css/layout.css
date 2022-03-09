@@ -1,6 +1,5 @@
 .container-outer {
   width: 520px;
-  height: 100vh;
 }
 
 .container {
@@ -137,6 +136,10 @@ nav {
 
 .margin-v-2-rem {
   margin: 2rem 0;
+}
+
+.margin-v-3-rem {
+  margin: 3rem 0;
 }
 
 .padding-0 {
@@ -332,10 +335,7 @@ nav {
   }
 
   button.return {
-    padding: 0.5rem 1.25rem;
-    font-weight: 500;
-    font-size: 1.5rem;
-    color: black;
+    padding: 0.5rem 1.75rem;
   }
 
   button.see-answer {

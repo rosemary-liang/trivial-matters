@@ -145,7 +145,7 @@ function showAnswer() {
   }
 }
 
-function returnToQuestions() {
+function alreadyAnswered() {
   for (var i = 0; i < $views.length; i++) {
     if ($views[i].getAttribute('data-clue') === 'return') {
       $views[i].classList.remove('hidden');
@@ -559,10 +559,9 @@ function checkIfAllAnswered() {
   if (allAnswered === false) {
     for (var j = 0; j < $buttons.length; j++) {
       if (buttonTarget === $buttons[j]) {
-        returnToQuestions();
+        alreadyAnswered();
         break;
       } else if (buttonTarget === $yesButton || buttonTarget === $noButton) {
-        // closeModal();
         break;
       }
     }
