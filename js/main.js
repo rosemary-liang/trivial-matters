@@ -45,8 +45,8 @@ $backButtonCardListFavorites.addEventListener('click', navToGrid);
 $starButton.addEventListener('click', handleFavorite);
 $qCorrectButton.addEventListener('click', navToQuestionsCorrect);
 $favoritesButton.addEventListener('click', navToFavorites);
-$cardContainerFavorites.addEventListener('click', handleFavoriteinCardList, (event, 'favorite'));
-$cardContainerQCorrect.addEventListener('click', handleFavoriteinCardList(event, 'correct'));
+$cardContainerFavorites.addEventListener('click', function (event) { handleFavoriteinCardList(event, 'favorite'); });
+$cardContainerQCorrect.addEventListener('click', function (event) { handleFavoriteinCardList(event, 'correct'); });
 $resetButton.addEventListener('click', resetAll);
 
 // function calls
@@ -303,10 +303,10 @@ function handleFavoriteinCardList(event, type) {
   if (type === 'favorite') {
     var buttonTargetIdFav = parseInt(event.target.getAttribute('data-entryid-fav'));
     for (var i = 0; i < data.clues.length; i++) {
-      if (data.clues[i].entryId === buttonTargetIdFav && data.clues[i] !== true) {
+      if (data.clues[i].entryId === buttonTargetIdFav && data.clues[i].favorite !== true) {
         data.clues[i].favorite = true;
         yellowStar(icon);
-      } else if (data.clues[i].entryId === buttonTargetIdFav && data.clues[i] === true) {
+      } else if (data.clues[i].entryId === buttonTargetIdFav && data.clues[i].favorite === true) {
         data.clues[i].favorite = false;
         whiteStar(icon);
       }
@@ -314,10 +314,10 @@ function handleFavoriteinCardList(event, type) {
   } else if (type === 'correct') {
     var buttonTargetIdCorrect = parseInt(event.target.getAttribute('data-entryid-correct'));
     for (var j = 0; j < data.clues.length; j++) {
-      if (data.clues[j].entryId === buttonTargetIdCorrect && data.clues[j] !== true) {
+      if (data.clues[j].entryId === buttonTargetIdCorrect && data.clues[j].favorite !== true) {
         data.clues[j].favorite = true;
         yellowStar(icon);
-      } else if (data.clues[j].entryId === buttonTargetIdCorrect && data.clues[j] === true) {
+      } else if (data.clues[j].entryId === buttonTargetIdCorrect && data.clues[j].favorite === true) {
         data.clues[j].favorite = false;
         whiteStar(icon);
       }
@@ -356,15 +356,18 @@ function renderCard(clue, type) {
 
   var iStar = document.createElement('i');
   iStar.setAttribute('class', 'fa-solid fa-star font-size-125-rem grow favorites-page fa-star-white');
-  iStar.setAttribute('data-entryid-fav', clue.entryId);
+
+  if (type === 'favorite') {
+    iStar.setAttribute('data-entryid-fav', clue.entryId);
+  } else if (type === 'correct') {
+    iStar.setAttribute('data-entryid-correct', clue.entryId);
+  }
 
   if (clue.favorite === true) {
     yellowStar(iStar);
   } else if (clue.favorite !== true) {
     whiteStar(iStar);
   }
-
-  // need to make whiteStar function
 
   buttonFa.appendChild(iStar);
 
@@ -427,19 +430,28 @@ function navToQuestionsCorrect() {
   }
 
   reRenderQuestionsCorrect();
+  reRenderStarIcons('correct');
 
-  var $qEntryIds = document.querySelectorAll('i[data-entryid]');
-  var qEntryIdsArray = [];
-  for (var j = 0; j < $qEntryIds.length; j++) {
-    qEntryIdsArray.push($qEntryIds[j]);
+}
+
+function reRenderStarIcons(type) {
+  var $entryIds;
+  if (type === 'correct') {
+    $entryIds = document.querySelectorAll('i[data-entryid-correct]');
+  } else if (type === 'favorite') {
+    $entryIds = document.querySelectorAll('i[data-entryid-favorite]');
+  }
+  var entryIdsArray = [];
+  for (var j = 0; j < $entryIds.length; j++) {
+    entryIdsArray.push($entryIds[j]);
   }
   for (var k = 0; k < data.clues.length; k++) {
-    if (qEntryIdsArray.includes(data.clues[k].entryId)) {
-      for (var m = 0; m < $qEntryIds.length; m++) {
+    if (entryIdsArray.includes(data.clues[k].entryId)) {
+      for (var m = 0; m < $entryIds.length; m++) {
         if (data.clues[k].favorite === true) {
-          yellowStar($qEntryIds[m]);
+          yellowStar($entryIds[m]);
         } else if (data.clues[k].favorite === null) {
-          grayStar($qEntryIds[m]);
+          whiteStar($entryIds[m]);
         }
       }
     }
@@ -481,6 +493,7 @@ function navToFavorites() {
     }
   }
   reRenderFavorites();
+  reRenderStarIcons('favorite');
 
 }
 
