@@ -40,7 +40,6 @@ $seeAnswerButton.addEventListener('click', showAnswer);
 $yesButton.addEventListener('click', handleYes);
 $noButton.addEventListener('click', handleNo);
 $backButton.addEventListener('click', navToGrid);
-// $returnButton.addEventListener('click', closeModal);
 $starButton.addEventListener('click', handleFavorite);
 $backToQuestionsButton.addEventListener('click', navToGrid);
 $backToQuestionsButton2.addEventListener('click', navToGrid);
@@ -119,12 +118,6 @@ function navToClue(event) {
   }
 
 }
-
-// function closeModal(event) {
-// $modal.classList.remove('modal-on');
-// $modal.classList.add('modal-off');
-//   resetView();
-// }
 
 function displayClue() {
   grayStar($starIcon);
