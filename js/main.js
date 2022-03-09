@@ -354,13 +354,13 @@ function renderFavorite(clue) {
   divCard.setAttribute('data-entryid-fav', clue.entryId);
   $cardContainerFavorites.appendChild(divCard);
 
-  var divCardContentOuter = document.createElement('div');
-  divCardContentOuter.setAttribute('class', 'padding-card-in-list');
-  divCard.appendChild(divCardContentOuter);
+  // var divCardContentOuter = document.createElement('div');
+  // divCardContentOuter.setAttribute('class', 'padding-card-in-list');
+  // divCard.appendChild(divCardContentOuter);
 
   var divFavorite = document.createElement('div');
-  divFavorite.setAttribute('class', 'favorite display-flex space-between ');
-  divCardContentOuter.prepend(divFavorite);
+  divFavorite.setAttribute('class', 'favorite display-flex space-between padding-left-1-rem  ');
+  divCard.prepend(divFavorite);
 
   var pQuestionNumber = document.createElement('p');
   pQuestionNumber.setAttribute('class', 'question-number roboto font-gray font-size-08-rem');
@@ -368,7 +368,7 @@ function renderFavorite(clue) {
   divFavorite.appendChild(pQuestionNumber);
 
   var buttonFa = document.createElement('button');
-  buttonFa.setAttribute('class', 'fa');
+  buttonFa.setAttribute('class', 'fa padding-right-05-rem');
   divFavorite.appendChild(buttonFa);
 
   var iStar = document.createElement('i');
@@ -377,8 +377,8 @@ function renderFavorite(clue) {
   buttonFa.appendChild(iStar);
 
   var divCardContent = document.createElement('div');
-  divCardContent.setAttribute('class', 'card-content ');
-  divCardContentOuter.appendChild(divCardContent);
+  divCardContent.setAttribute('class', 'card-content padding-card-content');
+  divCard.appendChild(divCardContent);
 
   var divCardTextContent = document.createElement('div');
   divCardTextContent.setAttribute('class', 'card-text-content padding-right-05-rem');
@@ -390,7 +390,7 @@ function renderFavorite(clue) {
   divCardContent.appendChild(pClueText);
 
   var pAnswer = document.createElement('p');
-  pAnswer.setAttribute('class', 'answer roboto font-weight-500 font-purple margin-b-05-rem');
+  pAnswer.setAttribute('class', 'answer roboto font-weight-500 font-purple margin-v-025-rem');
   pAnswer.textContent = 'Answer: ' + clue.answer;
   divCardContent.appendChild(pAnswer);
 

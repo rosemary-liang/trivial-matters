@@ -35,6 +35,10 @@ nav {
   display: none !important;
 }
 
+.position-absolute {
+  position: absolute;
+}
+
 /* display-flex */
 .display-flex {
   display: flex;
@@ -103,6 +107,10 @@ nav {
   margin: 0;
 }
 
+.margin-v-025-rem {
+  margin: 0.25rem 0;
+}
+
 .margin-05-rem {
   margin: 0.5rem;
 }
@@ -135,12 +143,24 @@ nav {
   padding: 0;
 }
 
-.padding-left-05-rem {
-  padding-left: 0.5rem;
+.padding-left-1-rem {
+  padding-left: 1rem;
 }
 
 .padding-right-05-rem {
   padding-right: 0.5rem;
+}
+
+.padding-t-05-rem {
+  padding-top: 0.5rem;
+}
+
+.padding-h-05-rem {
+  padding: 0 0.5rem;
+}
+
+.padding-b-1-rem {
+  padding-bottom: 1em;
 }
 
 .padding-05-rem {
@@ -159,11 +179,7 @@ nav {
   padding: 2rem;
 }
 
-.padding-h-05-rem {
-  padding: 0 0.5rem;
-}
-
-.padding-card-in-list {
+.padding-card-content {
   padding: 0 1rem 1rem;
 }
 
