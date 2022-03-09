@@ -21,7 +21,6 @@ var buttonTarget;
 var $favoriteContainer = document.querySelector('.favorite');
 var $starButton = document.querySelector('button.fa');
 var $starIcon = document.querySelector('.fa-star');
-// var $returnButton = document.querySelector('#return');
 var $navViews = document.querySelectorAll('.nav-view');
 var $cardContainerQCorrect = document.querySelector('.container-questions-correct');
 var $backToQuestionsButton = document.querySelector('button.back-to-questions-1');
