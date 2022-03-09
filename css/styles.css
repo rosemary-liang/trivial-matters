@@ -133,6 +133,10 @@
   color: whitesmoke;
 }
 
+.fa-star-white {
+  color: white;
+}
+
 .fa-star-yellow {
   color: rgb(255, 217, 0);
 }

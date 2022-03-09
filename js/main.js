@@ -3,11 +3,13 @@
 
 // dom queries
 
-var $buttonContainer = document.querySelector('.button-container');
+var $gridButtonContainer = document.querySelector('.button-container');
 var $buttons = document.querySelectorAll('button.clue');
 var $clueContainer = document.querySelector('[data-view="clue"]');
 var $views = document.querySelectorAll('.view');
 var $backButton = document.querySelector('.back-to-grid');
+var $backButtonCardListCorrect = document.querySelector('.back-to-questions-correct');
+var $backButtonCardListFavorites = document.querySelector('.back-to-questions-fav');
 var $seeAnswerButton = document.querySelector('button.see-answer');
 var $questionNumber = document.querySelector('p.question-number');
 var $clue = document.querySelector('.clue-text');
@@ -20,11 +22,10 @@ var $pointsHeader = document.querySelector('span.score');
 var buttonTarget;
 var $favoriteContainer = document.querySelector('.favorite');
 var $starButton = document.querySelector('button.fa');
+// var $starButtonInCards = document.querySelectorAll('button.button-cards');
 var $starIcon = document.querySelector('.fa-star');
 var $navViews = document.querySelectorAll('.nav-view');
 var $cardContainerQCorrect = document.querySelector('.container-questions-correct');
-var $backToQuestionsButton = document.querySelector('button.back-to-questions-1');
-var $backToQuestionsButton2 = document.querySelector('button.back-to-questions-2');
 var $qCorrectButton = document.querySelector('#nav-questions-correct');
 var $cardContainerFavorites = document.querySelector('.container-favorites');
 var $favoritesButton = document.querySelector('#nav-favorites');
@@ -34,23 +35,22 @@ var $finalScore = document.querySelector('#final-score');
 // event listeners
 
 window.addEventListener('load', loadFromStorage);
-$buttonContainer.addEventListener('click', navToClue);
+$gridButtonContainer.addEventListener('click', navToClue);
 $seeAnswerButton.addEventListener('click', showAnswer);
 $yesButton.addEventListener('click', handleYes);
 $noButton.addEventListener('click', handleNo);
 $backButton.addEventListener('click', navToGrid);
+$backButtonCardListCorrect.addEventListener('click', navToGrid);
+$backButtonCardListFavorites.addEventListener('click', navToGrid);
 $starButton.addEventListener('click', handleFavorite);
-$backToQuestionsButton.addEventListener('click', navToGrid);
-$backToQuestionsButton2.addEventListener('click', navToGrid);
 $qCorrectButton.addEventListener('click', navToQuestionsCorrect);
 $favoritesButton.addEventListener('click', navToFavorites);
-$cardContainerFavorites.addEventListener('click', handleFavoriteinFavCardList);
-$cardContainerQCorrect.addEventListener('click', handleFavoriteinQCardList);
+$cardContainerFavorites.addEventListener('click', handleFavoriteinCardList, (event, 'favorite'));
+$cardContainerQCorrect.addEventListener('click', handleFavoriteinCardList(event, 'correct'));
 $resetButton.addEventListener('click', resetAll);
 
 // function calls
 
-// closeModal();
 getClues();
 renderCards('favorite');
 renderCards('correct');
@@ -193,9 +193,7 @@ function handleNo() {
 
 function resetClueView() {
   for (var i = 0; i < $views.length; i++) {
-    if ($views[i].getAttribute('data-clue') === 'question') {
-      $views[i].classList.remove('hidden');
-    } else if ($views[i].getAttribute('data-clue') === 'see-answer') {
+    if ($views[i].getAttribute('data-clue') === 'question' || $views[i].getAttribute('data-clue') === 'see-answer') {
       $views[i].classList.remove('hidden');
     } else if ($views[i].getAttribute('data-clue') === 'answer') {
       $views[i].classList.add('hidden');
@@ -237,6 +235,15 @@ function grayStar(icon) {
   }
 }
 
+function whiteStar(icon) {
+  if (!(icon.classList.contains('fa-star-white'))) {
+    icon.classList.add('fa-star-white');
+  }
+  if (icon.classList.contains('fa-star-yellow')) {
+    icon.classList.remove('fa-star-yellow');
+  }
+}
+
 function handleFavorite() {
   var icon = $starIcon;
   var buttonTargetId = parseInt(buttonTarget.textContent);
@@ -256,49 +263,81 @@ function handleFavorite() {
 
 // favorites & questions correct views
 
-function handleFavoriteinQCardList(event) {
-  var buttonTargetId = parseInt(event.target.getAttribute('data-entryid'));
-  var icon = event.target;
-  for (var i = 0; i < data.clues.length; i++) {
-    if (data.clues[i].entryId === buttonTargetId &&
-      data.clues[i].favorite !== true) {
-      data.clues[i].favorite = true;
-      yellowStar(icon);
+// function handleFavoriteinQCardList(event) {
+//   var buttonTargetId = parseInt(event.target.getAttribute('data-entryid-correct'));
+//   var icon = event.target;
+//   for (var i = 0; i < data.clues.length; i++) {
+//     if (data.clues[i].entryId === buttonTargetId &&
+//       data.clues[i].favorite !== true) {
+//       data.clues[i].favorite = true;
+//       yellowStar(icon);
 
-    } else if (data.clues[i].entryId === buttonTargetId &&
-      data.clues[i].favorite === true) {
-      data.clues[i].favorite = null;
-      grayStar(icon);
+//     } else if (data.clues[i].entryId === buttonTargetId &&
+//       data.clues[i].favorite === true) {
+//       data.clues[i].favorite = null;
+//       whiteStar(icon);
+//     }
+//   }
+// }
+
+// function handleFavoriteinFavCardList(event) {
+//   var buttonTargetId = parseInt(event.target.getAttribute('data-entryid-fav'));
+//   var icon = event.target;
+//   for (var i = 0; i < data.clues.length; i++) {
+//     if (data.clues[i].entryId === buttonTargetId &&
+//       data.clues[i].favorite !== true) {
+//       data.clues[i].favorite = true;
+//       yellowStar(icon);
+
+//     } else if (data.clues[i].entryId === buttonTargetId &&
+//       data.clues[i].favorite === true) {
+//       data.clues[i].favorite = null;
+//       whiteStar(icon);
+//     }
+//   }
+// }
+
+function handleFavoriteinCardList(event, type) {
+  var icon = event.target;
+
+  if (type === 'favorite') {
+    var buttonTargetIdFav = parseInt(event.target.getAttribute('data-entryid-fav'));
+    for (var i = 0; i < data.clues.length; i++) {
+      if (data.clues[i].entryId === buttonTargetIdFav && data.clues[i] !== true) {
+        data.clues[i].favorite = true;
+        yellowStar(icon);
+      } else if (data.clues[i].entryId === buttonTargetIdFav && data.clues[i] === true) {
+        data.clues[i].favorite = false;
+        whiteStar(icon);
+      }
+    }
+  } else if (type === 'correct') {
+    var buttonTargetIdCorrect = parseInt(event.target.getAttribute('data-entryid-correct'));
+    for (var j = 0; j < data.clues.length; j++) {
+      if (data.clues[j].entryId === buttonTargetIdCorrect && data.clues[j] !== true) {
+        data.clues[j].favorite = true;
+        yellowStar(icon);
+      } else if (data.clues[j].entryId === buttonTargetIdCorrect && data.clues[j] === true) {
+        data.clues[j].favorite = false;
+        whiteStar(icon);
+      }
     }
   }
 }
 
-function handleFavoriteinFavCardList(event) {
-  var buttonTargetId = parseInt(event.target.getAttribute('data-entryid-fav'));
-  var icon = event.target;
-  for (var i = 0; i < data.clues.length; i++) {
-    if (data.clues[i].entryId === buttonTargetId &&
-      data.clues[i].favorite !== true) {
-      data.clues[i].favorite = true;
-      yellowStar(icon);
-
-    } else if (data.clues[i].entryId === buttonTargetId &&
-      data.clues[i].favorite === true) {
-      data.clues[i].favorite = null;
-      grayStar(icon);
-    }
-  }
-}
+// starbutton node list
+// combine handle favorites function
 
 // type = string "favorite" or "correct"
 function renderCard(clue, type) {
   var divCard = document.createElement('div');
   divCard.setAttribute('class', 'container card-in-list margin-v-1-rem border-radius-10-px bg-light-gray');
-  divCard.setAttribute('data-entryid-fav', clue.entryId);
 
   if (type === 'favorite') {
+    divCard.setAttribute('data-entryid-fav', clue.entryId);
     $cardContainerFavorites.appendChild(divCard);
   } else if (type === 'correct') {
+    divCard.setAttribute('data-entryid-correct', clue.entryId);
     $cardContainerQCorrect.appendChild(divCard);
   }
 
@@ -312,12 +351,21 @@ function renderCard(clue, type) {
   divFavorite.appendChild(pQuestionNumber);
 
   var buttonFa = document.createElement('button');
-  buttonFa.setAttribute('class', 'fa padding-right-05-rem');
+  buttonFa.setAttribute('class', 'button-cards padding-right-05-rem border-none cursor-pointer');
   divFavorite.appendChild(buttonFa);
 
   var iStar = document.createElement('i');
-  iStar.setAttribute('class', 'fa-solid fa-star font-size-125-rem grow favorites-page fa-star-yellow');
+  iStar.setAttribute('class', 'fa-solid fa-star font-size-125-rem grow favorites-page fa-star-white');
   iStar.setAttribute('data-entryid-fav', clue.entryId);
+
+  if (clue.favorite === true) {
+    yellowStar(iStar);
+  } else if (clue.favorite !== true) {
+    whiteStar(iStar);
+  }
+
+  // need to make whiteStar function
+
   buttonFa.appendChild(iStar);
 
   var divCardContent = document.createElement('div');
@@ -362,11 +410,7 @@ function navToGrid() {
   for (var i = 0; i < $navViews.length; i++) {
     if ($navViews[i].getAttribute('data-view') === 'grid' && $navViews[i].classList.contains('hidden')) {
       $navViews[i].classList.remove('hidden');
-    } else if ($navViews[i].getAttribute('data-view') === 'questions-correct' && (!$navViews[i].classList.contains('hidden'))) {
-      $navViews[i].classList.add('hidden');
-    } else if ($navViews[i].getAttribute('data-view') === 'favorites' && (!$navViews[i].classList.contains('hidden'))) {
-      $navViews[i].classList.add('hidden');
-    } else if ($navViews[i].getAttribute('data-view') === 'clue' && (!$navViews[i].classList.contains('hidden'))) {
+    } else if ($navViews[i].getAttribute('data-view') !== 'grid' && (!$navViews[i].classList.contains('hidden'))) {
       $navViews[i].classList.add('hidden');
     }
   }
@@ -404,9 +448,9 @@ function navToQuestionsCorrect() {
 
 function reRenderQuestionsCorrect() {
   var existingCardArray = [];
-  var $existingCards = document.querySelectorAll('div[data-entryid]');
+  var $existingCards = document.querySelectorAll('div[data-entryid-correct]');
   for (var j = 0; j < $existingCards.length; j++) {
-    var existingEntryId = parseInt($existingCards[j].getAttribute('data-entryid'));
+    var existingEntryId = parseInt($existingCards[j].getAttribute('data-entryid-correct'));
     existingCardArray.push(existingEntryId);
   }
 
@@ -418,13 +462,14 @@ function reRenderQuestionsCorrect() {
     } else if (data.clues[i].completed !== true) {
       if (existingCardArray.includes(data.clues[i].entryId)) {
         for (var k = 0; k < $existingCards.length; k++) {
-          if (data.clues[i].entryId === parseInt($existingCards[k].getAttribute('data-entryid'))) {
+          if (data.clues[i].entryId === parseInt($existingCards[k].getAttribute('data-entryid-correct'))) {
             $existingCards[k].remove();
           }
         }
       }
     }
   }
+
 }
 
 function navToFavorites() {
