@@ -175,6 +175,7 @@ function handleYes() {
   data.currentlyAnswering = null;
   grayClue();
   checkIfAllAnswered();
+  navToGrid();
 
 }
 
@@ -196,6 +197,7 @@ function handleNo() {
   data.currentlyAnswering = null;
   grayClue();
   checkIfAllAnswered();
+  navToGrid();
 
 }
 
