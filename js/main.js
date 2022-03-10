@@ -351,7 +351,7 @@ function renderCard(clue, type) {
   divFavorite.appendChild(pQuestionNumber);
 
   var buttonFa = document.createElement('button');
-  buttonFa.setAttribute('class', 'button-cards padding-right-05-rem border-none cursor-pointer');
+  buttonFa.setAttribute('class', 'button-cards padding-right-05-rem border-none cursor-pointer border-radius-10-px');
   divFavorite.appendChild(buttonFa);
 
   var iStar = document.createElement('i');

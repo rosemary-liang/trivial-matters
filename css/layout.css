@@ -226,7 +226,7 @@ nav {
 
   .container-outer {
     width: 420px;
-    height: 800px;
+    min-height: 800px;
   }
 
   nav {
@@ -250,9 +250,9 @@ nav {
     font-size: 0.88rem;
   }
 
-  /* .card-in-list {
-    width: 420px;
-  } */
+  .card-in-list {
+    width: 350px;
+  }
 
   .margin-b-1-rem {
     margin-bottom: 0.5rem;
@@ -289,9 +289,13 @@ nav {
 
   .card-text-content > p,
   .answered-correctly-container > p,
-  p.answer,
-  p.points {
+  p.clue-answer,
+  p.clue-points {
     font-size: 1.1rem;
+  }
+
+  p.clue-text {
+    margin-bottom: 2rem;
   }
 
   p.return-already-answered {
@@ -321,57 +325,53 @@ nav {
 
   #no {
     background-color: #ff8fa2;
-
-    button.return {
-      cursor: pointer;
-      padding: 0.6rem 1.5rem;
-    }
-
-    .padding-h-7-rem {
-      padding: 0;
-    }
-
-    .padding-left-05-rem {
-      padding-left: 1.5rem;
-    }
-
-    .margin-b-2-rem {
-      margin-bottom: 5rem;
-    }
-
-    .font-size-15-rem {
-      font-size: 2.5rem;
-    }
   }
 
-  /* media rule large screen */
+  button.return {
+    cursor: pointer;
+    padding: 0.6rem 1.5rem;
+  }
 
-  @media screen and (min-width: 768px) {
-    button.clue {
-      cursor: pointer;
-      width: 150px;
-      height: 100px;
-      margin: 0.25rem;
-      text-align: right;
-      padding-top: 35px;
-      padding-right: 35px;
-      font-weight: 500;
-      font-family: Roboto, sans-serif;
-      font-size: 1.25rem;
-      color: #6a5ae0;
-      background-color: #efeefc;
-      border: none;
-      border-radius: 10px;
-    }
+  .padding-h-7-rem {
+    padding: 0;
+  }
 
-    button.return {
-      padding: 0.5rem 1.75rem;
-    }
+  .margin-b-2-rem {
+    margin-bottom: 5rem;
+  }
 
-    button.see-answer {
-      padding: 0.4rem 1.25rem;
-      border-radius: 10px;
-      border: none;
-    }
+  .font-size-15-rem {
+    font-size: 1.75rem;
+  }
+}
+
+/* media rule large screen */
+
+@media screen and (min-width: 768px) {
+  button.clue {
+    cursor: pointer;
+    width: 150px;
+    height: 100px;
+    margin: 0.25rem;
+    text-align: right;
+    padding-top: 35px;
+    padding-right: 35px;
+    font-weight: 500;
+    font-family: Roboto, sans-serif;
+    font-size: 1.25rem;
+    color: #6a5ae0;
+    background-color: #efeefc;
+    border: none;
+    border-radius: 10px;
+  }
+
+  button.return {
+    padding: 0.5rem 1.75rem;
+  }
+
+  button.see-answer {
+    padding: 0.4rem 1.25rem;
+    border-radius: 10px;
+    border: none;
   }
 }
