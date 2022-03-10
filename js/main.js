@@ -376,7 +376,7 @@ function renderCards(type) {
         renderCard(data.clues[i], type);
       }
     } else if (type === 'correct') {
-      if (data.clues[i].corredct === true) {
+      if (data.clues[i].correct === true) {
         renderCard(data.clues[i], type);
       }
     }
@@ -443,12 +443,12 @@ function reRenderQuestionsCorrect() {
   }
   var anyCorrectArray = [];
   for (var i = 0; i < data.clues.length; i++) {
-    if (data.clues[i].completed === true) {
+    if (data.clues[i].correct === true) {
       anyCorrectArray.push(data.clues[i]);
       if (!(existingCardArray.includes(data.clues[i].entryId))) {
         renderCard(data.clues[i], 'correct');
       }
-    } else if (data.clues[i].completed !== true) {
+    } else if (data.clues[i].correct !== true) {
       if (existingCardArray.includes(data.clues[i].entryId)) {
         for (var k = 0; k < $existingCards.length; k++) {
           if (data.clues[i].entryId === parseInt($existingCards[k].getAttribute('data-entryid-correct'))) {
@@ -527,6 +527,7 @@ function resetAll() {
   $pointsHeader.textContent = data.score;
   getClues();
   blueAllClues();
+  grayStar($starIcon);
   navToGrid();
 }
 
