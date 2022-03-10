@@ -181,6 +181,10 @@ nav {
   padding: 1rem;
 }
 
+.padding-1-rem-except-bottom {
+  padding: 1rem 1rem 0;
+}
+
 .padding-h-2-rem {
   padding: 0 2rem;
 }

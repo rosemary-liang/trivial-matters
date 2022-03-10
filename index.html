@@ -76,7 +76,7 @@
                   <p class="view question-number roboto font-weight-500 font-gray font-size-09-rem" data-clue="question"></p>
                   <p class="view clue-text roboto font-weight-500 margin-b-3-rem " data-clue="question"></p>
                   <button class="view see-answer roboto font-white bg-purple border cursor-pointer grow margin-v-1-rem" data-clue="see-answer">See Answer</button>
-                  <div class="answer-container margin-b-3-rem">
+                  <div class="answer-container margin-b-3-rem" data-clue="answer">
                     <p class="view hidden clue-answer roboto font-weight-500 font-purple margin-0" data-clue="answer"></p>
                     <p class="view hidden clue-points roboto font-weight-500 font-purple margin-0" data-clue="answer"></p>
                     <div class="view hidden answered-correctly" data-clue="answer"> </div>
@@ -108,7 +108,7 @@
             class="nav-view container hidden display-flex flex-direction-column align-items-center justify-content-center margin-v-1-rem"
             data-view="questions-correct">
             <div class=" bg-white container border-radius-10-px">
-              <div class="container-questions-correct  container content padding-1-rem">
+              <div class="container-questions-correct  container content padding-1-rem-except-bottom">
                 <div class="nav-buttons-container display-flex margin-b-1-rem">
                   <div class="back-button-container position-absolute">
                     <button
@@ -122,12 +122,11 @@
               </div>
             </div>
           </div>
-          <!-- favorites -->
           <div
             class="nav-view container hidden display-flex flex-direction-column align-items-center justify-content-center margin-v-1-rem"
             data-view="favorites">
-            <div class=" bg-white cotainer border-radius-10-px">
-              <div class="container-favorites  container content padding-1-rem">
+            <div class=" bg-white container border-radius-10-px">
+              <div class="container-favorites  container content padding-1-rem-except-bottom">
                 <div class="nav-buttons-container display-flex margin-b-1-rem">
                   <div class="back-button-container position-absolute">
                     <button class="back-to-questions-fav roboto border-none bg-transparent font-size-1-rem font-black font-weight-500 grow cursor-pointer"><i class="fas fa-arrow-left font-size-15-rem"></i></button>

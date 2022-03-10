@@ -13,8 +13,8 @@ var $backButtonCardListFavorites = document.querySelector('.back-to-questions-fa
 var $seeAnswerButton = document.querySelector('button.see-answer');
 var $questionNumber = document.querySelector('p.question-number');
 var $clue = document.querySelector('.clue-text');
-var $answer = document.querySelector('.answer');
-var $points = document.querySelector('.points');
+var $answer = document.querySelector('.clue-answer');
+var $points = document.querySelector('.clue-points');
 var $yesButton = document.querySelector('#yes');
 var $noButton = document.querySelector('#no');
 var $qCorrectHeader = document.querySelector('span.q-correct');
@@ -22,7 +22,6 @@ var $pointsHeader = document.querySelector('span.score');
 var buttonTarget;
 var $favoriteContainer = document.querySelector('.favorite');
 var $starButton = document.querySelector('button.fa');
-// var $starButtonInCards = document.querySelectorAll('button.button-cards');
 var $starIcon = document.querySelector('.fa-star');
 var $navViews = document.querySelectorAll('.nav-view');
 var $cardContainerQCorrect = document.querySelector('.container-questions-correct');
@@ -37,8 +36,8 @@ var $finalScore = document.querySelector('#final-score');
 window.addEventListener('load', loadFromStorage);
 $gridButtonContainer.addEventListener('click', navToClue);
 $seeAnswerButton.addEventListener('click', showAnswer);
-$yesButton.addEventListener('click', handleYes);
-$noButton.addEventListener('click', handleNo);
+$yesButton.addEventListener('click', function (event) { handleYesOrNo(event, 'yes'); });
+$noButton.addEventListener('click', function (event) { handleYesOrNo(event, 'no'); });
 $backButton.addEventListener('click', navToGrid);
 $backButtonCardListCorrect.addEventListener('click', navToGrid);
 $backButtonCardListFavorites.addEventListener('click', navToGrid);
@@ -104,6 +103,11 @@ function navToClue(event) {
   }
 
   buttonTarget = event.target;
+  for (var k = 0; k < data.clues.length; k++) {
+    if (data.clues[k].entryId === parseInt(buttonTarget.textContent)) {
+      data.currentlyAnswering = data.clues[k];
+    }
+  }
   for (var j = 0; j < $buttons.length; j++) {
     if (buttonTarget === $buttons[j]) {
       if (data.clues[j].completed === true) {
@@ -126,7 +130,6 @@ function displayClue() {
       $clue.textContent = data.clues[i].question;
       $answer.textContent = 'Answer: ' + data.clues[i].answer;
       $points.textContent = 'Points: ' + data.clues[i].points;
-      data.currentlyAnswering = data.clues[i];
       return;
     }
   }
@@ -155,20 +158,6 @@ function alreadyAnswered() {
   }
 }
 
-function handleYes() {
-  buttonTarget = event.target;
-  data.currentlyAnswering.completed = true;
-  data.currentlyAnswering.correct = true;
-  data.score += data.currentlyAnswering.points;
-  countCorrect();
-  $pointsHeader.textContent = data.score;
-  data.currentlyAnswering = null;
-  grayClue();
-  checkIfAllAnswered();
-  navToGrid();
-
-}
-
 function countCorrect() {
   var counter = 0;
   for (var i = 0; i < data.clues.length; i++) {
@@ -180,14 +169,31 @@ function countCorrect() {
   counter = 0;
 }
 
-function handleNo() {
+function handleYesOrNo(event, yesOrNo) {
   buttonTarget = event.target;
   data.currentlyAnswering.completed = true;
-  data.currentlyAnswering.correct = false;
+  if (yesOrNo === 'yes') {
+    data.currentlyAnswering.correct = true;
+    data.score += data.currentlyAnswering.points;
+    countCorrect();
+    $pointsHeader.textContent = data.score;
+  } else if (yesOrNo === 'no') {
+    data.currentlyAnswering.correct = false;
+  }
+
   data.currentlyAnswering = null;
   grayClue();
-  checkIfAllAnswered();
-  navToGrid();
+  var completedArray = [];
+  for (var i = 0; i < data.clues.length; i++) {
+    if (data.clues[i].completed === true) {
+      completedArray.push(data.clues[i]);
+    }
+  }
+  if (completedArray.length !== 9) {
+    navToGrid();
+  } else {
+    checkIfAllAnswered();
+  }
 
 }
 
@@ -260,42 +266,6 @@ function handleFavorite() {
   }
   return icon;
 }
-
-// favorites & questions correct views
-
-// function handleFavoriteinQCardList(event) {
-//   var buttonTargetId = parseInt(event.target.getAttribute('data-entryid-correct'));
-//   var icon = event.target;
-//   for (var i = 0; i < data.clues.length; i++) {
-//     if (data.clues[i].entryId === buttonTargetId &&
-//       data.clues[i].favorite !== true) {
-//       data.clues[i].favorite = true;
-//       yellowStar(icon);
-
-//     } else if (data.clues[i].entryId === buttonTargetId &&
-//       data.clues[i].favorite === true) {
-//       data.clues[i].favorite = null;
-//       whiteStar(icon);
-//     }
-//   }
-// }
-
-// function handleFavoriteinFavCardList(event) {
-//   var buttonTargetId = parseInt(event.target.getAttribute('data-entryid-fav'));
-//   var icon = event.target;
-//   for (var i = 0; i < data.clues.length; i++) {
-//     if (data.clues[i].entryId === buttonTargetId &&
-//       data.clues[i].favorite !== true) {
-//       data.clues[i].favorite = true;
-//       yellowStar(icon);
-
-//     } else if (data.clues[i].entryId === buttonTargetId &&
-//       data.clues[i].favorite === true) {
-//       data.clues[i].favorite = null;
-//       whiteStar(icon);
-//     }
-//   }
-// }
 
 function handleFavoriteinCardList(event, type) {
   var icon = event.target;
@@ -522,26 +492,6 @@ function reRenderFavorites() {
   }
 }
 
-// function navButtonBlue(button) {
-//   if (button.classList.contains('font-black')) {
-//     button.classList.remove('font-black');
-//     button.classList.add('font-light-blue');
-//   } else {
-//     button.classList.add('font-light-blue');
-//   }
-// }
-
-// function navButtonBlack(button) {
-//   if (button.classList.contains('font-light-blue')) {
-//     button.classList.remove('font-light-blue');
-//     button.classList.add('font-black');
-//   } else {
-//     button.classList.add('font-black');
-//   }
-// }
-
-// reset - try more questions
-
 function resetAll() {
   data.clues = [];
   data.score = 0;
@@ -550,6 +500,7 @@ function resetAll() {
   $pointsHeader.textContent = data.score;
   getClues();
   blueAllClues();
+  navToGrid();
 }
 
 function blueAllClues() {
