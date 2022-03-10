@@ -122,6 +122,7 @@ function getClues() {
         data.clues.push(clueData);
         data.nextEntryId++;
       }
+      // console.log('data.clues', data.clues);
     });
     xhr.send();
   }
@@ -172,9 +173,9 @@ function displayClue() {
   grayStar($starIcon);
   for (var i = 0; i < data.clues.length; i++) {
     if (parseInt(event.target.textContent) === data.clues[i].entryId) {
-      $questionNumber.textContent = 'QUESTION ' + data.clues[i].entryId;
-      $clue.textContent = data.clues[i].question;
-      $answer.textContent = 'Answer: ' + data.clues[i].answer;
+      $questionNumber.innerHTML = 'QUESTION ' + data.clues[i].entryId;
+      $clue.innerHTML = data.clues[i].question;
+      $answer.innerHTML = 'Answer: ' + data.clues[i].answer;
       $points.textContent = 'Points: ' + data.clues[i].points;
       return;
     }
@@ -452,17 +453,26 @@ function navToQuestionsCorrect() {
 
 }
 
+// get node list
+// get attribute of data-entryid, if it matches any entryId that has favorite == true,
+// then yellow star it either the favorite or correct node list, depending on which one is being navigated to
+// if it matches any entryId with favorite !== true, white star it in the appropriate node list
+
 function reRenderStarIcons(type) {
   var $entryIds;
-  if (type === 'correct') {
-    $entryIds = document.querySelectorAll('i[data-entryid-correct]');
-  } else if (type === 'favorite') {
-    $entryIds = document.querySelectorAll('i[data-entryid-favorite]');
-  }
   var entryIdsArray = [];
   for (var j = 0; j < $entryIds.length; j++) {
-    entryIdsArray.push($entryIds[j]);
+    if (type === 'correct') {
+      $entryIds = document.querySelectorAll('i[data-entryid-correct]');
+      // maybe not this one? below
+      entryIdsArray.push((parseInt($entryIds[j].getAttribute('data-entryid-correct'))));
+    } else if (type === 'favorite') {
+      $entryIds = document.querySelectorAll('i[data-entryid-favorite]');
+      entryIdsArray.push((parseInt($entryIds[j].getAttribute('data-entryid-correct'))));
+    }
   }
+  // console.log('entryIdsArray', entryIdsArray);
+
   for (var k = 0; k < data.clues.length; k++) {
     if (entryIdsArray.includes(data.clues[k].entryId)) {
       for (var m = 0; m < $entryIds.length; m++) {
