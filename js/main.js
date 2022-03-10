@@ -59,20 +59,62 @@ navToGrid();
 
 // function definitions
 
+// function getCluesOriginal() {
+//   if (data.clues.length === 0) {
+//     var xhr = new XMLHttpRequest();
+//     xhr.open('GET', 'http://jservice.io/api/random/?count=9');
+//     xhr.responseType = 'json';
+
+//     xhr.addEventListener('load', function () {
+//       console.log(xhr.response);
+//       for (var i = 0; i < xhr.response.length; i++) {
+//         var clueData = {
+//         };
+//         clueData.question = xhr.response[i].question;
+//         clueData.answer = xhr.response[i].answer;
+//         clueData.points = xhr.response[i].value;
+//         clueData.completed = null;
+//         clueData.favorite = null;
+//         clueData.correct = null;
+//         clueData.entryId = data.nextEntryId;
+//         data.clues.push(clueData);
+//         data.nextEntryId++;
+//       }
+//     });
+//     xhr.send();
+//   }
+// }
+
 function getClues() {
+  var validatedClues = [];
   if (data.clues.length === 0) {
     var xhr = new XMLHttpRequest();
-    xhr.open('GET', 'http://jservice.io/api/random/?count=9');
+    xhr.open('GET', 'http://jservice.io/api/random/?count=36');
     xhr.responseType = 'json';
+
+    // if none of the fields are null, blank, or empty string, then object to new array validatedClues
 
     xhr.addEventListener('load', function () {
       // console.log(xhr.response);
+
       for (var i = 0; i < xhr.response.length; i++) {
+        if (xhr.response[i].question !== null && xhr.response[i].question !== '') {
+          if (xhr.response[i].answer !== null && xhr.response[i].answer !== '') {
+            if (xhr.response[i].value !== null && xhr.response[i].value !== '') {
+              validatedClues.push(xhr.response[i]);
+            }
+          }
+        }
+      }
+
+      // console.log('validatedClues', validatedClues);
+
+      for (var k = 0; k < 9; k++) {
         var clueData = {
         };
-        clueData.question = xhr.response[i].question;
-        clueData.answer = xhr.response[i].answer;
-        clueData.points = xhr.response[i].value;
+        clueData.question = validatedClues[k].question;
+        clueData.answer = validatedClues[k].answer;
+        clueData.points = validatedClues[k].value;
         clueData.completed = null;
         clueData.favorite = null;
         clueData.correct = null;
