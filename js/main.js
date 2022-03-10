@@ -452,6 +452,8 @@ function navToQuestionsCorrect() {
       $navViews[i].classList.add('hidden');
     }
   }
+  reRenderFavorites();
+  reRenderStarIcons('favorite');
   reRenderStarIcons('correct');
   reRenderQuestionsCorrect();
 
