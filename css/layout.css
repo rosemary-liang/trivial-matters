@@ -75,7 +75,18 @@ nav {
   text-align: center;
 }
 
-/* modal */
+#yes,
+#no {
+  padding: 0.5rem 3.75rem;
+  font-weight: 500;
+  font-size: 0.9rem;
+  color: white;
+  background-color: #5fd5c1;
+}
+
+#no {
+  background-color: #ff8fa2;
+}
 
 /* margin & padding */
 .margin-auto {
@@ -235,10 +246,6 @@ nav {
     width: 380px;
   }
 
-  .card {
-    height: 600px;
-  }
-
   .font-size-09-rem {
     font-size: 0.88rem;
   }
@@ -246,6 +253,10 @@ nav {
   /* .card-in-list {
     width: 420px;
   } */
+
+  .margin-b-1-rem {
+    margin-bottom: 0.5rem;
+  }
 
   .padding-h-275-rem {
     padding: 0 2.75rem;
@@ -277,90 +288,90 @@ nav {
   }
 
   .card-text-content > p,
-  .answered-correctly > p {
-    font-size: 1.25rem;
+  .answered-correctly-container > p,
+  p.answer,
+  p.points {
+    font-size: 1.1rem;
   }
 
-  p.return {
+  p.return-already-answered {
+    width: 190px;
+    text-align: center;
+    line-height: 2rem;
+    margin: 0;
+  }
+
+  button.see-answer,
+  button.return {
+    padding: 0.75rem 2.5rem;
     font-size: 1.25rem;
-    margin-top: 4rem;
+    border-radius: 15px;
+    border: none;
   }
 
   #yes,
   #no {
-    padding: 0.5rem 1.25rem;
-    width: 100px;
+    padding: 0.75rem 3.75rem;
     font-weight: 500;
-    font-size: 1.25rem;
+    font-size: 1rem;
     color: white;
     background-color: #5fd5c1;
-    border: none;
+    border-radius: 15px;
   }
 
   #no {
     background-color: #ff8fa2;
+
+    button.return {
+      cursor: pointer;
+      padding: 0.6rem 1.5rem;
+    }
+
+    .padding-h-7-rem {
+      padding: 0;
+    }
+
+    .padding-left-05-rem {
+      padding-left: 1.5rem;
+    }
+
+    .margin-b-2-rem {
+      margin-bottom: 5rem;
+    }
+
+    .font-size-15-rem {
+      font-size: 2.5rem;
+    }
   }
 
-  button.return {
-    cursor: pointer;
-    padding: 0.6rem 1.5rem;
-  }
+  /* media rule large screen */
 
-  .padding-h-7-rem {
-    padding: 0;
-  }
+  @media screen and (min-width: 768px) {
+    button.clue {
+      cursor: pointer;
+      width: 150px;
+      height: 100px;
+      margin: 0.25rem;
+      text-align: right;
+      padding-top: 35px;
+      padding-right: 35px;
+      font-weight: 500;
+      font-family: Roboto, sans-serif;
+      font-size: 1.25rem;
+      color: #6a5ae0;
+      background-color: #efeefc;
+      border: none;
+      border-radius: 10px;
+    }
 
-  .padding-left-05-rem {
-    padding-left: 1.5rem;
-  }
+    button.return {
+      padding: 0.5rem 1.75rem;
+    }
 
-  /* .margin-v-1-rem {
-    margin: 1rem 0;
-  } */
-
-  .margin-b-2-rem {
-    margin-bottom: 5rem;
-  }
-}
-
-@media screen and (min-width: 768px) {
-  button.clue {
-    cursor: pointer;
-    width: 150px;
-    height: 100px;
-    margin: 0.25rem;
-    text-align: right;
-    padding-top: 35px;
-    padding-right: 35px;
-    font-weight: 500;
-    font-family: Roboto, sans-serif;
-    font-size: 1.25rem;
-    color: #6a5ae0;
-    background-color: #efeefc;
-    border: none;
-    border-radius: 10px;
-  }
-
-  #yes,
-  #no {
-    padding: 0.5rem 3.75rem;
-    font-weight: 500;
-    font-size: 0.9rem;
-    color: white;
-    background-color: #5fd5c1;
-  }
-
-  #no {
-    background-color: #ff8fa2;
-  }
-
-  button.return {
-    padding: 0.5rem 1.75rem;
-  }
-
-  button.see-answer {
-    padding: 0.4rem 1.25rem;
-    border-radius: 10px;
-    border: none;
+    button.see-answer {
+      padding: 0.4rem 1.25rem;
+      border-radius: 10px;
+      border: none;
+    }
   }
 }
