@@ -277,6 +277,9 @@ function yellowStar(icon) {
   if (icon.classList.contains('fa-star-gray')) {
     icon.classList.remove('fa-star-gray');
   }
+  if (icon.classList.contains('fa-star-white')) {
+    icon.classList.remove('fa-star-white');
+  }
 }
 
 function grayStar(icon) {
@@ -323,9 +326,11 @@ function handleFavoriteinCardList(event, type) {
       if (data.clues[i].entryId === buttonTargetIdFav && data.clues[i].favorite !== true) {
         data.clues[i].favorite = true;
         yellowStar(icon);
+        return;
       } else if (data.clues[i].entryId === buttonTargetIdFav && data.clues[i].favorite === true) {
         data.clues[i].favorite = false;
         whiteStar(icon);
+        return;
       }
     }
   } else if (type === 'correct') {
@@ -334,9 +339,11 @@ function handleFavoriteinCardList(event, type) {
       if (data.clues[j].entryId === buttonTargetIdCorrect && data.clues[j].favorite !== true) {
         data.clues[j].favorite = true;
         yellowStar(icon);
+        return;
       } else if (data.clues[j].entryId === buttonTargetIdCorrect && data.clues[j].favorite === true) {
         data.clues[j].favorite = false;
         whiteStar(icon);
+        return;
       }
     }
   }
@@ -445,11 +452,8 @@ function navToQuestionsCorrect() {
       $navViews[i].classList.add('hidden');
     }
   }
-
-  // if at least one is correct, hide it
-
-  reRenderQuestionsCorrect();
   reRenderStarIcons('correct');
+  reRenderQuestionsCorrect();
 
 }
 
@@ -459,32 +463,83 @@ function navToQuestionsCorrect() {
 // if it matches any entryId with favorite !== true, white star it in the appropriate node list
 
 function reRenderStarIcons(type) {
-  var $entryIds;
-  var entryIdsArray = [];
-  for (var j = 0; j < $entryIds.length; j++) {
-    if (type === 'correct') {
-      $entryIds = document.querySelectorAll('i[data-entryid-correct]');
-      // maybe not this one? below
-      entryIdsArray.push((parseInt($entryIds[j].getAttribute('data-entryid-correct'))));
-    } else if (type === 'favorite') {
-      $entryIds = document.querySelectorAll('i[data-entryid-favorite]');
-      entryIdsArray.push((parseInt($entryIds[j].getAttribute('data-entryid-correct'))));
-    }
-  }
-  // console.log('entryIdsArray', entryIdsArray);
+  var $entryIdsCorrect;
+  var $entryIdsFavorite;
+  var entryIdsCorrectArray = [];
+  var entryIdsFavoriteArray = [];
 
+  $entryIdsFavorite = document.querySelectorAll('i[data-entryid-fav]');
+  for (var i = 0; i < $entryIdsFavorite.length; i++) {
+    entryIdsFavoriteArray.push(parseInt($entryIdsFavorite[i].getAttribute('data-entryid-fav')));
+  }
+
+  $entryIdsCorrect = document.querySelectorAll('i[data-entryid-correct]');
+  for (var j = 0; j < $entryIdsFavorite.length; j++) {
+    entryIdsCorrectArray.push(parseInt($entryIdsCorrect[j].getAttribute('data-entryid-correct')));
+  }
+
+  // if type === correct, then do this
+  // if data.clues[i].entryId is included in the array,
   for (var k = 0; k < data.clues.length; k++) {
-    if (entryIdsArray.includes(data.clues[k].entryId)) {
-      for (var m = 0; m < $entryIds.length; m++) {
-        if (data.clues[k].favorite === true) {
-          yellowStar($entryIds[m]);
-        } else if (data.clues[k].favorite === null) {
-          whiteStar($entryIds[m]);
+    if (type === 'correct') {
+      if (entryIdsFavoriteArray.includes(data.clues[k].entryId)) {
+        for (var m = 0; m < $entryIdsCorrect.length; m++) {
+          if (parseInt($entryIdsCorrect[m].getAttribute('data-entryid-correct')) === data.clues[k].entryId) {
+            yellowStar($entryIdsCorrect[m]);
+          }
+        }
+      } else if (!(entryIdsFavoriteArray.includes(data.clues[k].entryId))) {
+        for (var n = 0; n < $entryIdsCorrect.length; n++) {
+          if (parseInt($entryIdsCorrect[n].getAttribute('data-entryid-correct')) === data.clues[k].entryId) {
+            whiteStar($entryIdsCorrect[n]);
+          }
+        }
+      }
+    } else if (type === 'favorite') {
+      if (entryIdsFavoriteArray.includes(data.clues[k].entryId)) {
+        for (var p = 0; p < $entryIdsFavorite.length; p++) {
+          if (parseInt($entryIdsFavorite[p].getAttribute('data-entryid-fav')) === data.clues[k].entryId) {
+            yellowStar($entryIdsFavorite[p]);
+          }
+        }
+      } else if (!(entryIdsFavoriteArray.includes(data.clues[k].entryId))) {
+        for (var q = 0; q < $entryIdsFavorite.length; q++) {
+          if (parseInt($entryIdsFavorite[q].getAttribute('data-entryid-fav')) === data.clues[k].entryId) {
+            whiteStar($entryIdsFavorite[q]);
+          }
         }
       }
     }
   }
 }
+
+// function reRenderStarIconsOld(type) {
+//   var $entryIds;
+//   var entryIdsArray = [];
+//   for (var j = 0; j < $entryIds.length; j++) {
+//     if (type === 'correct') {
+//       $entryIds = document.querySelectorAll('i[data-entryid-correct]');
+//       // maybe not this one? below
+//       entryIdsArray.push((parseInt($entryIds[j].getAttribute('data-entryid-correct'))));
+//     } else if (type === 'favorite') {
+//       $entryIds = document.querySelectorAll('i[data-entryid-favorite]');
+//       entryIdsArray.push((parseInt($entryIds[j].getAttribute('data-entryid-correct'))));
+//     }
+//   }
+//   // console.log('entryIdsArray', entryIdsArray);
+
+//   for (var k = 0; k < data.clues.length; k++) {
+//     if (entryIdsArray.includes(data.clues[k].entryId)) {
+//       for (var m = 0; m < $entryIds.length; m++) {
+//         if (data.clues[k].favorite === true) {
+//           yellowStar($entryIds[m]);
+//         } else if (data.clues[k].favorite === null) {
+//           whiteStar($entryIds[m]);
+//         }
+//       }
+//     }
+//   }
+// }
 
 function reRenderQuestionsCorrect() {
   var existingCardArray = [];
@@ -550,7 +605,7 @@ function reRenderFavorites() {
       if (!(existingCardArray.includes(data.clues[i].entryId))) {
         renderCard(data.clues[i], 'favorite');
       }
-    } else if (data.clues[i].completed !== true) {
+    } else if (data.clues[i].favorite !== true) {
       if (existingCardArray.includes(data.clues[i].entryId)) {
         for (var k = 0; k < $existingCards.length; k++) {
           if (data.clues[i].entryId === parseInt($existingCards[k].getAttribute('data-entryid-fav'))) {
