@@ -3,13 +3,18 @@
 
 // dom queries
 
-var $buttonContainer = document.querySelector('.button-container');
+var $gridButtonContainer = document.querySelector('.button-container');
 var $buttons = document.querySelectorAll('button.clue');
-var $modal = document.querySelector('.modal-off');
+var $clueContainer = document.querySelector('[data-view="clue"]');
 var $views = document.querySelectorAll('.view');
+var $backButton = document.querySelector('.back-to-grid');
+var $backButtonCardListCorrect = document.querySelector('.back-to-questions-correct');
+var $backButtonCardListFavorites = document.querySelector('.back-to-questions-fav');
+var $seeAnswerButton = document.querySelector('button.see-answer');
+var $questionNumber = document.querySelector('p.question-number');
 var $clue = document.querySelector('.clue-text');
-var $answer = document.querySelector('.answer');
-var $points = document.querySelector('.points');
+var $answer = document.querySelector('.clue-answer');
+var $points = document.querySelector('.clue-points');
 var $yesButton = document.querySelector('#yes');
 var $noButton = document.querySelector('#no');
 var $qCorrectHeader = document.querySelector('span.q-correct');
@@ -18,13 +23,12 @@ var buttonTarget;
 var $favoriteContainer = document.querySelector('.favorite');
 var $starButton = document.querySelector('button.fa');
 var $starIcon = document.querySelector('.fa-star');
-var $returnButton = document.querySelector('#return');
 var $navViews = document.querySelectorAll('.nav-view');
 var $cardContainerQCorrect = document.querySelector('.container-questions-correct');
-var $backToQuestionsButton = document.querySelector('button.back-to-questions-1');
-var $backToQuestionsButton2 = document.querySelector('button.back-to-questions-2');
 var $qCorrectButton = document.querySelector('#nav-questions-correct');
 var $cardContainerFavorites = document.querySelector('.container-favorites');
+var $noneYetCorrect = document.querySelector('p.none-yet-correct');
+var $noneYetFavorite = document.querySelector('p.none-yet-favorite');
 var $favoritesButton = document.querySelector('#nav-favorites');
 var $resetButton = document.querySelector('#reset');
 var $finalScore = document.querySelector('#final-score');
@@ -32,42 +36,52 @@ var $finalScore = document.querySelector('#final-score');
 // event listeners
 
 window.addEventListener('load', loadFromStorage);
-$buttonContainer.addEventListener('click', openModal);
-$modal.addEventListener('click', handleModal);
-$yesButton.addEventListener('click', handleYes);
-$noButton.addEventListener('click', handleNo);
-$returnButton.addEventListener('click', closeModal);
+$gridButtonContainer.addEventListener('click', navToClue);
+$seeAnswerButton.addEventListener('click', showAnswer);
+$yesButton.addEventListener('click', function (event) { handleYesOrNo(event, 'yes'); });
+$noButton.addEventListener('click', function (event) { handleYesOrNo(event, 'no'); });
+$backButton.addEventListener('click', navToGrid);
+$backButtonCardListCorrect.addEventListener('click', navToGrid);
+$backButtonCardListFavorites.addEventListener('click', navToGrid);
 $starButton.addEventListener('click', handleFavorite);
-$backToQuestionsButton.addEventListener('click', navToGrid);
-$backToQuestionsButton2.addEventListener('click', navToGrid);
 $qCorrectButton.addEventListener('click', navToQuestionsCorrect);
 $favoritesButton.addEventListener('click', navToFavorites);
-$cardContainerFavorites.addEventListener('click', handleFavoriteinFavCardList);
-$cardContainerQCorrect.addEventListener('click', handleFavoriteinQCardList);
+$cardContainerFavorites.addEventListener('click', function (event) { handleFavoriteinCardList(event, 'favorite'); });
+$cardContainerQCorrect.addEventListener('click', function (event) { handleFavoriteinCardList(event, 'correct'); });
 $resetButton.addEventListener('click', resetAll);
 
 // function calls
 
-closeModal();
 getClues();
-renderQuestionsCorrect();
-renderFavorites();
+renderCards('favorite');
+renderCards('correct');
 navToGrid();
 
 // function definitions
 
 function getClues() {
+  var validatedClues = [];
   if (data.clues.length === 0) {
     var xhr = new XMLHttpRequest();
-    xhr.open('GET', 'http://jservice.io/api/random/?count=9');
+    xhr.open('GET', 'http://jservice.io/api/random/?count=36');
     xhr.responseType = 'json';
     xhr.addEventListener('load', function () {
       for (var i = 0; i < xhr.response.length; i++) {
+        if (xhr.response[i].question !== null && xhr.response[i].question !== '') {
+          if (xhr.response[i].answer !== null && xhr.response[i].answer !== '') {
+            if (xhr.response[i].value !== null && xhr.response[i].value !== '') {
+              validatedClues.push(xhr.response[i]);
+            }
+          }
+        }
+      }
+
+      for (var k = 0; k < 9; k++) {
         var clueData = {
         };
-        clueData.question = xhr.response[i].question;
-        clueData.answer = xhr.response[i].answer;
-        clueData.points = xhr.response[i].value;
+        clueData.question = validatedClues[k].question;
+        clueData.answer = validatedClues[k].answer;
+        clueData.points = validatedClues[k].value;
         clueData.completed = null;
         clueData.favorite = null;
         clueData.correct = null;
@@ -86,14 +100,30 @@ function loadFromStorage() {
   $pointsHeader.textContent = data.score;
 }
 
-function openModal(event) {
-  $modal.classList.remove('modal-off');
-  $modal.classList.add('modal-on');
-  buttonTarget = event.target;
+function navToClue(event) {
+  if ($clueContainer.classList.contains('hidden')) {
+    $clueContainer.classList.remove('hidden');
+  }
 
-  for (var i = 0; i < $buttons.length; i++) {
-    if (buttonTarget === $buttons[i]) {
-      if (data.clues[i].completed === true) {
+  for (var i = 0; i < $navViews.length; i++) {
+    if ($navViews[i].getAttribute('data-view') === 'questions-correct' && (!$navViews[i].classList.contains('hidden'))) {
+      $navViews[i].classList.add('hidden');
+    } else if ($navViews[i].getAttribute('data-view') === 'grid' && (!$navViews[i].classList.contains('hidden'))) {
+      $navViews[i].classList.add('hidden');
+    } else if ($navViews[i].getAttribute('data-view') === 'favorites' && (!$navViews[i].classList.contains('hidden'))) {
+      $navViews[i].classList.add('hidden');
+    }
+  }
+
+  buttonTarget = event.target;
+  for (var k = 0; k < data.clues.length; k++) {
+    if (data.clues[k].entryId === parseInt(buttonTarget.textContent)) {
+      data.currentlyAnswering = data.clues[k];
+    }
+  }
+  for (var j = 0; j < $buttons.length; j++) {
+    if (buttonTarget === $buttons[j]) {
+      if (data.clues[j].completed === true) {
         checkIfAllAnswered();
         return;
       } else {
@@ -105,44 +135,24 @@ function openModal(event) {
 
 }
 
-function closeModal(event) {
-  $modal.classList.remove('modal-on');
-  $modal.classList.add('modal-off');
-  resetView();
-}
-
 function displayClue() {
+  grayStar($starIcon);
   for (var i = 0; i < data.clues.length; i++) {
     if (parseInt(event.target.textContent) === data.clues[i].entryId) {
-      $clue.textContent = data.clues[i].question;
-      $answer.textContent = 'Answer: ' + data.clues[i].answer;
+      $questionNumber.innerHTML = 'QUESTION ' + data.clues[i].entryId;
+      $clue.innerHTML = data.clues[i].question;
+      $answer.innerHTML = 'Answer: ' + data.clues[i].answer;
       $points.textContent = 'Points: ' + data.clues[i].points;
-      data.currentlyAnswering = data.clues[i];
       return;
     }
   }
 }
 
-function handleModal(event) {
-  var $modalOn = document.querySelector('.modal-on');
-  if (event.target !== $modalOn && event.target !== $resetButton) {
-    for (var i = 0; i < $buttons.length; i++) {
-      if (buttonTarget === $buttons[i] &&
-      data.clues[i].completed !== true) {
-        showAnswer();
-        return;
-      }
-    }
-  } else {
-    closeModal();
-  }
-}
-
 function showAnswer() {
   for (var i = 0; i < $views.length; i++) {
-    if ($views[i].getAttribute('data-modal') === 'answer') {
+    if ($views[i].getAttribute('data-clue') === 'answer') {
       $views[i].classList.remove('hidden');
-    } else if ($views[i].getAttribute('data-modal') === 'click-to-see-answer') {
+    } else if ($views[i].getAttribute('data-clue') === 'see-answer') {
       $views[i].classList.add('hidden');
     }
   }
@@ -151,29 +161,14 @@ function showAnswer() {
   }
 }
 
-function returnToQuestions() {
+function alreadyAnswered() {
   for (var i = 0; i < $views.length; i++) {
-    if ($views[i].getAttribute('data-modal') === 'return') {
+    if ($views[i].getAttribute('data-clue') === 'return') {
       $views[i].classList.remove('hidden');
-    } else if ($views[i].getAttribute('data-modal') === 'question' ||
-      $views[i].getAttribute('data-modal') === 'click-to-see-answer' ||
-      $views[i].getAttribute('data-modal') === 'answer') {
+    } else if ($views[i].getAttribute('data-clue') !== 'return') {
       $views[i].classList.add('hidden');
     }
   }
-}
-
-function handleYes() {
-  buttonTarget = event.target;
-  data.currentlyAnswering.completed = true;
-  data.currentlyAnswering.correct = true;
-  data.score += data.currentlyAnswering.points;
-  countCorrect();
-  $pointsHeader.textContent = data.score;
-  data.currentlyAnswering = null;
-  grayClue();
-  checkIfAllAnswered();
-
 }
 
 function countCorrect() {
@@ -187,27 +182,43 @@ function countCorrect() {
   counter = 0;
 }
 
-function handleNo() {
+function handleYesOrNo(event, yesOrNo) {
   buttonTarget = event.target;
   data.currentlyAnswering.completed = true;
-  data.currentlyAnswering.correct = false;
+  if (yesOrNo === 'yes') {
+    data.currentlyAnswering.correct = true;
+    data.score += data.currentlyAnswering.points;
+    countCorrect();
+    $pointsHeader.textContent = data.score;
+  } else if (yesOrNo === 'no') {
+    data.currentlyAnswering.correct = false;
+  }
+
   data.currentlyAnswering = null;
   grayClue();
-  checkIfAllAnswered();
+  var completedArray = [];
+  for (var i = 0; i < data.clues.length; i++) {
+    if (data.clues[i].completed === true) {
+      completedArray.push(data.clues[i]);
+    }
+  }
+  if (completedArray.length !== 9) {
+    navToGrid();
+  } else {
+    checkIfAllAnswered();
+  }
 
 }
 
-function resetView() {
+function resetClueView() {
   for (var i = 0; i < $views.length; i++) {
-    if ($views[i].getAttribute('data-modal') === 'question') {
+    if ($views[i].getAttribute('data-clue') === 'question' || $views[i].getAttribute('data-clue') === 'see-answer') {
       $views[i].classList.remove('hidden');
-    } else if ($views[i].getAttribute('data-modal') === 'click-to-see-answer') {
-      $views[i].classList.remove('hidden');
-    } else if ($views[i].getAttribute('data-modal') === 'answer') {
+    } else if ($views[i].getAttribute('data-clue') === 'answer') {
       $views[i].classList.add('hidden');
-    } else if ($views[i].getAttribute('data-modal') === 'return') {
+    } else if ($views[i].getAttribute('data-clue') === 'return') {
       $views[i].classList.add('hidden');
-    } else if ($views[i].getAttribute('data-modal') === 'reset') {
+    } else if ($views[i].getAttribute('data-clue') === 'reset') {
       $views[i].classList.add('hidden');
     }
   }
@@ -232,11 +243,23 @@ function yellowStar(icon) {
   if (icon.classList.contains('fa-star-gray')) {
     icon.classList.remove('fa-star-gray');
   }
+  if (icon.classList.contains('fa-star-white')) {
+    icon.classList.remove('fa-star-white');
+  }
 }
 
 function grayStar(icon) {
   if (!(icon.classList.contains('fa-star-gray'))) {
     icon.classList.add('fa-star-gray');
+  }
+  if (icon.classList.contains('fa-star-yellow')) {
+    icon.classList.remove('fa-star-yellow');
+  }
+}
+
+function whiteStar(icon) {
+  if (!(icon.classList.contains('fa-star-white'))) {
+    icon.classList.add('fa-star-white');
   }
   if (icon.classList.contains('fa-star-yellow')) {
     icon.classList.remove('fa-star-yellow');
@@ -260,145 +283,114 @@ function handleFavorite() {
   return icon;
 }
 
-// favorites & questions correct views
-
-function handleFavoriteinQCardList(event) {
-  var buttonTargetId = parseInt(event.target.getAttribute('data-entryid'));
+function handleFavoriteinCardList(event, type) {
   var icon = event.target;
-  for (var i = 0; i < data.clues.length; i++) {
-    if (data.clues[i].entryId === buttonTargetId &&
-      data.clues[i].favorite !== true) {
-      data.clues[i].favorite = true;
-      yellowStar(icon);
 
-    } else if (data.clues[i].entryId === buttonTargetId &&
-      data.clues[i].favorite === true) {
-      data.clues[i].favorite = null;
-      grayStar(icon);
+  if (type === 'favorite') {
+    var buttonTargetIdFav = parseInt(event.target.getAttribute('data-entryid-fav'));
+    for (var i = 0; i < data.clues.length; i++) {
+      if (data.clues[i].entryId === buttonTargetIdFav && data.clues[i].favorite !== true) {
+        data.clues[i].favorite = true;
+        yellowStar(icon);
+        return;
+      } else if (data.clues[i].entryId === buttonTargetIdFav && data.clues[i].favorite === true) {
+        data.clues[i].favorite = false;
+        whiteStar(icon);
+        return;
+      }
+    }
+  } else if (type === 'correct') {
+    var buttonTargetIdCorrect = parseInt(event.target.getAttribute('data-entryid-correct'));
+    for (var j = 0; j < data.clues.length; j++) {
+      if (data.clues[j].entryId === buttonTargetIdCorrect && data.clues[j].favorite !== true) {
+        data.clues[j].favorite = true;
+        yellowStar(icon);
+        return;
+      } else if (data.clues[j].entryId === buttonTargetIdCorrect && data.clues[j].favorite === true) {
+        data.clues[j].favorite = false;
+        whiteStar(icon);
+        return;
+      }
     }
   }
 }
 
-function handleFavoriteinFavCardList(event) {
-  var buttonTargetId = parseInt(event.target.getAttribute('data-entryid-fav'));
-  var icon = event.target;
-  for (var i = 0; i < data.clues.length; i++) {
-    if (data.clues[i].entryId === buttonTargetId &&
-      data.clues[i].favorite !== true) {
-      data.clues[i].favorite = true;
-      yellowStar(icon);
-
-    } else if (data.clues[i].entryId === buttonTargetId &&
-      data.clues[i].favorite === true) {
-      data.clues[i].favorite = null;
-      grayStar(icon);
-    }
-  }
-}
-
-function renderQuestionsCorrect() {
-  for (var i = 0; i < data.clues.length; i++) {
-    if (data.clues[i].correct === true) {
-      renderQuestionCorrect(data.clues[i]);
-    }
-  }
-}
-
-function renderQuestionCorrect(clue) {
+function renderCard(clue, type) {
   var divCard = document.createElement('div');
-  divCard.setAttribute('class', 'container card-in-list bg-white margin-b-1-rem margin-t-05-rem padding-1-rem border-solid border-thin box-shadow ');
-  divCard.setAttribute('data-entryid', clue.entryId);
-  $cardContainerQCorrect.appendChild(divCard);
+  divCard.setAttribute('class', 'container card-in-list margin-v-1-rem border-radius-10-px bg-light-gray');
 
-  var divCardContent = document.createElement('div');
-  divCardContent.setAttribute('class', 'card-content padding-2-rem');
-  divCard.appendChild(divCardContent);
+  if (type === 'favorite') {
+    divCard.setAttribute('data-entryid-fav', clue.entryId);
+    $cardContainerFavorites.appendChild(divCard);
+  } else if (type === 'correct') {
+    divCard.setAttribute('data-entryid-correct', clue.entryId);
+    $cardContainerQCorrect.appendChild(divCard);
+  }
 
   var divFavorite = document.createElement('div');
-  divFavorite.setAttribute('class', 'favorite display-flex flex-end');
+  divFavorite.setAttribute('class', 'favorite display-flex space-between padding-left-1-rem  ');
   divCard.prepend(divFavorite);
 
+  var pQuestionNumber = document.createElement('p');
+  pQuestionNumber.setAttribute('class', 'question-number roboto font-gray font-size-08-rem');
+  pQuestionNumber.textContent = 'QUESTION ' + clue.entryId;
+  divFavorite.appendChild(pQuestionNumber);
+
   var buttonFa = document.createElement('button');
-  buttonFa.setAttribute('class', 'fa');
+  buttonFa.setAttribute('class', 'button-cards padding-right-05-rem border-none cursor-pointer border-radius-10-px');
   divFavorite.appendChild(buttonFa);
 
   var iStar = document.createElement('i');
+  iStar.setAttribute('class', 'fa-solid fa-star font-size-125-rem grow favorites-page fa-star-white');
+
+  if (type === 'favorite') {
+    iStar.setAttribute('data-entryid-fav', clue.entryId);
+  } else if (type === 'correct') {
+    iStar.setAttribute('data-entryid-correct', clue.entryId);
+  }
+
   if (clue.favorite === true) {
-    iStar.setAttribute('class', 'fa-solid fa-star font-size-15-rem grow favorites-page fa-star-yellow');
-  } else {
-    iStar.setAttribute('class', 'fa-solid fa-star font-size-15-rem grow favorites-page fa-star-gray');
+    yellowStar(iStar);
+  } else if (clue.favorite !== true) {
+    whiteStar(iStar);
   }
-  iStar.setAttribute('data-entryid', clue.entryId);
+
   buttonFa.appendChild(iStar);
-
-  var divCardTextContent = document.createElement('div');
-  divCardTextContent.setAttribute('class', 'card-text-content padding-right-05-rem');
-  divCardContent.appendChild(divCardTextContent);
-
-  var pClueText = document.createElement('p');
-  pClueText.setAttribute('class', 'clue-text roboto font-weight-500 margin-b-2-rem');
-  pClueText.textContent = clue.question;
-  divCardContent.appendChild(pClueText);
-
-  var pAnswer = document.createElement('p');
-  pAnswer.setAttribute('class', 'answer roboto font-weight-500');
-  pAnswer.textContent = 'Answer: ' + clue.answer;
-  divCardContent.appendChild(pAnswer);
-
-  var pPoints = document.createElement('p');
-  pPoints.setAttribute('class', 'points roboto font-weight-500 margin-b-2-rem');
-  pPoints.textContent = 'Points: ' + clue.points;
-  divCardContent.appendChild(pPoints);
-
-}
-
-function renderFavorite(clue) {
-  var divCard = document.createElement('div');
-  divCard.setAttribute('class', 'container card-in-list bg-white margin-b-1-rem margin-t-05-rem padding-1-rem border-solid border-thin box-shadow ');
-  divCard.setAttribute('data-entryid-fav', clue.entryId);
-  $cardContainerFavorites.appendChild(divCard);
 
   var divCardContent = document.createElement('div');
-  divCardContent.setAttribute('class', 'card-content padding-2-rem');
+  divCardContent.setAttribute('class', 'card-content padding-card-content');
   divCard.appendChild(divCardContent);
-
-  var divFavorite = document.createElement('div');
-  divFavorite.setAttribute('class', 'favorite display-flex flex-end');
-  divCard.prepend(divFavorite);
-
-  var buttonFa = document.createElement('button');
-  buttonFa.setAttribute('class', 'fa');
-  divFavorite.appendChild(buttonFa);
-
-  var iStar = document.createElement('i');
-  iStar.setAttribute('class', 'fa-solid fa-star font-size-15-rem grow favorites-page fa-star-yellow');
-  iStar.setAttribute('data-entryid-fav', clue.entryId);
-  buttonFa.appendChild(iStar);
 
   var divCardTextContent = document.createElement('div');
   divCardTextContent.setAttribute('class', 'card-text-content padding-right-05-rem');
   divCardContent.appendChild(divCardTextContent);
 
   var pClueText = document.createElement('p');
-  pClueText.setAttribute('class', 'clue-text roboto font-weight-500 margin-b-2-rem');
+  pClueText.setAttribute('class', 'clue-text roboto font-weight-500 margin-b-2-rem  margin-t-0');
   pClueText.textContent = clue.question;
   divCardContent.appendChild(pClueText);
 
   var pAnswer = document.createElement('p');
-  pAnswer.setAttribute('class', 'answer roboto font-weight-500');
+  pAnswer.setAttribute('class', 'answer roboto font-weight-500 font-purple margin-v-025-rem');
   pAnswer.textContent = 'Answer: ' + clue.answer;
   divCardContent.appendChild(pAnswer);
 
   var pPoints = document.createElement('p');
-  pPoints.setAttribute('class', 'points roboto font-weight-500 margin-b-2-rem');
+  pPoints.setAttribute('class', 'points roboto font-weight-500  font-purple margin-0');
   pPoints.textContent = 'Points: ' + clue.points;
   divCardContent.appendChild(pPoints);
 }
 
-function renderFavorites() {
+function renderCards(type) {
   for (var i = 0; i < data.clues.length; i++) {
-    if (data.clues[i].favorite === true) {
-      renderFavorite(data.clues[i]);
+    if (type === 'favorite') {
+      if (data.clues[i].favorite === true) {
+        renderCard(data.clues[i], type);
+      }
+    } else if (type === 'correct') {
+      if (data.clues[i].correct === true) {
+        renderCard(data.clues[i], type);
+      }
     }
   }
 }
@@ -407,43 +399,71 @@ function navToGrid() {
   for (var i = 0; i < $navViews.length; i++) {
     if ($navViews[i].getAttribute('data-view') === 'grid' && $navViews[i].classList.contains('hidden')) {
       $navViews[i].classList.remove('hidden');
-    } else if ($navViews[i].getAttribute('data-view') === 'questions-correct' && (!$navViews[i].classList.contains('hidden'))) {
-      $navViews[i].classList.add('hidden');
-    } else if ($navViews[i].getAttribute('data-view') === 'favorites' && (!$navViews[i].classList.contains('hidden'))) {
+    } else if ($navViews[i].getAttribute('data-view') !== 'grid' && (!$navViews[i].classList.contains('hidden'))) {
       $navViews[i].classList.add('hidden');
     }
   }
-  navButtonBlack($favoritesButton);
-  navButtonBlack($qCorrectButton);
-
+  resetClueView();
 }
 
 function navToQuestionsCorrect() {
   for (var i = 0; i < $navViews.length; i++) {
     if ($navViews[i].getAttribute('data-view') === 'questions-correct' && $navViews[i].classList.contains('hidden')) {
       $navViews[i].classList.remove('hidden');
-    } else if ($navViews[i].getAttribute('data-view') === 'grid' && (!$navViews[i].classList.contains('hidden'))) {
-      $navViews[i].classList.add('hidden');
-    } else if ($navViews[i].getAttribute('data-view') === 'favorites' && (!$navViews[i].classList.contains('hidden'))) {
+    } else if ($navViews[i].getAttribute('data-view') !== 'questions-correct' && (!$navViews[i].classList.contains('hidden'))) {
       $navViews[i].classList.add('hidden');
     }
   }
-  navButtonBlue($qCorrectButton);
-  navButtonBlack($favoritesButton);
+  reRenderFavorites();
+  reRenderStarIcons('favorite');
+  reRenderStarIcons('correct');
   reRenderQuestionsCorrect();
 
-  var $qEntryIds = document.querySelectorAll('i[data-entryid]');
-  var qEntryIdsArray = [];
-  for (var j = 0; j < $qEntryIds.length; j++) {
-    qEntryIdsArray.push($qEntryIds[j]);
+}
+
+function reRenderStarIcons(type) {
+  var $entryIdsCorrect;
+  var $entryIdsFavorite;
+  var entryIdsCorrectArray = [];
+  var entryIdsFavoriteArray = [];
+
+  $entryIdsFavorite = document.querySelectorAll('i[data-entryid-fav]');
+  for (var i = 0; i < $entryIdsFavorite.length; i++) {
+    entryIdsFavoriteArray.push(parseInt($entryIdsFavorite[i].getAttribute('data-entryid-fav')));
   }
+
+  $entryIdsCorrect = document.querySelectorAll('i[data-entryid-correct]');
+  for (var j = 0; j < $entryIdsFavorite.length; j++) {
+    entryIdsCorrectArray.push(parseInt($entryIdsCorrect[j].getAttribute('data-entryid-correct')));
+  }
+
   for (var k = 0; k < data.clues.length; k++) {
-    if (qEntryIdsArray.includes(data.clues[k].entryId)) {
-      for (var m = 0; m < $qEntryIds.length; m++) {
-        if (data.clues[k].favorite === true) {
-          yellowStar($qEntryIds[m]);
-        } else if (data.clues[k].favorite === null) {
-          grayStar($qEntryIds[m]);
+    if (type === 'correct') {
+      if (entryIdsFavoriteArray.includes(data.clues[k].entryId)) {
+        for (var m = 0; m < $entryIdsCorrect.length; m++) {
+          if (parseInt($entryIdsCorrect[m].getAttribute('data-entryid-correct')) === data.clues[k].entryId) {
+            yellowStar($entryIdsCorrect[m]);
+          }
+        }
+      } else if (!(entryIdsFavoriteArray.includes(data.clues[k].entryId))) {
+        for (var n = 0; n < $entryIdsCorrect.length; n++) {
+          if (parseInt($entryIdsCorrect[n].getAttribute('data-entryid-correct')) === data.clues[k].entryId) {
+            whiteStar($entryIdsCorrect[n]);
+          }
+        }
+      }
+    } else if (type === 'favorite') {
+      if (entryIdsFavoriteArray.includes(data.clues[k].entryId)) {
+        for (var p = 0; p < $entryIdsFavorite.length; p++) {
+          if (parseInt($entryIdsFavorite[p].getAttribute('data-entryid-fav')) === data.clues[k].entryId) {
+            yellowStar($entryIdsFavorite[p]);
+          }
+        }
+      } else if (!(entryIdsFavoriteArray.includes(data.clues[k].entryId))) {
+        for (var q = 0; q < $entryIdsFavorite.length; q++) {
+          if (parseInt($entryIdsFavorite[q].getAttribute('data-entryid-fav')) === data.clues[k].entryId) {
+            whiteStar($entryIdsFavorite[q]);
+          }
         }
       }
     }
@@ -452,25 +472,36 @@ function navToQuestionsCorrect() {
 
 function reRenderQuestionsCorrect() {
   var existingCardArray = [];
-  var $existingCards = document.querySelectorAll('div[data-entryid]');
+  var $existingCards = document.querySelectorAll('div[data-entryid-correct]');
   for (var j = 0; j < $existingCards.length; j++) {
-    var existingEntryId = parseInt($existingCards[j].getAttribute('data-entryid'));
+    var existingEntryId = parseInt($existingCards[j].getAttribute('data-entryid-correct'));
     existingCardArray.push(existingEntryId);
   }
-
+  var anyCorrectArray = [];
   for (var i = 0; i < data.clues.length; i++) {
-    if (data.clues[i].completed === true) {
+    if (data.clues[i].correct === true) {
+      anyCorrectArray.push(data.clues[i]);
       if (!(existingCardArray.includes(data.clues[i].entryId))) {
-        renderQuestionCorrect(data.clues[i]);
+        renderCard(data.clues[i], 'correct');
       }
-    } else if (data.clues[i].completed !== true) {
+    } else if (data.clues[i].correct !== true) {
       if (existingCardArray.includes(data.clues[i].entryId)) {
         for (var k = 0; k < $existingCards.length; k++) {
-          if (data.clues[i].entryId === parseInt($existingCards[k].getAttribute('data-entryid'))) {
+          if (data.clues[i].entryId === parseInt($existingCards[k].getAttribute('data-entryid-correct'))) {
             $existingCards[k].remove();
           }
         }
       }
+    }
+  }
+
+  if (anyCorrectArray.length > 0) {
+    if (!($noneYetCorrect.classList.contains('hidden'))) {
+      $noneYetCorrect.classList.add('hidden');
+    }
+  } else if (anyCorrectArray.length === 0) {
+    if ($noneYetCorrect.classList.contains('hidden')) {
+      $noneYetCorrect.classList.remove('hidden');
     }
   }
 }
@@ -479,15 +510,12 @@ function navToFavorites() {
   for (var i = 0; i < $navViews.length; i++) {
     if ($navViews[i].getAttribute('data-view') === 'favorites' && $navViews[i].classList.contains('hidden')) {
       $navViews[i].classList.remove('hidden');
-    } else if ($navViews[i].getAttribute('data-view') === 'grid' && (!$navViews[i].classList.contains('hidden'))) {
-      $navViews[i].classList.add('hidden');
-    } else if ($navViews[i].getAttribute('data-view') === 'questions-correct' && (!$navViews[i].classList.contains('hidden'))) {
+    } else if ($navViews[i].getAttribute('data-view') !== 'favorites' && (!$navViews[i].classList.contains('hidden'))) {
       $navViews[i].classList.add('hidden');
     }
   }
-  navButtonBlue($favoritesButton);
-  navButtonBlack($qCorrectButton);
   reRenderFavorites();
+  reRenderStarIcons('favorite');
 
 }
 
@@ -498,13 +526,15 @@ function reRenderFavorites() {
     var existingEntryId = parseInt($existingCards[j].getAttribute('data-entryid-fav'));
     existingCardArray.push(existingEntryId);
   }
+  var anyFavoritedArray = [];
 
   for (var i = 0; i < data.clues.length; i++) {
     if (data.clues[i].favorite === true) {
+      anyFavoritedArray.push(data.clues[i]);
       if (!(existingCardArray.includes(data.clues[i].entryId))) {
-        renderFavorite(data.clues[i]);
+        renderCard(data.clues[i], 'favorite');
       }
-    } else if (data.clues[i].completed !== true) {
+    } else if (data.clues[i].favorite !== true) {
       if (existingCardArray.includes(data.clues[i].entryId)) {
         for (var k = 0; k < $existingCards.length; k++) {
           if (data.clues[i].entryId === parseInt($existingCards[k].getAttribute('data-entryid-fav'))) {
@@ -514,27 +544,16 @@ function reRenderFavorites() {
       }
     }
   }
-}
-
-function navButtonBlue(button) {
-  if (button.classList.contains('font-black')) {
-    button.classList.remove('font-black');
-    button.classList.add('font-light-blue');
-  } else {
-    button.classList.add('font-light-blue');
+  if (anyFavoritedArray.length > 0) {
+    if (!($noneYetFavorite.classList.contains('hidden'))) {
+      $noneYetFavorite.classList.add('hidden');
+    }
+  } else if (anyFavoritedArray.length === 0) {
+    if ($noneYetFavorite.classList.contains('hidden')) {
+      $noneYetFavorite.classList.remove('hidden');
+    }
   }
 }
-
-function navButtonBlack(button) {
-  if (button.classList.contains('font-light-blue')) {
-    button.classList.remove('font-light-blue');
-    button.classList.add('font-black');
-  } else {
-    button.classList.add('font-black');
-  }
-}
-
-// reset - try more questions
 
 function resetAll() {
   data.clues = [];
@@ -544,7 +563,8 @@ function resetAll() {
   $pointsHeader.textContent = data.score;
   getClues();
   blueAllClues();
-  closeModal();
+  grayStar($starIcon);
+  navToGrid();
 }
 
 function blueAllClues() {
@@ -567,10 +587,9 @@ function checkIfAllAnswered() {
   if (allAnswered === false) {
     for (var j = 0; j < $buttons.length; j++) {
       if (buttonTarget === $buttons[j]) {
-        returnToQuestions();
+        alreadyAnswered();
         break;
       } else if (buttonTarget === $yesButton || buttonTarget === $noButton) {
-        closeModal();
         break;
       }
     }
@@ -579,15 +598,9 @@ function checkIfAllAnswered() {
 
 function showReset() {
   for (var i = 0; i < $views.length; i++) {
-    if ($views[i].getAttribute('data-modal') === 'reset') {
+    if ($views[i].getAttribute('data-clue') === 'reset') {
       $views[i].classList.remove('hidden');
-    } else if ($views[i].getAttribute('data-modal') === 'click-to-see-answer') {
-      $views[i].classList.add('hidden');
-    } else if ($views[i].getAttribute('data-modal') === 'question') {
-      $views[i].classList.add('hidden');
-    } else if ($views[i].getAttribute('data-modal') === 'answer') {
-      $views[i].classList.add('hidden');
-    } else if ($views[i].getAttribute('data-modal') === 'return') {
+    } else if ($views[i].getAttribute('data-clue') !== 'reset' && !($views[i].classList.contains('hidden'))) {
       $views[i].classList.add('hidden');
     }
   }

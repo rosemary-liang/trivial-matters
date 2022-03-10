@@ -1,23 +1,21 @@
+.container-outer {
+  width: 520px;
+}
+
 .container {
   width: 500px;
 }
 
-.grid-container {
-  width: 300px;
+.card {
+  min-height: 300px;
 }
 
 .clues-container {
   padding: 0 7rem;
 }
 
-.card {
-  width: 450px;
-  height: 350px;
-}
-
 .card-in-list {
-  width: 500px;
-  height: 350px;
+  width: 470px;
 }
 
 .column-third {
@@ -28,26 +26,16 @@ nav {
   height: 1.25rem;
 }
 
-/* modal */
-.modal-on {
-  position: absolute;
-  z-index: 1;
-  width: 100vw;
-  height: 100vh;
-  left: 0;
-  right: 0;
-  background-color: rgb(0 0 0 / 75%);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.modal-off {
-  display: none;
+.min-height-300px {
+  min-height: 300px;
 }
 
 .hidden {
   display: none !important;
+}
+
+.position-absolute {
+  position: absolute;
 }
 
 /* display-flex */
@@ -87,11 +75,30 @@ nav {
   flex-wrap: wrap;
 }
 
-/* modal */
+.text-align-center {
+  text-align: center;
+}
+
+#yes,
+#no {
+  padding: 0.5rem 3.75rem;
+  font-weight: 500;
+  font-size: 0.9rem;
+  color: white;
+  background-color: #5fd5c1;
+}
+
+#no {
+  background-color: #ff8fa2;
+}
 
 /* margin & padding */
 .margin-auto {
   margin: auto;
+}
+
+.margin-b-05-rem {
+  margin-bottom: 0.5rem;
 }
 
 .margin-b-1-rem {
@@ -102,40 +109,104 @@ nav {
   margin-bottom: 2rem;
 }
 
+.margin-b-3-rem {
+  margin-bottom: 3rem;
+}
+
 .margin-0 {
   margin: 0;
+}
+
+.margin-v-025-rem {
+  margin: 0.25rem 0;
+}
+
+.margin-05-rem {
+  margin: 0.5rem;
+}
+
+.margin-t-0 {
+  margin-top: 0;
 }
 
 .margin-t-05-rem {
   margin-top: 0.5rem;
 }
 
+.margin-v-05-rem {
+  margin: 0.5rem 0;
+}
+
 .margin-v-1-rem {
   margin: 1rem 0;
+}
+
+.margin-h-1-rem {
+  margin: 0 1rem;
 }
 
 .margin-v-2-rem {
   margin: 2rem 0;
 }
 
-.padding-left-05-rem {
-  padding-left: 0.5rem;
+.margin-v-3-rem {
+  margin: 3rem 0;
+}
+
+.padding-0 {
+  padding: 0;
+}
+
+.padding-left-1-rem {
+  padding-left: 1rem;
 }
 
 .padding-right-05-rem {
   padding-right: 0.5rem;
 }
 
+.padding-t-05-rem {
+  padding-top: 0.5rem;
+}
+
+.padding-h-05-rem {
+  padding: 0 0.5rem;
+}
+
+.padding-b-1-rem {
+  padding-bottom: 1em;
+}
+
+.padding-05-rem {
+  padding: 0.5rem;
+}
+
 .padding-1-rem {
   padding: 1rem;
+}
+
+.padding-1-rem-except-bottom {
+  padding: 1rem 1rem 0;
+}
+
+.padding-h-2-rem {
+  padding: 0 2rem;
 }
 
 .padding-2-rem {
   padding: 2rem;
 }
 
+.padding-card-content {
+  padding: 0 1rem 1rem;
+}
+
 .padding-h-1-rem {
   padding: 0 1rem;
+}
+
+.padding-v-1-rem {
+  padding: 1rem 0;
 }
 
 .padding-h-15-rem {
@@ -154,26 +225,49 @@ nav {
     justify-content: center;
     align-items: center;
     height: 80px;
+    padding-top: 1rem;
   }
 
   .title > h1 {
-    font-size: 3.25rem;
+    font-size: 2.5rem;
   }
 
-  .card {
-    height: 600px;
+  .container-outer {
+    width: 420px;
+    min-height: 800px;
+  }
+
+  nav {
+    height: 2.5rem;
+    margin-top: 0.5rem;
+  }
+
+  .border-radius-1-rem {
+    border-radius: 2rem;
+  }
+
+  .border-radius-10-px {
+    border-radius: 30px;
+  }
+
+  .container {
+    width: 380px;
+  }
+
+  .font-size-09-rem {
+    font-size: 0.88rem;
   }
 
   .card-in-list {
-    width: 420px;
+    width: 350px;
+  }
+
+  .margin-b-1-rem {
+    margin-bottom: 0.5rem;
   }
 
   .padding-h-275-rem {
     padding: 0 2.75rem;
-  }
-
-  .grid-container {
-    width: 400px;
   }
 
   .clues-container {
@@ -185,108 +279,107 @@ nav {
   }
 
   button.clue {
-    width: 100px;
-    height: 100px;
     cursor: pointer;
-    margin: 0.5rem;
+    width: 110px;
+    height: 120px;
+    margin: 0.25rem;
     text-align: right;
-    padding-top: 50px;
-    padding-right: 20px;
+    padding-top: 40px;
+    padding-right: 25px;
     font-weight: 500;
     font-family: Roboto, sans-serif;
-    font-size: 1.5rem;
-    color: white;
-    background-color: #1a374d;
+    font-size: 2rem;
+    color: #6a5ae0;
+    background-color: #efeefc;
     border: none;
+    border-radius: 30px;
   }
 
   .card-text-content > p,
-  .answered-correctly > p {
-    font-size: 1.25rem;
+  .answered-correctly-container > p,
+  p.clue-answer,
+  p.clue-points {
+    font-size: 1.1rem;
   }
 
-  p.return {
-    font-size: 1.25rem;
-    margin-top: 4rem;
+  p.clue-text {
+    margin-bottom: 2rem;
   }
 
-  button.answered-correctly {
-    cursor: pointer;
-    margin: 1rem;
-    padding: 0.5rem 1.25rem;
-    width: 100px;
-    font-weight: 500;
-    font-family: Roboto, sans-serif;
+  p.return-already-answered {
+    width: 220px;
+    text-align: center;
+    line-height: 2rem;
+    margin: 0;
+  }
+
+  button.see-answer,
+  button.return {
+    padding: 0.75rem 2.5rem;
     font-size: 1.25rem;
-    color: white;
-    background-color: #406882;
+    border-radius: 15px;
     border: none;
+  }
+
+  #yes,
+  #no {
+    padding: 0.75rem 3.75rem;
+    font-weight: 500;
+    font-size: 1rem;
+    color: white;
+    background-color: #5fd5c1;
+    border-radius: 15px;
+  }
+
+  #no {
+    background-color: #ff8fa2;
   }
 
   button.return {
     cursor: pointer;
-    padding: 0.5rem 1.5rem;
-    font-family: Roboto, sans-serif;
-    font-size: 1.25rem;
-    color: white;
-    background-color: #406882;
-    border: none;
+    padding: 0.6rem 1.5rem;
   }
 
   .padding-h-7-rem {
     padding: 0;
   }
 
-  .padding-left-05-rem {
-    padding-left: 1.5rem;
-  }
-
-  .margin-v-1-rem {
-    margin: 2rem 0;
-  }
-
   .margin-b-2-rem {
     margin-bottom: 5rem;
   }
+
+  .font-size-15-rem {
+    font-size: 1.75rem;
+  }
 }
+
+/* media rule large screen */
 
 @media screen and (min-width: 768px) {
   button.clue {
     cursor: pointer;
-    width: 70px;
-    height: 70px;
-    margin: 0.5rem;
+    width: 150px;
+    height: 100px;
+    margin: 0.25rem;
     text-align: right;
     padding-top: 35px;
+    padding-right: 35px;
     font-weight: 500;
     font-family: Roboto, sans-serif;
     font-size: 1.25rem;
-    color: white;
-    background-color: #1a374d;
+    color: #6a5ae0;
+    background-color: #efeefc;
     border: none;
-  }
-
-  button.answered-correctly {
-    cursor: pointer;
-    margin: 0.5rem;
-    padding: 0.4rem 1.25rem;
-    width: 66px;
-    font-weight: 500;
-    font-family: Roboto, sans-serif;
-    font-size: 0.9rem;
-    color: white;
-    background-color: #406882;
-    border: none;
+    border-radius: 10px;
   }
 
   button.return {
-    cursor: pointer;
+    padding: 0.5rem 1.75rem;
+  }
+
+  button.see-answer {
     padding: 0.4rem 1.25rem;
-    font-weight: 500;
-    font-family: Roboto, sans-serif;
-    font-size: 0.9rem;
-    color: white;
-    background-color: #406882;
+    border-radius: 10px;
     border: none;
   }
 }

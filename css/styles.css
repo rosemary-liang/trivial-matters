@@ -6,6 +6,10 @@
   font-family: Roboto, sans-serif;
 }
 
+.font-size-08-rem {
+  font-size: 0.8rem;
+}
+
 .font-size-09-rem {
   font-size: 0.9rem;
 }
@@ -14,24 +18,40 @@
   font-size: 1rem;
 }
 
+.font-size-125-rem {
+  font-size: 1.25rem;
+}
+
 .font-size-15-rem {
   font-size: 1.5rem;
 }
 
-.font-size-25-rem {
-  font-size: 2.5rem;
+.font-size-2-rem {
+  font-size: 2rem;
 }
 
 .font-weight-500 {
   font-weight: 500;
 }
 
-.bg-dark-blue {
-  background-color: #1a374d;
+.bg-purple {
+  background-color: #6a5ae0;
+}
+
+.bg-dark-purple {
+  background-color: #5b4dc3;
+}
+
+.bg-light-purple {
+  background-color: #efeefc;
 }
 
 .bg-gray {
   background-color: #b6b6b6;
+}
+
+.bg-light-gray {
+  background-color: #f0f0f0;
 }
 
 .bg-white {
@@ -54,8 +74,20 @@
   border-width: thin;
 }
 
+.border-radius-10-px {
+  border-radius: 10px;
+}
+
+.border-radius-1-rem {
+  border-radius: 1rem;
+}
+
 .box-shadow {
   box-shadow: 3px 3px 5px gray;
+}
+
+.font-purple {
+  color: #6a5ae0;
 }
 
 .font-white {
@@ -68,6 +100,10 @@
 
 .font-light-blue {
   color: #406882;
+}
+
+.font-gray {
+  color: #939393;
 }
 
 /* links */
@@ -97,6 +133,10 @@
   color: whitesmoke;
 }
 
+.fa-star-white {
+  color: white;
+}
+
 .fa-star-yellow {
   color: rgb(255, 217, 0);
 }
@@ -109,7 +149,7 @@
 /* buttons */
 
 button.clue:hover {
-  background-color: #406882;
+  background-color: #cecaff;
 }
 
 button.fa {
@@ -119,5 +159,6 @@ button.fa {
 }
 
 #answered {
-  background-color: #b6b6b6;
+  background-color: white;
+  border: 2px solid #efeefc;
 }
