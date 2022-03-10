@@ -27,6 +27,8 @@ var $navViews = document.querySelectorAll('.nav-view');
 var $cardContainerQCorrect = document.querySelector('.container-questions-correct');
 var $qCorrectButton = document.querySelector('#nav-questions-correct');
 var $cardContainerFavorites = document.querySelector('.container-favorites');
+var $noneYetCorrect = document.querySelector('p.none-yet-correct');
+var $noneYetFavorite = document.querySelector('p.none-yet-favorite');
 var $favoritesButton = document.querySelector('#nav-favorites');
 var $resetButton = document.querySelector('#reset');
 var $finalScore = document.querySelector('#final-score');
@@ -62,7 +64,9 @@ function getClues() {
     var xhr = new XMLHttpRequest();
     xhr.open('GET', 'http://jservice.io/api/random/?count=9');
     xhr.responseType = 'json';
+
     xhr.addEventListener('load', function () {
+      // console.log(xhr.response);
       for (var i = 0; i < xhr.response.length; i++) {
         var clueData = {
         };
@@ -399,6 +403,8 @@ function navToQuestionsCorrect() {
     }
   }
 
+  // if at least one is correct, hide it
+
   reRenderQuestionsCorrect();
   reRenderStarIcons('correct');
 
@@ -435,9 +441,10 @@ function reRenderQuestionsCorrect() {
     var existingEntryId = parseInt($existingCards[j].getAttribute('data-entryid-correct'));
     existingCardArray.push(existingEntryId);
   }
-
+  var anyCorrectArray = [];
   for (var i = 0; i < data.clues.length; i++) {
     if (data.clues[i].completed === true) {
+      anyCorrectArray.push(data.clues[i]);
       if (!(existingCardArray.includes(data.clues[i].entryId))) {
         renderCard(data.clues[i], 'correct');
       }
@@ -452,6 +459,15 @@ function reRenderQuestionsCorrect() {
     }
   }
 
+  if (anyCorrectArray.length > 0) {
+    if (!($noneYetCorrect.classList.contains('hidden'))) {
+      $noneYetCorrect.classList.add('hidden');
+    }
+  } else if (anyCorrectArray.length === 0) {
+    if ($noneYetCorrect.classList.contains('hidden')) {
+      $noneYetCorrect.classList.remove('hidden');
+    }
+  }
 }
 
 function navToFavorites() {
@@ -474,9 +490,11 @@ function reRenderFavorites() {
     var existingEntryId = parseInt($existingCards[j].getAttribute('data-entryid-fav'));
     existingCardArray.push(existingEntryId);
   }
+  var anyFavoritedArray = [];
 
   for (var i = 0; i < data.clues.length; i++) {
     if (data.clues[i].favorite === true) {
+      anyFavoritedArray.push(data.clues[i]);
       if (!(existingCardArray.includes(data.clues[i].entryId))) {
         renderCard(data.clues[i], 'favorite');
       }
@@ -488,6 +506,15 @@ function reRenderFavorites() {
           }
         }
       }
+    }
+  }
+  if (anyFavoritedArray.length > 0) {
+    if (!($noneYetFavorite.classList.contains('hidden'))) {
+      $noneYetFavorite.classList.add('hidden');
+    }
+  } else if (anyFavoritedArray.length === 0) {
+    if ($noneYetFavorite.classList.contains('hidden')) {
+      $noneYetFavorite.classList.remove('hidden');
     }
   }
 }

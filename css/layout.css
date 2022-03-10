@@ -26,6 +26,10 @@ nav {
   height: 1.25rem;
 }
 
+.min-height-300px {
+  min-height: 300px;
+}
+
 .hidden {
   display: none !important;
 }
@@ -303,7 +307,7 @@ nav {
   }
 
   p.return-already-answered {
-    width: 190px;
+    width: 220px;
     text-align: center;
     line-height: 2rem;
     margin: 0;
