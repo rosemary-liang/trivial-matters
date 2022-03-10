@@ -59,44 +59,13 @@ navToGrid();
 
 // function definitions
 
-// function getCluesOriginal() {
-//   if (data.clues.length === 0) {
-//     var xhr = new XMLHttpRequest();
-//     xhr.open('GET', 'http://jservice.io/api/random/?count=9');
-//     xhr.responseType = 'json';
-
-//     xhr.addEventListener('load', function () {
-//       console.log(xhr.response);
-//       for (var i = 0; i < xhr.response.length; i++) {
-//         var clueData = {
-//         };
-//         clueData.question = xhr.response[i].question;
-//         clueData.answer = xhr.response[i].answer;
-//         clueData.points = xhr.response[i].value;
-//         clueData.completed = null;
-//         clueData.favorite = null;
-//         clueData.correct = null;
-//         clueData.entryId = data.nextEntryId;
-//         data.clues.push(clueData);
-//         data.nextEntryId++;
-//       }
-//     });
-//     xhr.send();
-//   }
-// }
-
 function getClues() {
   var validatedClues = [];
   if (data.clues.length === 0) {
     var xhr = new XMLHttpRequest();
     xhr.open('GET', 'http://jservice.io/api/random/?count=36');
     xhr.responseType = 'json';
-
-    // if none of the fields are null, blank, or empty string, then object to new array validatedClues
-
     xhr.addEventListener('load', function () {
-      // console.log(xhr.response);
-
       for (var i = 0; i < xhr.response.length; i++) {
         if (xhr.response[i].question !== null && xhr.response[i].question !== '') {
           if (xhr.response[i].answer !== null && xhr.response[i].answer !== '') {
@@ -106,8 +75,6 @@ function getClues() {
           }
         }
       }
-
-      // console.log('validatedClues', validatedClues);
 
       for (var k = 0; k < 9; k++) {
         var clueData = {
@@ -122,7 +89,6 @@ function getClues() {
         data.clues.push(clueData);
         data.nextEntryId++;
       }
-      // console.log('data.clues', data.clues);
     });
     xhr.send();
   }
@@ -349,10 +315,6 @@ function handleFavoriteinCardList(event, type) {
   }
 }
 
-// starbutton node list
-// combine handle favorites function
-
-// type = string "favorite" or "correct"
 function renderCard(clue, type) {
   var divCard = document.createElement('div');
   divCard.setAttribute('class', 'container card-in-list margin-v-1-rem border-radius-10-px bg-light-gray');
@@ -459,11 +421,6 @@ function navToQuestionsCorrect() {
 
 }
 
-// get node list
-// get attribute of data-entryid, if it matches any entryId that has favorite == true,
-// then yellow star it either the favorite or correct node list, depending on which one is being navigated to
-// if it matches any entryId with favorite !== true, white star it in the appropriate node list
-
 function reRenderStarIcons(type) {
   var $entryIdsCorrect;
   var $entryIdsFavorite;
@@ -480,8 +437,6 @@ function reRenderStarIcons(type) {
     entryIdsCorrectArray.push(parseInt($entryIdsCorrect[j].getAttribute('data-entryid-correct')));
   }
 
-  // if type === correct, then do this
-  // if data.clues[i].entryId is included in the array,
   for (var k = 0; k < data.clues.length; k++) {
     if (type === 'correct') {
       if (entryIdsFavoriteArray.includes(data.clues[k].entryId)) {
@@ -514,34 +469,6 @@ function reRenderStarIcons(type) {
     }
   }
 }
-
-// function reRenderStarIconsOld(type) {
-//   var $entryIds;
-//   var entryIdsArray = [];
-//   for (var j = 0; j < $entryIds.length; j++) {
-//     if (type === 'correct') {
-//       $entryIds = document.querySelectorAll('i[data-entryid-correct]');
-//       // maybe not this one? below
-//       entryIdsArray.push((parseInt($entryIds[j].getAttribute('data-entryid-correct'))));
-//     } else if (type === 'favorite') {
-//       $entryIds = document.querySelectorAll('i[data-entryid-favorite]');
-//       entryIdsArray.push((parseInt($entryIds[j].getAttribute('data-entryid-correct'))));
-//     }
-//   }
-//   // console.log('entryIdsArray', entryIdsArray);
-
-//   for (var k = 0; k < data.clues.length; k++) {
-//     if (entryIdsArray.includes(data.clues[k].entryId)) {
-//       for (var m = 0; m < $entryIds.length; m++) {
-//         if (data.clues[k].favorite === true) {
-//           yellowStar($entryIds[m]);
-//         } else if (data.clues[k].favorite === null) {
-//           whiteStar($entryIds[m]);
-//         }
-//       }
-//     }
-//   }
-// }
 
 function reRenderQuestionsCorrect() {
   var existingCardArray = [];
