@@ -63,7 +63,7 @@ function getClues() {
   var validatedClues = [];
   if (data.clues.length === 0) {
     var xhr = new XMLHttpRequest();
-    xhr.open('GET', 'http://jservice.io/api/random/?count=36');
+    xhr.open('GET', 'https://jservice.io/api/random/?count=36');
     xhr.responseType = 'json';
     xhr.addEventListener('load', function () {
       for (var i = 0; i < xhr.response.length; i++) {
