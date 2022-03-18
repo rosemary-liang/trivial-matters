@@ -219,33 +219,19 @@ const grayClue = () => {
 };
 
 const yellowStar = icon => {
-  if (!(icon.classList.contains('fa-star-yellow'))) {
-    icon.classList.add('fa-star-yellow');
-  }
-  if (icon.classList.contains('fa-star-gray')) {
-    icon.classList.remove('fa-star-gray');
-  }
-  if (icon.classList.contains('fa-star-white')) {
-    icon.classList.remove('fa-star-white');
-  }
+  icon.classList.add('fa-star-yellow');
+  icon.classList.remove('fa-star-gray');
+  icon.classList.remove('fa-star-white');
 };
 
 const grayStar = icon => {
-  if (!(icon.classList.contains('fa-star-gray'))) {
-    icon.classList.add('fa-star-gray');
-  }
-  if (icon.classList.contains('fa-star-yellow')) {
-    icon.classList.remove('fa-star-yellow');
-  }
+  icon.classList.add('fa-star-gray');
+  icon.classList.remove('fa-star-yellow');
 };
 
 const whiteStar = icon => {
-  if (!(icon.classList.contains('fa-star-white'))) {
-    icon.classList.add('fa-star-white');
-  }
-  if (icon.classList.contains('fa-star-yellow')) {
-    icon.classList.remove('fa-star-yellow');
-  }
+  icon.classList.add('fa-star-white');
+  icon.classList.remove('fa-star-yellow');
 };
 
 const handleFavorite = () => {
@@ -308,14 +294,6 @@ const renderCard = (clue, type) => {
   const divCard = document.createElement('div');
   divCard.setAttribute('class', 'container card-in-list margin-v-1-rem border-radius-10-px bg-light-gray');
 
-  if (type === 'favorite') {
-    divCard.setAttribute('data-entryid-fav', clue.entryId);
-    $cardContainerFavorites.appendChild(divCard);
-  } else if (type === 'correct') {
-    divCard.setAttribute('data-entryid-correct', clue.entryId);
-    $cardContainerQCorrect.appendChild(divCard);
-  }
-
   const divFavorite = document.createElement('div');
   divFavorite.setAttribute('class', 'favorite display-flex space-between padding-left-1-rem  ');
   divCard.prepend(divFavorite);
@@ -333,14 +311,18 @@ const renderCard = (clue, type) => {
   iStar.setAttribute('class', 'fa-solid fa-star font-size-125-rem grow favorites-page fa-star-white');
 
   if (type === 'favorite') {
+    divCard.setAttribute('data-entryid-fav', clue.entryId);
+    $cardContainerFavorites.appendChild(divCard);
     iStar.setAttribute('data-entryid-fav', clue.entryId);
   } else if (type === 'correct') {
+    divCard.setAttribute('data-entryid-correct', clue.entryId);
+    $cardContainerQCorrect.appendChild(divCard);
     iStar.setAttribute('data-entryid-correct', clue.entryId);
   }
 
   if (clue.favorite === true) {
     yellowStar(iStar);
-  } else if (clue.favorite !== true) {
+  } else {
     whiteStar(iStar);
   }
 
