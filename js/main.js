@@ -3,70 +3,46 @@
 
 // dom queries
 
-var $gridButtonContainer = document.querySelector('.button-container');
-var $buttons = document.querySelectorAll('button.clue');
-var $clueContainer = document.querySelector('[data-view="clue"]');
-var $views = document.querySelectorAll('.view');
-var $backButton = document.querySelector('.back-to-grid');
-var $backButtonCardListCorrect = document.querySelector('.back-to-questions-correct');
-var $backButtonCardListFavorites = document.querySelector('.back-to-questions-fav');
-var $seeAnswerButton = document.querySelector('button.see-answer');
-var $questionNumber = document.querySelector('p.question-number');
-var $clue = document.querySelector('.clue-text');
-var $answer = document.querySelector('.clue-answer');
-var $points = document.querySelector('.clue-points');
-var $yesButton = document.querySelector('#yes');
-var $noButton = document.querySelector('#no');
-var $qCorrectHeader = document.querySelector('span.q-correct');
-var $pointsHeader = document.querySelector('span.score');
-var buttonTarget;
-var $favoriteContainer = document.querySelector('.favorite');
-var $starButton = document.querySelector('button.fa');
-var $starIcon = document.querySelector('.fa-star');
-var $navViews = document.querySelectorAll('.nav-view');
-var $cardContainerQCorrect = document.querySelector('.container-questions-correct');
-var $qCorrectButton = document.querySelector('#nav-questions-correct');
-var $cardContainerFavorites = document.querySelector('.container-favorites');
-var $noneYetCorrect = document.querySelector('p.none-yet-correct');
-var $noneYetFavorite = document.querySelector('p.none-yet-favorite');
-var $favoritesButton = document.querySelector('#nav-favorites');
-var $resetButton = document.querySelector('#reset');
-var $finalScore = document.querySelector('#final-score');
-
-// event listeners
-
-window.addEventListener('load', loadFromStorage);
-$gridButtonContainer.addEventListener('click', navToClue);
-$seeAnswerButton.addEventListener('click', showAnswer);
-$yesButton.addEventListener('click', function (event) { handleYesOrNo(event, 'yes'); });
-$noButton.addEventListener('click', function (event) { handleYesOrNo(event, 'no'); });
-$backButton.addEventListener('click', navToGrid);
-$backButtonCardListCorrect.addEventListener('click', navToGrid);
-$backButtonCardListFavorites.addEventListener('click', navToGrid);
-$starButton.addEventListener('click', handleFavorite);
-$qCorrectButton.addEventListener('click', navToQuestionsCorrect);
-$favoritesButton.addEventListener('click', navToFavorites);
-$cardContainerFavorites.addEventListener('click', function (event) { handleFavoriteinCardList(event, 'favorite'); });
-$cardContainerQCorrect.addEventListener('click', function (event) { handleFavoriteinCardList(event, 'correct'); });
-$resetButton.addEventListener('click', resetAll);
-
-// function calls
-
-getClues();
-renderCards('favorite');
-renderCards('correct');
-navToGrid();
+const $gridButtonContainer = document.querySelector('.button-container');
+const $buttons = document.querySelectorAll('button.clue');
+const $clueContainer = document.querySelector('[data-view="clue"]');
+const $views = document.querySelectorAll('.view');
+const $backButton = document.querySelector('.back-to-grid');
+const $backButtonCardListCorrect = document.querySelector('.back-to-questions-correct');
+const $backButtonCardListFavorites = document.querySelector('.back-to-questions-fav');
+const $seeAnswerButton = document.querySelector('button.see-answer');
+const $questionNumber = document.querySelector('p.question-number');
+const $clue = document.querySelector('.clue-text');
+const $answer = document.querySelector('.clue-answer');
+const $points = document.querySelector('.clue-points');
+const $yesButton = document.querySelector('#yes');
+const $noButton = document.querySelector('#no');
+const $qCorrectHeader = document.querySelector('span.q-correct');
+const $pointsHeader = document.querySelector('span.score');
+let buttonTarget;
+const $favoriteContainer = document.querySelector('.favorite');
+const $starButton = document.querySelector('button.fa');
+const $starIcon = document.querySelector('.fa-star');
+const $navViews = document.querySelectorAll('.nav-view');
+const $cardContainerQCorrect = document.querySelector('.container-questions-correct');
+const $qCorrectButton = document.querySelector('#nav-questions-correct');
+const $cardContainerFavorites = document.querySelector('.container-favorites');
+const $noneYetCorrect = document.querySelector('p.none-yet-correct');
+const $noneYetFavorite = document.querySelector('p.none-yet-favorite');
+const $favoritesButton = document.querySelector('#nav-favorites');
+const $resetButton = document.querySelector('#reset');
+const $finalScore = document.querySelector('#final-score');
 
 // function definitions
 
-function getClues() {
-  var validatedClues = [];
+const getClues = () => {
+  const validatedClues = [];
   if (data.clues.length === 0) {
-    var xhr = new XMLHttpRequest();
+    const xhr = new XMLHttpRequest();
     xhr.open('GET', 'https://jservice.io/api/random/?count=36');
     xhr.responseType = 'json';
-    xhr.addEventListener('load', function () {
-      for (var i = 0; i < xhr.response.length; i++) {
+    xhr.addEventListener('load', () => {
+      for (let i = 0; i < xhr.response.length; i++) {
         if (xhr.response[i].question !== null && xhr.response[i].question !== '') {
           if (xhr.response[i].answer !== null && xhr.response[i].answer !== '') {
             if (xhr.response[i].value !== null && xhr.response[i].value !== '') {
@@ -76,8 +52,8 @@ function getClues() {
         }
       }
 
-      for (var k = 0; k < 9; k++) {
-        var clueData = {
+      for (let k = 0; k < 9; k++) {
+        const clueData = {
         };
         clueData.question = validatedClues[k].question;
         clueData.answer = validatedClues[k].answer;
@@ -92,20 +68,20 @@ function getClues() {
     });
     xhr.send();
   }
-}
+};
 
-function loadFromStorage() {
+const loadFromStorage = () => {
   grayClue();
   countCorrect();
   $pointsHeader.textContent = data.score;
-}
+};
 
-function navToClue(event) {
+const navToClue = event => {
   if ($clueContainer.classList.contains('hidden')) {
     $clueContainer.classList.remove('hidden');
   }
 
-  for (var i = 0; i < $navViews.length; i++) {
+  for (let i = 0; i < $navViews.length; i++) {
     if ($navViews[i].getAttribute('data-view') === 'questions-correct' && (!$navViews[i].classList.contains('hidden'))) {
       $navViews[i].classList.add('hidden');
     } else if ($navViews[i].getAttribute('data-view') === 'grid' && (!$navViews[i].classList.contains('hidden'))) {
@@ -116,12 +92,12 @@ function navToClue(event) {
   }
 
   buttonTarget = event.target;
-  for (var k = 0; k < data.clues.length; k++) {
+  for (let k = 0; k < data.clues.length; k++) {
     if (data.clues[k].entryId === parseInt(buttonTarget.textContent)) {
       data.currentlyAnswering = data.clues[k];
     }
   }
-  for (var j = 0; j < $buttons.length; j++) {
+  for (let j = 0; j < $buttons.length; j++) {
     if (buttonTarget === $buttons[j]) {
       if (data.clues[j].completed === true) {
         checkIfAllAnswered();
@@ -133,11 +109,11 @@ function navToClue(event) {
     }
   }
 
-}
+};
 
-function displayClue() {
+const displayClue = () => {
   grayStar($starIcon);
-  for (var i = 0; i < data.clues.length; i++) {
+  for (let i = 0; i < data.clues.length; i++) {
     if (parseInt(event.target.textContent) === data.clues[i].entryId) {
       $questionNumber.innerHTML = 'QUESTION ' + data.clues[i].entryId;
       $clue.innerHTML = data.clues[i].question;
@@ -146,10 +122,10 @@ function displayClue() {
       return;
     }
   }
-}
+};
 
-function showAnswer() {
-  for (var i = 0; i < $views.length; i++) {
+const showAnswer = () => {
+  for (let i = 0; i < $views.length; i++) {
     if ($views[i].getAttribute('data-clue') === 'answer') {
       $views[i].classList.remove('hidden');
     } else if ($views[i].getAttribute('data-clue') === 'see-answer') {
@@ -159,30 +135,30 @@ function showAnswer() {
   if ($favoriteContainer.classList.contains('hidden')) {
     $favoriteContainer.classList.remove('hidden');
   }
-}
+};
 
-function alreadyAnswered() {
-  for (var i = 0; i < $views.length; i++) {
+const alreadyAnswered = () => {
+  for (let i = 0; i < $views.length; i++) {
     if ($views[i].getAttribute('data-clue') === 'return') {
       $views[i].classList.remove('hidden');
     } else if ($views[i].getAttribute('data-clue') !== 'return') {
       $views[i].classList.add('hidden');
     }
   }
-}
+};
 
-function countCorrect() {
-  var counter = 0;
-  for (var i = 0; i < data.clues.length; i++) {
+const countCorrect = () => {
+  let counter = 0;
+  for (let i = 0; i < data.clues.length; i++) {
     if (data.clues[i].correct === true) {
       counter += 1;
     }
   }
   $qCorrectHeader.textContent = counter;
   counter = 0;
-}
+};
 
-function handleYesOrNo(event, yesOrNo) {
+const handleYesOrNo = (event, yesOrNo) => {
   buttonTarget = event.target;
   data.currentlyAnswering.completed = true;
   if (yesOrNo === 'yes') {
@@ -196,7 +172,7 @@ function handleYesOrNo(event, yesOrNo) {
 
   data.currentlyAnswering = null;
   grayClue();
-  var completedArray = [];
+  const completedArray = [];
   for (var i = 0; i < data.clues.length; i++) {
     if (data.clues[i].completed === true) {
       completedArray.push(data.clues[i]);
@@ -208,10 +184,10 @@ function handleYesOrNo(event, yesOrNo) {
     checkIfAllAnswered();
   }
 
-}
+};
 
-function resetClueView() {
-  for (var i = 0; i < $views.length; i++) {
+const resetClueView = () => {
+  for (let i = 0; i < $views.length; i++) {
     if ($views[i].getAttribute('data-clue') === 'question' || $views[i].getAttribute('data-clue') === 'see-answer') {
       $views[i].classList.remove('hidden');
     } else if ($views[i].getAttribute('data-clue') === 'answer') {
@@ -226,17 +202,17 @@ function resetClueView() {
   if (!($favoriteContainer.classList.contains('hidden'))) {
     $favoriteContainer.classList.add('hidden');
   }
-}
+};
 
-function grayClue() {
-  for (var i = 0; i < data.clues.length; i++) {
+const grayClue = () => {
+  for (let i = 0; i < data.clues.length; i++) {
     if (data.clues[i].completed === true) {
       $buttons[i].setAttribute('id', 'answered');
     }
   }
-}
+};
 
-function yellowStar(icon) {
+const yellowStar = icon => {
   if (!(icon.classList.contains('fa-star-yellow'))) {
     icon.classList.add('fa-star-yellow');
   }
@@ -246,30 +222,30 @@ function yellowStar(icon) {
   if (icon.classList.contains('fa-star-white')) {
     icon.classList.remove('fa-star-white');
   }
-}
+};
 
-function grayStar(icon) {
+const grayStar = icon => {
   if (!(icon.classList.contains('fa-star-gray'))) {
     icon.classList.add('fa-star-gray');
   }
   if (icon.classList.contains('fa-star-yellow')) {
     icon.classList.remove('fa-star-yellow');
   }
-}
+};
 
-function whiteStar(icon) {
+const whiteStar = icon => {
   if (!(icon.classList.contains('fa-star-white'))) {
     icon.classList.add('fa-star-white');
   }
   if (icon.classList.contains('fa-star-yellow')) {
     icon.classList.remove('fa-star-yellow');
   }
-}
+};
 
-function handleFavorite() {
-  var icon = $starIcon;
-  var buttonTargetId = parseInt(buttonTarget.textContent);
-  for (var i = 0; i < data.clues.length; i++) {
+const handleFavorite = () => {
+  const icon = $starIcon;
+  const buttonTargetId = parseInt(buttonTarget.textContent);
+  for (let i = 0; i < data.clues.length; i++) {
     if (data.clues[i].entryId === buttonTargetId &&
         data.clues[i].favorite !== true) {
       data.clues[i].favorite = true;
@@ -281,14 +257,14 @@ function handleFavorite() {
     }
   }
   return icon;
-}
+};
 
-function handleFavoriteinCardList(event, type) {
-  var icon = event.target;
+const handleFavoriteinCardList = (event, type) => {
+  const icon = event.target;
 
   if (type === 'favorite') {
-    var buttonTargetIdFav = parseInt(event.target.getAttribute('data-entryid-fav'));
-    for (var i = 0; i < data.clues.length; i++) {
+    const buttonTargetIdFav = parseInt(event.target.getAttribute('data-entryid-fav'));
+    for (let i = 0; i < data.clues.length; i++) {
       if (data.clues[i].entryId === buttonTargetIdFav && data.clues[i].favorite !== true) {
         data.clues[i].favorite = true;
         yellowStar(icon);
@@ -300,8 +276,8 @@ function handleFavoriteinCardList(event, type) {
       }
     }
   } else if (type === 'correct') {
-    var buttonTargetIdCorrect = parseInt(event.target.getAttribute('data-entryid-correct'));
-    for (var j = 0; j < data.clues.length; j++) {
+    const buttonTargetIdCorrect = parseInt(event.target.getAttribute('data-entryid-correct'));
+    for (let j = 0; j < data.clues.length; j++) {
       if (data.clues[j].entryId === buttonTargetIdCorrect && data.clues[j].favorite !== true) {
         data.clues[j].favorite = true;
         yellowStar(icon);
@@ -313,10 +289,10 @@ function handleFavoriteinCardList(event, type) {
       }
     }
   }
-}
+};
 
-function renderCard(clue, type) {
-  var divCard = document.createElement('div');
+const renderCard = (clue, type) => {
+  const divCard = document.createElement('div');
   divCard.setAttribute('class', 'container card-in-list margin-v-1-rem border-radius-10-px bg-light-gray');
 
   if (type === 'favorite') {
@@ -327,20 +303,20 @@ function renderCard(clue, type) {
     $cardContainerQCorrect.appendChild(divCard);
   }
 
-  var divFavorite = document.createElement('div');
+  const divFavorite = document.createElement('div');
   divFavorite.setAttribute('class', 'favorite display-flex space-between padding-left-1-rem  ');
   divCard.prepend(divFavorite);
 
-  var pQuestionNumber = document.createElement('p');
+  const pQuestionNumber = document.createElement('p');
   pQuestionNumber.setAttribute('class', 'question-number roboto font-gray font-size-08-rem');
   pQuestionNumber.textContent = 'QUESTION ' + clue.entryId;
   divFavorite.appendChild(pQuestionNumber);
 
-  var buttonFa = document.createElement('button');
+  const buttonFa = document.createElement('button');
   buttonFa.setAttribute('class', 'button-cards padding-right-05-rem border-none cursor-pointer border-radius-10-px');
   divFavorite.appendChild(buttonFa);
 
-  var iStar = document.createElement('i');
+  const iStar = document.createElement('i');
   iStar.setAttribute('class', 'fa-solid fa-star font-size-125-rem grow favorites-page fa-star-white');
 
   if (type === 'favorite') {
@@ -357,32 +333,32 @@ function renderCard(clue, type) {
 
   buttonFa.appendChild(iStar);
 
-  var divCardContent = document.createElement('div');
+  const divCardContent = document.createElement('div');
   divCardContent.setAttribute('class', 'card-content padding-card-content');
   divCard.appendChild(divCardContent);
 
-  var divCardTextContent = document.createElement('div');
+  const divCardTextContent = document.createElement('div');
   divCardTextContent.setAttribute('class', 'card-text-content padding-right-05-rem');
   divCardContent.appendChild(divCardTextContent);
 
-  var pClueText = document.createElement('p');
+  const pClueText = document.createElement('p');
   pClueText.setAttribute('class', 'clue-text roboto font-weight-500 margin-b-2-rem  margin-t-0');
   pClueText.textContent = clue.question;
   divCardContent.appendChild(pClueText);
 
-  var pAnswer = document.createElement('p');
+  const pAnswer = document.createElement('p');
   pAnswer.setAttribute('class', 'answer roboto font-weight-500 font-purple margin-v-025-rem');
   pAnswer.textContent = 'Answer: ' + clue.answer;
   divCardContent.appendChild(pAnswer);
 
-  var pPoints = document.createElement('p');
+  const pPoints = document.createElement('p');
   pPoints.setAttribute('class', 'points roboto font-weight-500  font-purple margin-0');
   pPoints.textContent = 'Points: ' + clue.points;
   divCardContent.appendChild(pPoints);
-}
+};
 
-function renderCards(type) {
-  for (var i = 0; i < data.clues.length; i++) {
+const renderCards = type => {
+  for (let i = 0; i < data.clues.length; i++) {
     if (type === 'favorite') {
       if (data.clues[i].favorite === true) {
         renderCard(data.clues[i], type);
@@ -393,10 +369,10 @@ function renderCards(type) {
       }
     }
   }
-}
+};
 
-function navToGrid() {
-  for (var i = 0; i < $navViews.length; i++) {
+const navToGrid = () => {
+  for (let i = 0; i < $navViews.length; i++) {
     if ($navViews[i].getAttribute('data-view') === 'grid' && $navViews[i].classList.contains('hidden')) {
       $navViews[i].classList.remove('hidden');
     } else if ($navViews[i].getAttribute('data-view') !== 'grid' && (!$navViews[i].classList.contains('hidden'))) {
@@ -404,10 +380,10 @@ function navToGrid() {
     }
   }
   resetClueView();
-}
+};
 
-function navToQuestionsCorrect() {
-  for (var i = 0; i < $navViews.length; i++) {
+const navToQuestionsCorrect = () => {
+  for (let i = 0; i < $navViews.length; i++) {
     if ($navViews[i].getAttribute('data-view') === 'questions-correct' && $navViews[i].classList.contains('hidden')) {
       $navViews[i].classList.remove('hidden');
     } else if ($navViews[i].getAttribute('data-view') !== 'questions-correct' && (!$navViews[i].classList.contains('hidden'))) {
@@ -418,35 +394,32 @@ function navToQuestionsCorrect() {
   reRenderStarIcons('favorite');
   reRenderStarIcons('correct');
   reRenderQuestionsCorrect();
+};
 
-}
+const reRenderStarIcons = type => {
+  const entryIdsCorrectArray = [];
+  const entryIdsFavoriteArray = [];
 
-function reRenderStarIcons(type) {
-  var $entryIdsCorrect;
-  var $entryIdsFavorite;
-  var entryIdsCorrectArray = [];
-  var entryIdsFavoriteArray = [];
-
-  $entryIdsFavorite = document.querySelectorAll('i[data-entryid-fav]');
-  for (var i = 0; i < $entryIdsFavorite.length; i++) {
+  const $entryIdsFavorite = document.querySelectorAll('i[data-entryid-fav]');
+  for (let i = 0; i < $entryIdsFavorite.length; i++) {
     entryIdsFavoriteArray.push(parseInt($entryIdsFavorite[i].getAttribute('data-entryid-fav')));
   }
 
-  $entryIdsCorrect = document.querySelectorAll('i[data-entryid-correct]');
-  for (var j = 0; j < $entryIdsFavorite.length; j++) {
+  const $entryIdsCorrect = document.querySelectorAll('i[data-entryid-correct]');
+  for (let j = 0; j < $entryIdsFavorite.length; j++) {
     entryIdsCorrectArray.push(parseInt($entryIdsCorrect[j].getAttribute('data-entryid-correct')));
   }
 
-  for (var k = 0; k < data.clues.length; k++) {
+  for (let k = 0; k < data.clues.length; k++) {
     if (type === 'correct') {
       if (entryIdsFavoriteArray.includes(data.clues[k].entryId)) {
-        for (var m = 0; m < $entryIdsCorrect.length; m++) {
+        for (let m = 0; m < $entryIdsCorrect.length; m++) {
           if (parseInt($entryIdsCorrect[m].getAttribute('data-entryid-correct')) === data.clues[k].entryId) {
             yellowStar($entryIdsCorrect[m]);
           }
         }
       } else if (!(entryIdsFavoriteArray.includes(data.clues[k].entryId))) {
-        for (var n = 0; n < $entryIdsCorrect.length; n++) {
+        for (let n = 0; n < $entryIdsCorrect.length; n++) {
           if (parseInt($entryIdsCorrect[n].getAttribute('data-entryid-correct')) === data.clues[k].entryId) {
             whiteStar($entryIdsCorrect[n]);
           }
@@ -454,13 +427,13 @@ function reRenderStarIcons(type) {
       }
     } else if (type === 'favorite') {
       if (entryIdsFavoriteArray.includes(data.clues[k].entryId)) {
-        for (var p = 0; p < $entryIdsFavorite.length; p++) {
+        for (let p = 0; p < $entryIdsFavorite.length; p++) {
           if (parseInt($entryIdsFavorite[p].getAttribute('data-entryid-fav')) === data.clues[k].entryId) {
             yellowStar($entryIdsFavorite[p]);
           }
         }
       } else if (!(entryIdsFavoriteArray.includes(data.clues[k].entryId))) {
-        for (var q = 0; q < $entryIdsFavorite.length; q++) {
+        for (let q = 0; q < $entryIdsFavorite.length; q++) {
           if (parseInt($entryIdsFavorite[q].getAttribute('data-entryid-fav')) === data.clues[k].entryId) {
             whiteStar($entryIdsFavorite[q]);
           }
@@ -468,17 +441,17 @@ function reRenderStarIcons(type) {
       }
     }
   }
-}
+};
 
-function reRenderQuestionsCorrect() {
-  var existingCardArray = [];
-  var $existingCards = document.querySelectorAll('div[data-entryid-correct]');
-  for (var j = 0; j < $existingCards.length; j++) {
-    var existingEntryId = parseInt($existingCards[j].getAttribute('data-entryid-correct'));
+const reRenderQuestionsCorrect = () => {
+  const existingCardArray = [];
+  const $existingCards = document.querySelectorAll('div[data-entryid-correct]');
+  for (let j = 0; j < $existingCards.length; j++) {
+    const existingEntryId = parseInt($existingCards[j].getAttribute('data-entryid-correct'));
     existingCardArray.push(existingEntryId);
   }
-  var anyCorrectArray = [];
-  for (var i = 0; i < data.clues.length; i++) {
+  const anyCorrectArray = [];
+  for (let i = 0; i < data.clues.length; i++) {
     if (data.clues[i].correct === true) {
       anyCorrectArray.push(data.clues[i]);
       if (!(existingCardArray.includes(data.clues[i].entryId))) {
@@ -486,7 +459,7 @@ function reRenderQuestionsCorrect() {
       }
     } else if (data.clues[i].correct !== true) {
       if (existingCardArray.includes(data.clues[i].entryId)) {
-        for (var k = 0; k < $existingCards.length; k++) {
+        for (let k = 0; k < $existingCards.length; k++) {
           if (data.clues[i].entryId === parseInt($existingCards[k].getAttribute('data-entryid-correct'))) {
             $existingCards[k].remove();
           }
@@ -504,10 +477,10 @@ function reRenderQuestionsCorrect() {
       $noneYetCorrect.classList.remove('hidden');
     }
   }
-}
+};
 
-function navToFavorites() {
-  for (var i = 0; i < $navViews.length; i++) {
+const navToFavorites = () => {
+  for (let i = 0; i < $navViews.length; i++) {
     if ($navViews[i].getAttribute('data-view') === 'favorites' && $navViews[i].classList.contains('hidden')) {
       $navViews[i].classList.remove('hidden');
     } else if ($navViews[i].getAttribute('data-view') !== 'favorites' && (!$navViews[i].classList.contains('hidden'))) {
@@ -517,18 +490,19 @@ function navToFavorites() {
   reRenderFavorites();
   reRenderStarIcons('favorite');
 
-}
+};
 
-function reRenderFavorites() {
-  var existingCardArray = [];
-  var $existingCards = document.querySelectorAll('div[data-entryid-fav]');
-  for (var j = 0; j < $existingCards.length; j++) {
-    var existingEntryId = parseInt($existingCards[j].getAttribute('data-entryid-fav'));
+const reRenderFavorites = () => {
+  const existingCardArray = [];
+  const $existingCards = document.querySelectorAll('div[data-entryid-fav]');
+  for (let j = 0; j < $existingCards.length; j++) {
+    const existingEntryId = parseInt($existingCards[j].getAttribute('data-entryid-fav'));
     existingCardArray.push(existingEntryId);
   }
-  var anyFavoritedArray = [];
 
-  for (var i = 0; i < data.clues.length; i++) {
+  const anyFavoritedArray = [];
+
+  for (let i = 0; i < data.clues.length; i++) {
     if (data.clues[i].favorite === true) {
       anyFavoritedArray.push(data.clues[i]);
       if (!(existingCardArray.includes(data.clues[i].entryId))) {
@@ -536,7 +510,7 @@ function reRenderFavorites() {
       }
     } else if (data.clues[i].favorite !== true) {
       if (existingCardArray.includes(data.clues[i].entryId)) {
-        for (var k = 0; k < $existingCards.length; k++) {
+        for (let k = 0; k < $existingCards.length; k++) {
           if (data.clues[i].entryId === parseInt($existingCards[k].getAttribute('data-entryid-fav'))) {
             $existingCards[k].remove();
           }
@@ -553,29 +527,29 @@ function reRenderFavorites() {
       $noneYetFavorite.classList.remove('hidden');
     }
   }
-}
+};
 
-function resetAll() {
+const resetAll = () => {
   data.clues = [];
   data.score = 0;
   data.nextEntryId = 1;
   countCorrect();
   $pointsHeader.textContent = data.score;
   getClues();
-  blueAllClues();
+  removeClueId();
   grayStar($starIcon);
   navToGrid();
-}
+};
 
-function blueAllClues() {
-  for (var i = 0; i < $buttons.length; i++) {
+const removeClueId = () => {
+  for (let i = 0; i < $buttons.length; i++) {
     $buttons[i].removeAttribute('id');
   }
-}
+};
 
-function checkIfAllAnswered() {
-  var allAnswered;
-  for (var i = 0; i < data.clues.length; i++) {
+const checkIfAllAnswered = () => {
+  let allAnswered;
+  for (let i = 0; i < data.clues.length; i++) {
     if (data.clues[i].completed !== true) {
       allAnswered = false;
       break;
@@ -585,7 +559,7 @@ function checkIfAllAnswered() {
     showReset();
   }
   if (allAnswered === false) {
-    for (var j = 0; j < $buttons.length; j++) {
+    for (let j = 0; j < $buttons.length; j++) {
       if (buttonTarget === $buttons[j]) {
         alreadyAnswered();
         break;
@@ -594,10 +568,10 @@ function checkIfAllAnswered() {
       }
     }
   }
-}
+};
 
-function showReset() {
-  for (var i = 0; i < $views.length; i++) {
+const showReset = () => {
+  for (let i = 0; i < $views.length; i++) {
     if ($views[i].getAttribute('data-clue') === 'reset') {
       $views[i].classList.remove('hidden');
     } else if ($views[i].getAttribute('data-clue') !== 'reset' && !($views[i].classList.contains('hidden'))) {
@@ -610,4 +584,28 @@ function showReset() {
 
   $finalScore.textContent = data.score;
 
-}
+};
+
+// function calls
+
+getClues();
+renderCards('favorite');
+renderCards('correct');
+navToGrid();
+
+// event listeners
+
+window.addEventListener('load', loadFromStorage);
+$gridButtonContainer.addEventListener('click', navToClue);
+$seeAnswerButton.addEventListener('click', showAnswer);
+$yesButton.addEventListener('click', function (event) { handleYesOrNo(event, 'yes'); });
+$noButton.addEventListener('click', function (event) { handleYesOrNo(event, 'no'); });
+$backButton.addEventListener('click', navToGrid);
+$backButtonCardListCorrect.addEventListener('click', navToGrid);
+$backButtonCardListFavorites.addEventListener('click', navToGrid);
+$starButton.addEventListener('click', handleFavorite);
+$qCorrectButton.addEventListener('click', navToQuestionsCorrect);
+$favoritesButton.addEventListener('click', navToFavorites);
+$cardContainerFavorites.addEventListener('click', function (event) { handleFavoriteinCardList(event, 'favorite'); });
+$cardContainerQCorrect.addEventListener('click', function (event) { handleFavoriteinCardList(event, 'correct'); });
+$resetButton.addEventListener('click', resetAll);
