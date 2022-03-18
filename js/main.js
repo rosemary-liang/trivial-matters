@@ -263,7 +263,7 @@ const handleFavorite = () => {
       }
     }
   }
-  return icon;
+
 };
 
 const handleFavoriteinCardList = (event, type) => {
@@ -272,27 +272,33 @@ const handleFavoriteinCardList = (event, type) => {
   if (type === 'favorite') {
     const buttonTargetIdFav = parseInt(event.target.getAttribute('data-entryid-fav'));
     for (let i = 0; i < clues.length; i++) {
-      if (clues[i].entryId === buttonTargetIdFav && clues[i].favorite !== true) {
-        clues[i].favorite = true;
-        yellowStar(icon);
-        return;
-      } else if (clues[i].entryId === buttonTargetIdFav && clues[i].favorite === true) {
-        clues[i].favorite = false;
-        whiteStar(icon);
-        return;
+      const clue = clues[i];
+      if (clue.entryId === buttonTargetIdFav) {
+        if (clue.favorite !== true) {
+          clue.favorite = true;
+          yellowStar(icon);
+          return;
+        } else {
+          clue.favorite = false;
+          whiteStar(icon);
+          return;
+        }
       }
     }
   } else if (type === 'correct') {
     const buttonTargetIdCorrect = parseInt(event.target.getAttribute('data-entryid-correct'));
     for (let j = 0; j < clues.length; j++) {
-      if (clues[j].entryId === buttonTargetIdCorrect && clues[j].favorite !== true) {
-        clues[j].favorite = true;
-        yellowStar(icon);
-        return;
-      } else if (clues[j].entryId === buttonTargetIdCorrect && clues[j].favorite === true) {
-        clues[j].favorite = false;
-        whiteStar(icon);
-        return;
+      const clue = clues[j];
+      if (clue.entryId === buttonTargetIdCorrect) {
+        if (clue.favorite !== true) {
+          clue.favorite = true;
+          yellowStar(icon);
+          return;
+        } else if (clue.favorite === true) {
+          clue.favorite = false;
+          whiteStar(icon);
+          return;
+        }
       }
     }
   }
