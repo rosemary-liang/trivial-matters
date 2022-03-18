@@ -76,17 +76,18 @@ const loadFromStorage = () => {
   $pointsHeader.textContent = score;
 };
 
-const navToClue = event => {
-  // if ($clueContainer.classList.contains('hidden')) {
-  //   $clueContainer.classList.remove('hidden');
-  // }
+// const navDestination;
+// switch (navDestination) {
+//   case 'clue':
+// }
 
+const navToClue = event => {
   for (let i = 0; i < $navViews.length; i++) {
-    const views = $navViews[i];
-    if (views.getAttribute('data-view') === 'clue' && (views.classList.contains('hidden'))) {
-      views.classList.remove('hidden');
-    } else if ($navViews[i].getAttribute('data-view') !== 'clue' && (!$navViews[i].classList.contains('hidden'))) {
-      $navViews[i].classList.add('hidden');
+    const view = $navViews[i];
+    if (view.getAttribute('data-view') === 'clue') {
+      view.classList.remove('hidden');
+    } else if ($navViews[i].getAttribute('data-view') !== 'clue') {
+      view.classList.add('hidden');
     }
   }
 
@@ -107,7 +108,6 @@ const navToClue = event => {
       }
     }
   }
-
 };
 
 const displayClue = () => {
@@ -368,11 +368,11 @@ const renderCards = type => {
 
 const navToGrid = () => {
   for (let i = 0; i < $navViews.length; i++) {
-    const views = $navViews[i];
-    if (views.getAttribute('data-view') === 'grid' && views.classList.contains('hidden')) {
-      views.classList.remove('hidden');
-    } else if (views.getAttribute('data-view') !== 'grid' && (views.classList.contains('hidden'))) {
-      views.classList.add('hidden');
+    const view = $navViews[i];
+    if (view.getAttribute('data-view') === 'grid') {
+      view.classList.remove('hidden');
+    } else if (view.getAttribute('data-view') !== 'grid') {
+      view.classList.add('hidden');
     }
   }
   resetClueView();
@@ -380,11 +380,11 @@ const navToGrid = () => {
 
 const navToQuestionsCorrect = () => {
   for (let i = 0; i < $navViews.length; i++) {
-    const views = $navViews[i];
-    if (views.getAttribute('data-view') === 'questions-correct' && views.classList.contains('hidden')) {
-      views.classList.remove('hidden');
-    } else if (views.getAttribute('data-view') !== 'questions-correct' && (!views.classList.contains('hidden'))) {
-      views.classList.add('hidden');
+    const view = $navViews[i];
+    if (view.getAttribute('data-view') === 'questions-correct') {
+      view.classList.remove('hidden');
+    } else if (view.getAttribute('data-view') !== 'questions-correct') {
+      view.classList.add('hidden');
     }
   }
   reRenderFavorites();
@@ -478,10 +478,11 @@ const reRenderQuestionsCorrect = () => {
 
 const navToFavorites = () => {
   for (let i = 0; i < $navViews.length; i++) {
-    if ($navViews[i].getAttribute('data-view') === 'favorites' && $navViews[i].classList.contains('hidden')) {
-      $navViews[i].classList.remove('hidden');
-    } else if ($navViews[i].getAttribute('data-view') !== 'favorites' && (!$navViews[i].classList.contains('hidden'))) {
-      $navViews[i].classList.add('hidden');
+    const view = $navViews[i];
+    if (view.getAttribute('data-view') === 'favorites') {
+      view.classList.remove('hidden');
+    } else if (view.getAttribute('data-view') !== 'favorites') {
+      view.classList.add('hidden');
     }
   }
   reRenderFavorites();
