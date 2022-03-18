@@ -34,7 +34,10 @@ const $finalScore = document.querySelector('#final-score');
 
 // function definitions
 
+// let { clues, currentlyAnswering, score, nextEntryId } = data;
+
 const getClues = () => {
+  let { clues, nextEntryId } = data;
   const validatedClues = [];
   if (clues.length === 0) {
     const xhr = new XMLHttpRequest();
@@ -68,15 +71,15 @@ const getClues = () => {
   }
 };
 
-let { clues, currentlyAnswering, score, nextEntryId } = data;
-
 const loadFromStorage = () => {
+  const { score } = data;
   grayClue();
   countCorrect();
   $pointsHeader.textContent = score;
 };
 
 const navToClue = event => {
+  const { clues } = data;
   for (let i = 0; i < $navViews.length; i++) {
     const view = $navViews[i];
     if (view.getAttribute('data-view') === 'clue') {
@@ -89,7 +92,7 @@ const navToClue = event => {
   buttonTarget = event.target;
   for (let k = 0; k < clues.length; k++) {
     if (clues[k].entryId === parseInt(buttonTarget.textContent)) {
-      currentlyAnswering = clues[k];
+      data.currentlyAnswering = clues[k];
     }
   }
   for (let j = 0; j < $buttons.length; j++) {
@@ -106,6 +109,7 @@ const navToClue = event => {
 };
 
 const displayClue = () => {
+  const { clues } = data;
   grayStar($starIcon);
   for (let i = 0; i < clues.length; i++) {
     if (parseInt(event.target.textContent) === clues[i].entryId) {
@@ -150,6 +154,7 @@ const hideStar = () => {
 };
 
 const countCorrect = () => {
+  const { clues } = data;
   let counter = 0;
   for (let i = 0; i < clues.length; i++) {
     if (clues[i].correct === true) {
@@ -161,6 +166,7 @@ const countCorrect = () => {
 };
 
 const handleYesOrNo = (event, yesOrNo) => {
+  let { clues, currentlyAnswering, score } = data;
   buttonTarget = event.target;
   currentlyAnswering.completed = true;
   if (yesOrNo === 'yes') {
@@ -201,6 +207,7 @@ const resetClueView = () => {
 };
 
 const grayClue = () => {
+  const { clues } = data;
   for (let i = 0; i < clues.length; i++) {
     if (clues[i].completed === true) {
       $buttons[i].setAttribute('id', 'answered');
@@ -225,6 +232,7 @@ const whiteStar = icon => {
 };
 
 const handleFavorite = () => {
+  const { clues } = data;
   const icon = $starIcon;
   const buttonTargetId = parseInt(buttonTarget.textContent);
   for (let i = 0; i < clues.length; i++) {
@@ -242,8 +250,8 @@ const handleFavorite = () => {
 };
 
 const handleFavoriteinCardList = (event, type) => {
+  const { clues } = data;
   const icon = event.target;
-
   if (type === 'favorite') {
     const buttonTargetIdFav = parseInt(event.target.getAttribute('data-entryid-fav'));
     for (let i = 0; i < clues.length; i++) {
@@ -342,6 +350,7 @@ const renderCard = (clue, type) => {
 };
 
 const renderCards = type => {
+  const { clues } = data;
   for (let i = 0; i < clues.length; i++) {
     if (type === 'favorite') {
       if (clues[i].favorite === true) {
@@ -383,6 +392,7 @@ const navToQuestionsCorrect = () => {
 };
 
 const reRenderStarIcons = type => {
+  const { clues } = data;
   const entryIdsCorrectArray = [];
   const entryIdsFavoriteArray = [];
 
@@ -430,6 +440,7 @@ const reRenderStarIcons = type => {
 };
 
 const reRenderQuestionsCorrect = () => {
+  const { clues } = data;
   const existingCardArray = [];
   const $existingCards = document.querySelectorAll('div[data-entryid-correct]');
   for (let j = 0; j < $existingCards.length; j++) {
@@ -480,6 +491,7 @@ const navToFavorites = () => {
 };
 
 const reRenderFavorites = () => {
+  const { clues } = data;
   const existingCardArray = [];
   const $existingCards = document.querySelectorAll('div[data-entryid-fav]');
   for (let j = 0; j < $existingCards.length; j++) {
@@ -517,11 +529,14 @@ const reRenderFavorites = () => {
 };
 
 const resetAll = () => {
+  let { clues, score, nextEntryId } = data;
   resetExistingCards('correct');
   resetExistingCards('favorite');
   clues = [];
+  data.clues = clues;
   score = 0;
   nextEntryId = 1;
+  data.nextEntryId = nextEntryId;
   countCorrect();
   $pointsHeader.textContent = score;
   getClues();
@@ -551,6 +566,7 @@ const removeClueId = () => {
 };
 
 const checkIfAllAnswered = () => {
+  const { clues } = data;
   let allAnswered;
   for (let i = 0; i < clues.length; i++) {
     if (clues[i].completed !== true) {
@@ -574,6 +590,7 @@ const checkIfAllAnswered = () => {
 };
 
 const showReset = () => {
+  const { score } = data;
   for (let i = 0; i < $views.length; i++) {
     if ($views[i].getAttribute('data-clue') === 'reset') {
       $views[i].classList.remove('hidden');
@@ -584,7 +601,6 @@ const showReset = () => {
   hideStar();
 
   $finalScore.textContent = score;
-
 };
 
 // function calls
