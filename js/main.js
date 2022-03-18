@@ -37,7 +37,7 @@ const $finalScore = document.querySelector('#final-score');
 
 const getClues = () => {
   const validatedClues = [];
-  if (data.clues.length === 0) {
+  if (clues.length === 0) {
     const xhr = new XMLHttpRequest();
     xhr.open('GET', 'https://jservice.io/api/random/?count=36');
     xhr.responseType = 'json';
@@ -61,19 +61,25 @@ const getClues = () => {
         clueData.completed = null;
         clueData.favorite = null;
         clueData.correct = null;
-        clueData.entryId = data.nextEntryId;
-        data.clues.push(clueData);
-        data.nextEntryId++;
+        clueData.entryId = nextEntryId;
+        clues.push(clueData);
+        nextEntryId++;
       }
     });
     xhr.send();
   }
 };
 
+let { clues, currentlyAnswering, score, nextEntryId } = data;
+// console.log(`clues: `${clues} `\n
+// currentlyAnswering: ${currentlyAnswering} \n
+// score: ${score} \n
+// nextEntryId: ${nextEntryId}`);
+
 const loadFromStorage = () => {
   grayClue();
   countCorrect();
-  $pointsHeader.textContent = data.score;
+  $pointsHeader.textContent = score;
 };
 
 const navToClue = event => {
@@ -92,14 +98,14 @@ const navToClue = event => {
   }
 
   buttonTarget = event.target;
-  for (let k = 0; k < data.clues.length; k++) {
-    if (data.clues[k].entryId === parseInt(buttonTarget.textContent)) {
-      data.currentlyAnswering = data.clues[k];
+  for (let k = 0; k < clues.length; k++) {
+    if (clues[k].entryId === parseInt(buttonTarget.textContent)) {
+      currentlyAnswering = clues[k];
     }
   }
   for (let j = 0; j < $buttons.length; j++) {
     if (buttonTarget === $buttons[j]) {
-      if (data.clues[j].completed === true) {
+      if (clues[j].completed === true) {
         checkIfAllAnswered();
         return;
       } else {
@@ -113,12 +119,12 @@ const navToClue = event => {
 
 const displayClue = () => {
   grayStar($starIcon);
-  for (let i = 0; i < data.clues.length; i++) {
-    if (parseInt(event.target.textContent) === data.clues[i].entryId) {
-      $questionNumber.innerHTML = 'QUESTION ' + data.clues[i].entryId;
-      $clue.innerHTML = data.clues[i].question;
-      $answer.innerHTML = 'Answer: ' + data.clues[i].answer;
-      $points.textContent = 'Points: ' + data.clues[i].points;
+  for (let i = 0; i < clues.length; i++) {
+    if (parseInt(event.target.textContent) === clues[i].entryId) {
+      $questionNumber.innerHTML = 'QUESTION ' + clues[i].entryId;
+      $clue.innerHTML = clues[i].question;
+      $answer.innerHTML = 'Answer: ' + clues[i].answer;
+      $points.textContent = 'Points: ' + clues[i].points;
       return;
     }
   }
@@ -149,8 +155,8 @@ const alreadyAnswered = () => {
 
 const countCorrect = () => {
   let counter = 0;
-  for (let i = 0; i < data.clues.length; i++) {
-    if (data.clues[i].correct === true) {
+  for (let i = 0; i < clues.length; i++) {
+    if (clues[i].correct === true) {
       counter += 1;
     }
   }
@@ -160,22 +166,22 @@ const countCorrect = () => {
 
 const handleYesOrNo = (event, yesOrNo) => {
   buttonTarget = event.target;
-  data.currentlyAnswering.completed = true;
+  currentlyAnswering.completed = true;
   if (yesOrNo === 'yes') {
-    data.currentlyAnswering.correct = true;
-    data.score += data.currentlyAnswering.points;
+    currentlyAnswering.correct = true;
+    score += currentlyAnswering.points;
     countCorrect();
-    $pointsHeader.textContent = data.score;
+    $pointsHeader.textContent = score;
   } else if (yesOrNo === 'no') {
-    data.currentlyAnswering.correct = false;
+    currentlyAnswering.correct = false;
   }
 
-  data.currentlyAnswering = null;
+  currentlyAnswering = null;
   grayClue();
   const completedArray = [];
-  for (var i = 0; i < data.clues.length; i++) {
-    if (data.clues[i].completed === true) {
-      completedArray.push(data.clues[i]);
+  for (var i = 0; i < clues.length; i++) {
+    if (clues[i].completed === true) {
+      completedArray.push(clues[i]);
     }
   }
   if (completedArray.length !== 9) {
@@ -205,8 +211,8 @@ const resetClueView = () => {
 };
 
 const grayClue = () => {
-  for (let i = 0; i < data.clues.length; i++) {
-    if (data.clues[i].completed === true) {
+  for (let i = 0; i < clues.length; i++) {
+    if (clues[i].completed === true) {
       $buttons[i].setAttribute('id', 'answered');
     }
   }
@@ -245,14 +251,14 @@ const whiteStar = icon => {
 const handleFavorite = () => {
   const icon = $starIcon;
   const buttonTargetId = parseInt(buttonTarget.textContent);
-  for (let i = 0; i < data.clues.length; i++) {
-    if (data.clues[i].entryId === buttonTargetId &&
-        data.clues[i].favorite !== true) {
-      data.clues[i].favorite = true;
+  for (let i = 0; i < clues.length; i++) {
+    if (clues[i].entryId === buttonTargetId &&
+        clues[i].favorite !== true) {
+      clues[i].favorite = true;
       yellowStar(icon);
-    } else if (data.clues[i].entryId === buttonTargetId &&
-      data.clues[i].favorite === true) {
-      data.clues[i].favorite = null;
+    } else if (clues[i].entryId === buttonTargetId &&
+      clues[i].favorite === true) {
+      clues[i].favorite = null;
       grayStar(icon);
     }
   }
@@ -264,26 +270,26 @@ const handleFavoriteinCardList = (event, type) => {
 
   if (type === 'favorite') {
     const buttonTargetIdFav = parseInt(event.target.getAttribute('data-entryid-fav'));
-    for (let i = 0; i < data.clues.length; i++) {
-      if (data.clues[i].entryId === buttonTargetIdFav && data.clues[i].favorite !== true) {
-        data.clues[i].favorite = true;
+    for (let i = 0; i < clues.length; i++) {
+      if (clues[i].entryId === buttonTargetIdFav && clues[i].favorite !== true) {
+        clues[i].favorite = true;
         yellowStar(icon);
         return;
-      } else if (data.clues[i].entryId === buttonTargetIdFav && data.clues[i].favorite === true) {
-        data.clues[i].favorite = false;
+      } else if (clues[i].entryId === buttonTargetIdFav && clues[i].favorite === true) {
+        clues[i].favorite = false;
         whiteStar(icon);
         return;
       }
     }
   } else if (type === 'correct') {
     const buttonTargetIdCorrect = parseInt(event.target.getAttribute('data-entryid-correct'));
-    for (let j = 0; j < data.clues.length; j++) {
-      if (data.clues[j].entryId === buttonTargetIdCorrect && data.clues[j].favorite !== true) {
-        data.clues[j].favorite = true;
+    for (let j = 0; j < clues.length; j++) {
+      if (clues[j].entryId === buttonTargetIdCorrect && clues[j].favorite !== true) {
+        clues[j].favorite = true;
         yellowStar(icon);
         return;
-      } else if (data.clues[j].entryId === buttonTargetIdCorrect && data.clues[j].favorite === true) {
-        data.clues[j].favorite = false;
+      } else if (clues[j].entryId === buttonTargetIdCorrect && clues[j].favorite === true) {
+        clues[j].favorite = false;
         whiteStar(icon);
         return;
       }
@@ -358,14 +364,14 @@ const renderCard = (clue, type) => {
 };
 
 const renderCards = type => {
-  for (let i = 0; i < data.clues.length; i++) {
+  for (let i = 0; i < clues.length; i++) {
     if (type === 'favorite') {
-      if (data.clues[i].favorite === true) {
-        renderCard(data.clues[i], type);
+      if (clues[i].favorite === true) {
+        renderCard(clues[i], type);
       }
     } else if (type === 'correct') {
-      if (data.clues[i].correct === true) {
-        renderCard(data.clues[i], type);
+      if (clues[i].correct === true) {
+        renderCard(clues[i], type);
       }
     }
   }
@@ -410,31 +416,31 @@ const reRenderStarIcons = type => {
     entryIdsCorrectArray.push(parseInt($entryIdsCorrect[j].getAttribute('data-entryid-correct')));
   }
 
-  for (let k = 0; k < data.clues.length; k++) {
+  for (let k = 0; k < clues.length; k++) {
     if (type === 'correct') {
-      if (entryIdsFavoriteArray.includes(data.clues[k].entryId)) {
+      if (entryIdsFavoriteArray.includes(clues[k].entryId)) {
         for (let m = 0; m < $entryIdsCorrect.length; m++) {
-          if (parseInt($entryIdsCorrect[m].getAttribute('data-entryid-correct')) === data.clues[k].entryId) {
+          if (parseInt($entryIdsCorrect[m].getAttribute('data-entryid-correct')) === clues[k].entryId) {
             yellowStar($entryIdsCorrect[m]);
           }
         }
-      } else if (!(entryIdsFavoriteArray.includes(data.clues[k].entryId))) {
+      } else if (!(entryIdsFavoriteArray.includes(clues[k].entryId))) {
         for (let n = 0; n < $entryIdsCorrect.length; n++) {
-          if (parseInt($entryIdsCorrect[n].getAttribute('data-entryid-correct')) === data.clues[k].entryId) {
+          if (parseInt($entryIdsCorrect[n].getAttribute('data-entryid-correct')) === clues[k].entryId) {
             whiteStar($entryIdsCorrect[n]);
           }
         }
       }
     } else if (type === 'favorite') {
-      if (entryIdsFavoriteArray.includes(data.clues[k].entryId)) {
+      if (entryIdsFavoriteArray.includes(clues[k].entryId)) {
         for (let p = 0; p < $entryIdsFavorite.length; p++) {
-          if (parseInt($entryIdsFavorite[p].getAttribute('data-entryid-fav')) === data.clues[k].entryId) {
+          if (parseInt($entryIdsFavorite[p].getAttribute('data-entryid-fav')) === clues[k].entryId) {
             yellowStar($entryIdsFavorite[p]);
           }
         }
-      } else if (!(entryIdsFavoriteArray.includes(data.clues[k].entryId))) {
+      } else if (!(entryIdsFavoriteArray.includes(clues[k].entryId))) {
         for (let q = 0; q < $entryIdsFavorite.length; q++) {
-          if (parseInt($entryIdsFavorite[q].getAttribute('data-entryid-fav')) === data.clues[k].entryId) {
+          if (parseInt($entryIdsFavorite[q].getAttribute('data-entryid-fav')) === clues[k].entryId) {
             whiteStar($entryIdsFavorite[q]);
           }
         }
@@ -451,16 +457,16 @@ const reRenderQuestionsCorrect = () => {
     existingCardArray.push(existingEntryId);
   }
   const anyCorrectArray = [];
-  for (let i = 0; i < data.clues.length; i++) {
-    if (data.clues[i].correct === true) {
-      anyCorrectArray.push(data.clues[i]);
-      if (!(existingCardArray.includes(data.clues[i].entryId))) {
-        renderCard(data.clues[i], 'correct');
+  for (let i = 0; i < clues.length; i++) {
+    if (clues[i].correct === true) {
+      anyCorrectArray.push(clues[i]);
+      if (!(existingCardArray.includes(clues[i].entryId))) {
+        renderCard(clues[i], 'correct');
       }
-    } else if (data.clues[i].correct !== true) {
-      if (existingCardArray.includes(data.clues[i].entryId)) {
+    } else if (clues[i].correct !== true) {
+      if (existingCardArray.includes(clues[i].entryId)) {
         for (let k = 0; k < $existingCards.length; k++) {
-          if (data.clues[i].entryId === parseInt($existingCards[k].getAttribute('data-entryid-correct'))) {
+          if (clues[i].entryId === parseInt($existingCards[k].getAttribute('data-entryid-correct'))) {
             $existingCards[k].remove();
           }
         }
@@ -502,16 +508,16 @@ const reRenderFavorites = () => {
 
   const anyFavoritedArray = [];
 
-  for (let i = 0; i < data.clues.length; i++) {
-    if (data.clues[i].favorite === true) {
-      anyFavoritedArray.push(data.clues[i]);
-      if (!(existingCardArray.includes(data.clues[i].entryId))) {
-        renderCard(data.clues[i], 'favorite');
+  for (let i = 0; i < clues.length; i++) {
+    if (clues[i].favorite === true) {
+      anyFavoritedArray.push(clues[i]);
+      if (!(existingCardArray.includes(clues[i].entryId))) {
+        renderCard(clues[i], 'favorite');
       }
-    } else if (data.clues[i].favorite !== true) {
-      if (existingCardArray.includes(data.clues[i].entryId)) {
+    } else if (clues[i].favorite !== true) {
+      if (existingCardArray.includes(clues[i].entryId)) {
         for (let k = 0; k < $existingCards.length; k++) {
-          if (data.clues[i].entryId === parseInt($existingCards[k].getAttribute('data-entryid-fav'))) {
+          if (clues[i].entryId === parseInt($existingCards[k].getAttribute('data-entryid-fav'))) {
             $existingCards[k].remove();
           }
         }
@@ -530,11 +536,11 @@ const reRenderFavorites = () => {
 };
 
 const resetAll = () => {
-  data.clues = [];
-  data.score = 0;
-  data.nextEntryId = 1;
+  clues = [];
+  score = 0;
+  nextEntryId = 1;
   countCorrect();
-  $pointsHeader.textContent = data.score;
+  $pointsHeader.textContent = score;
   getClues();
   removeClueId();
   grayStar($starIcon);
@@ -549,8 +555,8 @@ const removeClueId = () => {
 
 const checkIfAllAnswered = () => {
   let allAnswered;
-  for (let i = 0; i < data.clues.length; i++) {
-    if (data.clues[i].completed !== true) {
+  for (let i = 0; i < clues.length; i++) {
+    if (clues[i].completed !== true) {
       allAnswered = false;
       break;
     }
@@ -582,7 +588,7 @@ const showReset = () => {
     $favoriteContainer.classList.add('hidden');
   }
 
-  $finalScore.textContent = data.score;
+  $finalScore.textContent = score;
 
 };
 
