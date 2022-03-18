@@ -76,17 +76,12 @@ const loadFromStorage = () => {
   $pointsHeader.textContent = score;
 };
 
-// const navDestination;
-// switch (navDestination) {
-//   case 'clue':
-// }
-
 const navToClue = event => {
   for (let i = 0; i < $navViews.length; i++) {
     const view = $navViews[i];
     if (view.getAttribute('data-view') === 'clue') {
       view.classList.remove('hidden');
-    } else if ($navViews[i].getAttribute('data-view') !== 'clue') {
+    } else {
       view.classList.add('hidden');
     }
   }
@@ -140,22 +135,18 @@ const alreadyAnswered = () => {
     const views = $views[i];
     if (views.getAttribute('data-clue') === 'return') {
       views.classList.remove('hidden');
-    } else if ($views[i].getAttribute('data-clue') !== 'return') {
+    } else {
       views.classList.add('hidden');
     }
   }
 };
 
 const showStar = () => {
-  if ($favoriteContainer.classList.contains('hidden')) {
-    $favoriteContainer.classList.remove('hidden');
-  }
+  $favoriteContainer.classList.remove('hidden');
 };
 
 const hideStar = () => {
-  if (!($favoriteContainer.classList.contains('hidden'))) {
-    $favoriteContainer.classList.add('hidden');
-  }
+  $favoriteContainer.classList.add('hidden');
 };
 
 const countCorrect = () => {
@@ -206,7 +197,6 @@ const resetClueView = () => {
       views.classList.add('hidden');
     }
   }
-
   hideStar();
 };
 
@@ -243,13 +233,12 @@ const handleFavorite = () => {
       if (clue.favorite !== true) {
         clue.favorite = true;
         yellowStar(icon);
-      } else if (clue.favorite === true) {
+      } else {
         clues.favorite = null;
         grayStar(icon);
       }
     }
   }
-
 };
 
 const handleFavoriteinCardList = (event, type) => {
@@ -280,7 +269,7 @@ const handleFavoriteinCardList = (event, type) => {
           clue.favorite = true;
           yellowStar(icon);
           return;
-        } else if (clue.favorite === true) {
+        } else {
           clue.favorite = false;
           whiteStar(icon);
           return;
