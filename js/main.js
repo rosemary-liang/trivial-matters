@@ -202,8 +202,7 @@ const resetClueView = () => {
     const views = $views[i];
     if (views.getAttribute('data-clue') === 'question' || views.getAttribute('data-clue') === 'see-answer') {
       views.classList.remove('hidden');
-    } else if (views.getAttribute('data-clue') === 'answer' || views.getAttribute('data-clue') === 'return' ||
-      views.getAttribute('data-clue') === 'reset') {
+    } else {
       views.classList.add('hidden');
     }
   }
@@ -253,14 +252,15 @@ const handleFavorite = () => {
   const icon = $starIcon;
   const buttonTargetId = parseInt(buttonTarget.textContent);
   for (let i = 0; i < clues.length; i++) {
-    if (clues[i].entryId === buttonTargetId &&
-        clues[i].favorite !== true) {
-      clues[i].favorite = true;
-      yellowStar(icon);
-    } else if (clues[i].entryId === buttonTargetId &&
-      clues[i].favorite === true) {
-      clues[i].favorite = null;
-      grayStar(icon);
+    const clue = clues[i];
+    if (clue.entryId === buttonTargetId) {
+      if (clue.favorite !== true) {
+        clue.favorite = true;
+        yellowStar(icon);
+      } else if (clue.favorite === true) {
+        clues.favorite = null;
+        grayStar(icon);
+      }
     }
   }
   return icon;
