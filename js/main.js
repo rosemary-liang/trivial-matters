@@ -112,11 +112,12 @@ const displayClue = () => {
   const { clues } = data;
   grayStar($starIcon);
   for (let i = 0; i < clues.length; i++) {
-    if (parseInt(event.target.textContent) === clues[i].entryId) {
-      $questionNumber.innerHTML = 'QUESTION ' + clues[i].entryId;
-      $clue.innerHTML = clues[i].question;
-      $answer.innerHTML = 'Answer: ' + clues[i].answer;
-      $points.textContent = 'Points: ' + clues[i].points;
+    const clue = clues[i];
+    if (parseInt(event.target.textContent) === clue.entryId) {
+      $questionNumber.innerHTML = 'QUESTION ' + clue.entryId;
+      $clue.innerHTML = clue.question;
+      $answer.innerHTML = 'Answer: ' + clue.answer;
+      $points.textContent = 'Points: ' + clue.points;
       return;
     }
   }
@@ -335,12 +336,12 @@ const renderCard = (clue, type) => {
 
   const pClueText = document.createElement('p');
   pClueText.setAttribute('class', 'clue-text roboto font-weight-500 margin-b-2-rem  margin-t-0');
-  pClueText.textContent = clue.question;
+  pClueText.innerHTML = clue.question;
   divCardContent.appendChild(pClueText);
 
   const pAnswer = document.createElement('p');
   pAnswer.setAttribute('class', 'answer roboto font-weight-500 font-purple margin-v-025-rem');
-  pAnswer.textContent = 'Answer: ' + clue.answer;
+  pAnswer.innerHTML = 'Answer: ' + clue.answer;
   divCardContent.appendChild(pAnswer);
 
   const pPoints = document.createElement('p');
