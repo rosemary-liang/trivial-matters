@@ -543,6 +543,8 @@ const reRenderFavorites = () => {
 };
 
 const resetAll = () => {
+  resetExistingCards('correct');
+  resetExistingCards('favorite');
   clues = [];
   score = 0;
   nextEntryId = 1;
@@ -552,6 +554,20 @@ const resetAll = () => {
   removeClueId();
   grayStar($starIcon);
   navToGrid();
+};
+
+const resetExistingCards = type => {
+  if (type === 'correct') {
+    const $existingCards = document.querySelectorAll('div[data-entryid-correct]');
+    for (let i = 0; i < $existingCards.length; i++) {
+      $existingCards[i].remove();
+    }
+  } else if (type === 'favorite') {
+    const $existingCards = document.querySelectorAll('div[data-entryid-fav]');
+    for (let i = 0; i < $existingCards.length; i++) {
+      $existingCards[i].remove();
+    }
+  }
 };
 
 const removeClueId = () => {
