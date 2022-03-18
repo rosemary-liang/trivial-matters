@@ -43,12 +43,11 @@ const getClues = () => {
     xhr.responseType = 'json';
     xhr.addEventListener('load', () => {
       for (let i = 0; i < xhr.response.length; i++) {
-        if (xhr.response[i].question !== null && xhr.response[i].question !== '') {
-          if (xhr.response[i].answer !== null && xhr.response[i].answer !== '') {
-            if (xhr.response[i].value !== null && xhr.response[i].value !== '') {
-              validatedClues.push(xhr.response[i]);
-            }
-          }
+        const clue = xhr.response[i];
+        if (clue.question !== null && clue.question !== '' &&
+        clue.answer !== null && clue.answer !== '' &&
+        clue.value !== null && clue.value !== '') {
+          validatedClues.push(clue);
         }
       }
 
