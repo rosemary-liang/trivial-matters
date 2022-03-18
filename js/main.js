@@ -368,10 +368,11 @@ const renderCards = type => {
 
 const navToGrid = () => {
   for (let i = 0; i < $navViews.length; i++) {
-    if ($navViews[i].getAttribute('data-view') === 'grid' && $navViews[i].classList.contains('hidden')) {
-      $navViews[i].classList.remove('hidden');
-    } else if ($navViews[i].getAttribute('data-view') !== 'grid' && (!$navViews[i].classList.contains('hidden'))) {
-      $navViews[i].classList.add('hidden');
+    const views = $navViews[i];
+    if (views.getAttribute('data-view') === 'grid' && views.classList.contains('hidden')) {
+      views.classList.remove('hidden');
+    } else if (views.getAttribute('data-view') !== 'grid' && (views.classList.contains('hidden'))) {
+      views.classList.add('hidden');
     }
   }
   resetClueView();
@@ -379,10 +380,11 @@ const navToGrid = () => {
 
 const navToQuestionsCorrect = () => {
   for (let i = 0; i < $navViews.length; i++) {
-    if ($navViews[i].getAttribute('data-view') === 'questions-correct' && $navViews[i].classList.contains('hidden')) {
-      $navViews[i].classList.remove('hidden');
-    } else if ($navViews[i].getAttribute('data-view') !== 'questions-correct' && (!$navViews[i].classList.contains('hidden'))) {
-      $navViews[i].classList.add('hidden');
+    const views = $navViews[i];
+    if (views.getAttribute('data-view') === 'questions-correct' && views.classList.contains('hidden')) {
+      views.classList.remove('hidden');
+    } else if (views.getAttribute('data-view') !== 'questions-correct' && (!views.classList.contains('hidden'))) {
+      views.classList.add('hidden');
     }
   }
   reRenderFavorites();
