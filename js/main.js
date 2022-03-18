@@ -5,7 +5,6 @@
 
 const $gridButtonContainer = document.querySelector('.button-container');
 const $buttons = document.querySelectorAll('button.clue');
-const $clueContainer = document.querySelector('[data-view="clue"]');
 const $views = document.querySelectorAll('.view');
 const $backButton = document.querySelector('.back-to-grid');
 const $backButtonCardListCorrect = document.querySelector('.back-to-questions-correct');
@@ -70,10 +69,6 @@ const getClues = () => {
 };
 
 let { clues, currentlyAnswering, score, nextEntryId } = data;
-// console.log(`clues: `${clues} `\n
-// currentlyAnswering: ${currentlyAnswering} \n
-// score: ${score} \n
-// nextEntryId: ${nextEntryId}`);
 
 const loadFromStorage = () => {
   grayClue();
@@ -82,16 +77,15 @@ const loadFromStorage = () => {
 };
 
 const navToClue = event => {
-  if ($clueContainer.classList.contains('hidden')) {
-    $clueContainer.classList.remove('hidden');
-  }
+  // if ($clueContainer.classList.contains('hidden')) {
+  //   $clueContainer.classList.remove('hidden');
+  // }
 
   for (let i = 0; i < $navViews.length; i++) {
-    if ($navViews[i].getAttribute('data-view') === 'questions-correct' && (!$navViews[i].classList.contains('hidden'))) {
-      $navViews[i].classList.add('hidden');
-    } else if ($navViews[i].getAttribute('data-view') === 'grid' && (!$navViews[i].classList.contains('hidden'))) {
-      $navViews[i].classList.add('hidden');
-    } else if ($navViews[i].getAttribute('data-view') === 'favorites' && (!$navViews[i].classList.contains('hidden'))) {
+    const views = $navViews[i];
+    if (views.getAttribute('data-view') === 'clue' && (views.classList.contains('hidden'))) {
+      views.classList.remove('hidden');
+    } else if ($navViews[i].getAttribute('data-view') !== 'clue' && (!$navViews[i].classList.contains('hidden'))) {
       $navViews[i].classList.add('hidden');
     }
   }
