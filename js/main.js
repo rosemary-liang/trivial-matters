@@ -125,10 +125,11 @@ const displayClue = () => {
 
 const showAnswer = () => {
   for (let i = 0; i < $views.length; i++) {
-    if ($views[i].getAttribute('data-clue') === 'answer') {
-      $views[i].classList.remove('hidden');
-    } else if ($views[i].getAttribute('data-clue') === 'see-answer') {
-      $views[i].classList.add('hidden');
+    const views = $views[i];
+    if (views.getAttribute('data-clue') === 'answer') {
+      views.classList.remove('hidden');
+    } else if (views.getAttribute('data-clue') === 'see-answer') {
+      views.classList.add('hidden');
     }
   }
   if ($favoriteContainer.classList.contains('hidden')) {
@@ -138,10 +139,11 @@ const showAnswer = () => {
 
 const alreadyAnswered = () => {
   for (let i = 0; i < $views.length; i++) {
-    if ($views[i].getAttribute('data-clue') === 'return') {
-      $views[i].classList.remove('hidden');
+    const views = $views[i];
+    if (views.getAttribute('data-clue') === 'return') {
+      $views.classList.remove('hidden');
     } else if ($views[i].getAttribute('data-clue') !== 'return') {
-      $views[i].classList.add('hidden');
+      views.classList.add('hidden');
     }
   }
 };
