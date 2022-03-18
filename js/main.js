@@ -132,19 +132,29 @@ const showAnswer = () => {
       views.classList.add('hidden');
     }
   }
-  if ($favoriteContainer.classList.contains('hidden')) {
-    $favoriteContainer.classList.remove('hidden');
-  }
+  showStar();
 };
 
 const alreadyAnswered = () => {
   for (let i = 0; i < $views.length; i++) {
     const views = $views[i];
     if (views.getAttribute('data-clue') === 'return') {
-      $views.classList.remove('hidden');
+      views.classList.remove('hidden');
     } else if ($views[i].getAttribute('data-clue') !== 'return') {
       views.classList.add('hidden');
     }
+  }
+};
+
+const showStar = () => {
+  if ($favoriteContainer.classList.contains('hidden')) {
+    $favoriteContainer.classList.remove('hidden');
+  }
+};
+
+const hideStar = () => {
+  if (!($favoriteContainer.classList.contains('hidden'))) {
+    $favoriteContainer.classList.add('hidden');
   }
 };
 
@@ -189,20 +199,16 @@ const handleYesOrNo = (event, yesOrNo) => {
 
 const resetClueView = () => {
   for (let i = 0; i < $views.length; i++) {
-    if ($views[i].getAttribute('data-clue') === 'question' || $views[i].getAttribute('data-clue') === 'see-answer') {
-      $views[i].classList.remove('hidden');
-    } else if ($views[i].getAttribute('data-clue') === 'answer') {
-      $views[i].classList.add('hidden');
-    } else if ($views[i].getAttribute('data-clue') === 'return') {
-      $views[i].classList.add('hidden');
-    } else if ($views[i].getAttribute('data-clue') === 'reset') {
-      $views[i].classList.add('hidden');
+    const views = $views[i];
+    if (views.getAttribute('data-clue') === 'question' || views.getAttribute('data-clue') === 'see-answer') {
+      views.classList.remove('hidden');
+    } else if (views.getAttribute('data-clue') === 'answer' || views.getAttribute('data-clue') === 'return' ||
+      views.getAttribute('data-clue') === 'reset') {
+      views.classList.add('hidden');
     }
   }
 
-  if (!($favoriteContainer.classList.contains('hidden'))) {
-    $favoriteContainer.classList.add('hidden');
-  }
+  hideStar();
 };
 
 const grayClue = () => {
@@ -579,9 +585,7 @@ const showReset = () => {
       $views[i].classList.add('hidden');
     }
   }
-  if (!($favoriteContainer.classList.contains('hidden'))) {
-    $favoriteContainer.classList.add('hidden');
-  }
+  hideStar();
 
   $finalScore.textContent = score;
 
