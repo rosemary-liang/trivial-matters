@@ -370,7 +370,7 @@ const navToGrid = () => {
     const view = $navViews[i];
     if (view.getAttribute('data-view') === 'grid') {
       view.classList.remove('hidden');
-    } else if (view.getAttribute('data-view') !== 'grid') {
+    } else {
       view.classList.add('hidden');
     }
   }
