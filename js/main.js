@@ -253,38 +253,30 @@ const handleFavorite = () => {
 const handleFavoriteinCardList = (event, type) => {
   const { clues } = data;
   const icon = event.target;
+  const buttonTargetId = getIdType(event, type);
+  for (let i = 0; i < clues.length; i++) {
+    const clue = clues[i];
+    if (clue.entryId === buttonTargetId) {
+      if (clue.favorite !== true) {
+        clue.favorite = true;
+        yellowStar(icon);
+        return;
+      } else {
+        clue.favorite = false;
+        whiteStar(icon);
+        return;
+      }
+    }
+  }
+};
+
+const getIdType = (event, type) => {
   if (type === 'favorite') {
-    const buttonTargetIdFav = parseInt(event.target.getAttribute('data-entryid-fav'));
-    for (let i = 0; i < clues.length; i++) {
-      const clue = clues[i];
-      if (clue.entryId === buttonTargetIdFav) {
-        if (clue.favorite !== true) {
-          clue.favorite = true;
-          yellowStar(icon);
-          return;
-        } else {
-          clue.favorite = false;
-          whiteStar(icon);
-          return;
-        }
-      }
-    }
+    const buttonTargetId = parseInt(event.target.getAttribute('data-entryid-fav'));
+    return buttonTargetId;
   } else if (type === 'correct') {
-    const buttonTargetIdCorrect = parseInt(event.target.getAttribute('data-entryid-correct'));
-    for (let j = 0; j < clues.length; j++) {
-      const clue = clues[j];
-      if (clue.entryId === buttonTargetIdCorrect) {
-        if (clue.favorite !== true) {
-          clue.favorite = true;
-          yellowStar(icon);
-          return;
-        } else {
-          clue.favorite = false;
-          whiteStar(icon);
-          return;
-        }
-      }
-    }
+    const buttonTargetId = parseInt(event.target.getAttribute('data-entryid-correct'));
+    return buttonTargetId;
   }
 };
 
