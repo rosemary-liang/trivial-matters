@@ -407,7 +407,7 @@ const reRenderStarIcons = type => {
             yellowStar($entryIdsCorrect[m]);
           }
         }
-      } else if (!(entryIdsFavoriteArray.includes(clues[k].entryId))) {
+      } else {
         for (let n = 0; n < $entryIdsCorrect.length; n++) {
           if (parseInt($entryIdsCorrect[n].getAttribute('data-entryid-correct')) === clues[k].entryId) {
             whiteStar($entryIdsCorrect[n]);
@@ -421,7 +421,7 @@ const reRenderStarIcons = type => {
             yellowStar($entryIdsFavorite[p]);
           }
         }
-      } else if (!(entryIdsFavoriteArray.includes(clues[k].entryId))) {
+      } else {
         for (let q = 0; q < $entryIdsFavorite.length; q++) {
           if (parseInt($entryIdsFavorite[q].getAttribute('data-entryid-fav')) === clues[k].entryId) {
             whiteStar($entryIdsFavorite[q]);
@@ -447,7 +447,7 @@ const reRenderQuestionsCorrect = () => {
       if (!(existingCardArray.includes(clues[i].entryId))) {
         renderCard(clues[i], 'correct');
       }
-    } else if (clues[i].correct !== true) {
+    } else {
       if (existingCardArray.includes(clues[i].entryId)) {
         for (let k = 0; k < $existingCards.length; k++) {
           if (clues[i].entryId === parseInt($existingCards[k].getAttribute('data-entryid-correct'))) {
@@ -458,15 +458,12 @@ const reRenderQuestionsCorrect = () => {
     }
   }
 
-  if (anyCorrectArray.length > 0) {
-    if (!($noneYetCorrect.classList.contains('hidden'))) {
-      $noneYetCorrect.classList.add('hidden');
-    }
-  } else if (anyCorrectArray.length === 0) {
-    if ($noneYetCorrect.classList.contains('hidden')) {
-      $noneYetCorrect.classList.remove('hidden');
-    }
+  if (anyCorrectArray.length === 0) {
+    $noneYetCorrect.classList.remove('hidden');
+  } else {
+    $noneYetCorrect.classList.add('hidden');
   }
+
 };
 
 const navToFavorites = () => {
@@ -474,7 +471,7 @@ const navToFavorites = () => {
     const view = $navViews[i];
     if (view.getAttribute('data-view') === 'favorites') {
       view.classList.remove('hidden');
-    } else if (view.getAttribute('data-view') !== 'favorites') {
+    } else {
       view.classList.add('hidden');
     }
   }
@@ -500,7 +497,7 @@ const reRenderFavorites = () => {
       if (!(existingCardArray.includes(clues[i].entryId))) {
         renderCard(clues[i], 'favorite');
       }
-    } else if (clues[i].favorite !== true) {
+    } else {
       if (existingCardArray.includes(clues[i].entryId)) {
         for (let k = 0; k < $existingCards.length; k++) {
           if (clues[i].entryId === parseInt($existingCards[k].getAttribute('data-entryid-fav'))) {
@@ -510,14 +507,10 @@ const reRenderFavorites = () => {
       }
     }
   }
-  if (anyFavoritedArray.length > 0) {
-    if (!($noneYetFavorite.classList.contains('hidden'))) {
-      $noneYetFavorite.classList.add('hidden');
-    }
-  } else if (anyFavoritedArray.length === 0) {
-    if ($noneYetFavorite.classList.contains('hidden')) {
-      $noneYetFavorite.classList.remove('hidden');
-    }
+  if (anyFavoritedArray.length === 0) {
+    $noneYetFavorite.classList.remove('hidden');
+  } else {
+    $noneYetFavorite.classList.add('hidden');
   }
 };
 
@@ -587,7 +580,7 @@ const showReset = () => {
   for (let i = 0; i < $views.length; i++) {
     if ($views[i].getAttribute('data-clue') === 'reset') {
       $views[i].classList.remove('hidden');
-    } else if ($views[i].getAttribute('data-clue') !== 'reset' && !($views[i].classList.contains('hidden'))) {
+    } else {
       $views[i].classList.add('hidden');
     }
   }
