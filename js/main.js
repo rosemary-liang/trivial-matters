@@ -132,7 +132,7 @@ const showAnswer = () => {
       views.classList.add('hidden');
     }
   }
-  showStar();
+  toggleStar('show');
 };
 
 const alreadyAnswered = () => {
@@ -146,12 +146,12 @@ const alreadyAnswered = () => {
   }
 };
 
-const showStar = () => {
-  $favoriteContainer.classList.remove('hidden');
-};
-
-const hideStar = () => {
-  $favoriteContainer.classList.add('hidden');
+const toggleStar = action => {
+  if (action === 'show') {
+    $favoriteContainer.classList.remove('hidden');
+  } else if (action === 'hide') {
+    $favoriteContainer.classList.add('hidden');
+  }
 };
 
 const countCorrect = () => {
@@ -205,7 +205,7 @@ const resetClueView = () => {
       views.classList.add('hidden');
     }
   }
-  hideStar();
+  toggleStar('hide');
 };
 
 const grayClue = () => {
@@ -630,7 +630,7 @@ const showReset = () => {
       $views[i].classList.add('hidden');
     }
   }
-  hideStar();
+  toggleStar('hide');
 
   $finalScore.textContent = score;
 };
