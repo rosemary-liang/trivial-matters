@@ -173,6 +173,7 @@ const handleYesOrNo = (event, yesOrNo) => {
   if (yesOrNo === 'yes') {
     currentlyAnswering.correct = true;
     score += currentlyAnswering.points;
+    data.score = score;
     countCorrect();
     $pointsHeader.textContent = score;
   } else if (yesOrNo === 'no') {
@@ -253,6 +254,17 @@ const handleFavorite = () => {
 const handleFavoriteinCardList = (event, type) => {
   const { clues } = data;
   const icon = event.target;
+
+  const getIdType = (event, type) => {
+    if (type === 'favorite') {
+      const buttonTargetId = parseInt(event.target.getAttribute('data-entryid-fav'));
+      return buttonTargetId;
+    } else if (type === 'correct') {
+      const buttonTargetId = parseInt(event.target.getAttribute('data-entryid-correct'));
+      return buttonTargetId;
+    }
+  };
+
   const buttonTargetId = getIdType(event, type);
   for (let i = 0; i < clues.length; i++) {
     const clue = clues[i];
@@ -267,16 +279,6 @@ const handleFavoriteinCardList = (event, type) => {
         return;
       }
     }
-  }
-};
-
-const getIdType = (event, type) => {
-  if (type === 'favorite') {
-    const buttonTargetId = parseInt(event.target.getAttribute('data-entryid-fav'));
-    return buttonTargetId;
-  } else if (type === 'correct') {
-    const buttonTargetId = parseInt(event.target.getAttribute('data-entryid-correct'));
-    return buttonTargetId;
   }
 };
 
@@ -383,6 +385,49 @@ const navToQuestionsCorrect = () => {
   reRenderStarIcons('correct');
   reRenderQuestionsCorrect();
 };
+
+// const reRenderStarIconsNew = type => {
+//   const { clues } = data;
+//   const entryIdsArray = [];
+
+//   const getIdType = type => {
+//     if (type === 'correct') {
+//       const iNodeListSelector = 'i[data-entryid-fav]';
+//       const getAttributeSelector = 'data-entryid-fav';
+//       return [iNodeListSelector, getAttributeSelector];
+//     } else if (type === 'favorite') {
+//       const iNodeListSelector = 'i[data-entryid-correct]';
+//       const getAttributeSelector = 'data-entryid-correct';
+//       return [iNodeListSelector, getAttributeSelector];
+//     }
+//   };
+
+//   const getSelectors = getIdType(type);
+//   const iNodeListSelector = getSelectors[0];
+//   const getAttributeSelector = getSelectors[1];
+//   console.log('getSelectors', getSelectors);
+
+//   const $entryIds = document.querySelectorAll(iNodeListSelector);
+//   for (let i = 0; i < $entryIds.length; i++) {
+//     entryIdsArray.push(parseInt($entryIds[i].getAttribute(getAttributeSelector)));
+//   }
+
+//   for (let k = 0; k < clues.length; k++) {
+//     if (entryIdsArray.includes(clues[k].entryId)) {
+//       for (let m = 0; m < $entryIds.length; m++) {
+//         if (parseInt($entryIds[m].getAttribute(getAttributeSelector)) === clues[k].entryId) {
+//           yellowStar($entryIds[m]);
+//         }
+//       }
+//     } else {
+//       for (let n = 0; n < $entryIds.length; n++) {
+//         if (parseInt($entryIds[n].getAttribute(getAttributeSelector)) === clues[k].entryId) {
+//           whiteStar($entryIds[n]);
+//         }
+//       }
+//     }
+//   }
+// };
 
 const reRenderStarIcons = type => {
   const { clues } = data;
@@ -521,6 +566,7 @@ const resetAll = () => {
   clues = [];
   data.clues = clues;
   score = 0;
+  data.score = score;
   nextEntryId = 1;
   data.nextEntryId = nextEntryId;
   countCorrect();
