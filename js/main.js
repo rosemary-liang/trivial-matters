@@ -34,8 +34,6 @@ const $finalScore = document.querySelector('#final-score');
 
 // function definitions
 
-// let { clues, currentlyAnswering, score, nextEntryId } = data;
-
 const getClues = () => {
   let { clues, nextEntryId } = data;
   const validatedClues = [];
