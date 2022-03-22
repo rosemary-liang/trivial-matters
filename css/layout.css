@@ -141,6 +141,10 @@ nav {
   margin: 1rem 0;
 }
 
+.margin-nav-view {
+  margin: 1rem 0 0.7rem;
+}
+
 .margin-h-1-rem {
   margin: 0 1rem;
 }
