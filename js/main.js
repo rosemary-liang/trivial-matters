@@ -386,52 +386,9 @@ const navToQuestionsCorrect = () => {
   reRenderQuestionsCorrect();
 };
 
-// const reRenderStarIconsNew = type => {
-//   const { clues } = data;
-//   const entryIdsArray = [];
-
-//   const getIdType = type => {
-//     if (type === 'correct') {
-//       const iNodeListSelector = 'i[data-entryid-fav]';
-//       const getAttributeSelector = 'data-entryid-fav';
-//       return [iNodeListSelector, getAttributeSelector];
-//     } else if (type === 'favorite') {
-//       const iNodeListSelector = 'i[data-entryid-correct]';
-//       const getAttributeSelector = 'data-entryid-correct';
-//       return [iNodeListSelector, getAttributeSelector];
-//     }
-//   };
-
-//   const getSelectors = getIdType(type);
-//   const iNodeListSelector = getSelectors[0];
-//   const getAttributeSelector = getSelectors[1];
-//   console.log('getSelectors', getSelectors);
-
-//   const $entryIds = document.querySelectorAll(iNodeListSelector);
-//   for (let i = 0; i < $entryIds.length; i++) {
-//     entryIdsArray.push(parseInt($entryIds[i].getAttribute(getAttributeSelector)));
-//   }
-
-//   for (let k = 0; k < clues.length; k++) {
-//     if (entryIdsArray.includes(clues[k].entryId)) {
-//       for (let m = 0; m < $entryIds.length; m++) {
-//         if (parseInt($entryIds[m].getAttribute(getAttributeSelector)) === clues[k].entryId) {
-//           yellowStar($entryIds[m]);
-//         }
-//       }
-//     } else {
-//       for (let n = 0; n < $entryIds.length; n++) {
-//         if (parseInt($entryIds[n].getAttribute(getAttributeSelector)) === clues[k].entryId) {
-//           whiteStar($entryIds[n]);
-//         }
-//       }
-//     }
-//   }
-// };
-
 const reRenderStarIcons = type => {
   const { clues } = data;
-  const entryIdsCorrectArray = [];
+  const entryIdsArray = [];
   const entryIdsFavoriteArray = [];
 
   const $entryIdsFavorite = document.querySelectorAll('i[data-entryid-fav]');
@@ -439,38 +396,38 @@ const reRenderStarIcons = type => {
     entryIdsFavoriteArray.push(parseInt($entryIdsFavorite[i].getAttribute('data-entryid-fav')));
   }
 
-  const $entryIdsCorrect = document.querySelectorAll('i[data-entryid-correct]');
-  for (let j = 0; j < $entryIdsFavorite.length; j++) {
-    entryIdsCorrectArray.push(parseInt($entryIdsCorrect[j].getAttribute('data-entryid-correct')));
+  const getIdType = type => {
+    if (type === 'favorite') {
+      const iNodeListSelector = 'i[data-entryid-fav]';
+      const getAttributeSelector = 'data-entryid-fav';
+      return [iNodeListSelector, getAttributeSelector];
+    } else if (type === 'correct') {
+      const iNodeListSelector = 'i[data-entryid-correct]';
+      const getAttributeSelector = 'data-entryid-correct';
+      return [iNodeListSelector, getAttributeSelector];
+    }
+  };
+
+  const getSelectors = getIdType(type);
+  const iNodeListSelector = getSelectors[0];
+  const getAttributeSelector = getSelectors[1];
+
+  const $entryIds = document.querySelectorAll(iNodeListSelector);
+  for (let i = 0; i < $entryIds.length; i++) {
+    entryIdsArray.push(parseInt($entryIds[i].getAttribute(getAttributeSelector)));
   }
 
   for (let k = 0; k < clues.length; k++) {
-    if (type === 'correct') {
-      if (entryIdsFavoriteArray.includes(clues[k].entryId)) {
-        for (let m = 0; m < $entryIdsCorrect.length; m++) {
-          if (parseInt($entryIdsCorrect[m].getAttribute('data-entryid-correct')) === clues[k].entryId) {
-            yellowStar($entryIdsCorrect[m]);
-          }
-        }
-      } else {
-        for (let n = 0; n < $entryIdsCorrect.length; n++) {
-          if (parseInt($entryIdsCorrect[n].getAttribute('data-entryid-correct')) === clues[k].entryId) {
-            whiteStar($entryIdsCorrect[n]);
-          }
+    if (entryIdsFavoriteArray.includes(clues[k].entryId)) {
+      for (let m = 0; m < $entryIds.length; m++) {
+        if (parseInt($entryIds[m].getAttribute(getAttributeSelector)) === clues[k].entryId) {
+          yellowStar($entryIds[m]);
         }
       }
-    } else if (type === 'favorite') {
-      if (entryIdsFavoriteArray.includes(clues[k].entryId)) {
-        for (let p = 0; p < $entryIdsFavorite.length; p++) {
-          if (parseInt($entryIdsFavorite[p].getAttribute('data-entryid-fav')) === clues[k].entryId) {
-            yellowStar($entryIdsFavorite[p]);
-          }
-        }
-      } else {
-        for (let q = 0; q < $entryIdsFavorite.length; q++) {
-          if (parseInt($entryIdsFavorite[q].getAttribute('data-entryid-fav')) === clues[k].entryId) {
-            whiteStar($entryIdsFavorite[q]);
-          }
+    } else {
+      for (let n = 0; n < $entryIds.length; n++) {
+        if (parseInt($entryIds[n].getAttribute(getAttributeSelector)) === clues[k].entryId) {
+          whiteStar($entryIds[n]);
         }
       }
     }
