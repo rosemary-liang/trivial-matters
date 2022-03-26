@@ -1,5 +1,5 @@
 /* exported data */
-var data = {
+let data = {
   clues: [],
   currentlyAnswering: null,
   score: 0,
