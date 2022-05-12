@@ -4,6 +4,7 @@
 // dom queries
 
 const $gridButtonContainer = document.querySelector('.button-container');
+const $loadingContainer = document.querySelector('.loading-container');
 const $buttons = document.querySelectorAll('button.clue');
 const $views = document.querySelectorAll('.view');
 const $backButton = document.querySelector('.back-to-grid');
@@ -38,6 +39,7 @@ const getClues = () => {
   let { clues, nextEntryId } = data;
   const validatedClues = [];
   if (clues.length === 0) {
+    showLoading();
     const xhr = new XMLHttpRequest();
     xhr.open('GET', 'https://jservice.io/api/random/?count=36');
     xhr.responseType = 'json';
@@ -66,6 +68,25 @@ const getClues = () => {
       }
     });
     xhr.send();
+  }
+  showGrid();
+};
+
+const showLoading = () => {
+  if (!$gridButtonContainer.classList.contains('hidden')) {
+    $gridButtonContainer.classList.add('hidden');
+  }
+  if ($loadingContainer.classList.contains('hidden')) {
+    $loadingContainer.classList.remove('hidden');
+  }
+};
+
+const showGrid = () => {
+  if ($gridButtonContainer.classList.contains('hidden')) {
+    $gridButtonContainer.classList.remove('hidden');
+  }
+  if (!$loadingContainer.classList.contains('hidden')) {
+    $loadingContainer.classList.add('hidden');
   }
 };
 

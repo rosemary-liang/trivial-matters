@@ -30,6 +30,16 @@
         <main class="container display-flex flex-direction-column align-content-center align-items-center margin-auto border-radius-05-rem">
           <div class="nav-view padding-05-rem container margin-nav-view " data-view="grid">
             <div class="clues-container-bg bg-white border-radius-10-px padding-05-rem">
+              <!-- if data.length === 0, then show spinner` -->
+              <div class="row loading-container margin-auto display-flex flex-wrap space-around">
+                <div class="lds-ring">
+                  <div></div>
+                  <div></div>
+                  <div></div>
+                  <div></div>
+                </div>
+                <p class="roboto font-size-2-rem margin-h-1-rem">Loading...</p>
+              </div>
               <div class="row grid-container button-container margin-auto display-flex flex-wrap space-around ">
                 <div class="column-third  ">
                   <button class="clue grow">1</button>
