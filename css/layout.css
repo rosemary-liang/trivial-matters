@@ -1,6 +1,7 @@
 .container-outer {
   width: 100vw;
   min-height: 100vh;
+  min-width: 370px;
 }
 
 .container-purple {
@@ -11,12 +12,13 @@
   width: 100%;
 }
 
-.nav-view {
-  width: 99vw;
-}
+/* .nav-view {
+  width: 100%;
+} */
 
 .card {
   min-height: 300px;
+  min-width: 100%;
 }
 
 .card-in-list {
@@ -212,7 +214,7 @@
 
 button.clue {
   cursor: pointer;
-  width: 100px;
+  width: 95%;
   height: 120px;
   margin: 0.25rem;
   text-align: right;
@@ -272,7 +274,7 @@ p.clue-text {
 }
 
 p.return-already-answered {
-  width: 220px;
+  /* width: 220px; */
   text-align: center;
   line-height: 2rem;
   margin: 0;
@@ -301,14 +303,10 @@ button.return {
 
 /* media rule large screen */
 
-@media screen and (min-width: 768px) {
+@media screen and (min-width: 576px) {
   .container-outer {
     max-width: 768px;
   }
-
-  /* .container-purple {
-    height: 500px;
-  } */
 
   .clues-container {
     padding: 0 7rem;
@@ -351,5 +349,9 @@ button.return {
 
   .margin-b-2-rem {
     margin-bottom: 2rem;
+  }
+
+  .font-size-09-rem {
+    font-size: 1.25rem;
   }
 }

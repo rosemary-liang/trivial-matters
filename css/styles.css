@@ -1,3 +1,7 @@
+i {
+  cursor: pointer;
+}
+
 .caveat {
   font-family: Caveat, cursive;
 }
@@ -124,8 +128,8 @@
   color: black;
 }
 
-.line-height-2-rem {
-  line-height: 2rem;
+.nav-height {
+  height: 3rem;
 }
 
 /* font-awesome */
@@ -176,4 +180,12 @@ button.fa {
 
 button {
   cursor: pointer;
+}
+
+/* media rule large screen */
+
+@media screen and (min-width: 768px) {
+  .line-height-2-rem {
+    line-height: 4rem;
+  }
 }
