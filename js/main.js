@@ -5,6 +5,7 @@
 
 const $gridButtonContainer = document.querySelector('.button-container');
 const $loadingContainer = document.querySelector('.loading-container');
+const $noResultsContainer = document.querySelector('.no-results-container');
 const $buttons = document.querySelectorAll('button.clue');
 const $views = document.querySelectorAll('.view');
 const $backButton = document.querySelector('.back-to-grid');
@@ -38,38 +39,41 @@ const $finalScore = document.querySelector('#final-score');
 const getClues = () => {
   let { clues, nextEntryId } = data;
   const validatedClues = [];
-  if (clues.length === 0) {
-    showLoading();
-    const xhr = new XMLHttpRequest();
-    xhr.open('GET', 'https://jservice.io/api/random/?count=36');
-    xhr.responseType = 'json';
-    xhr.addEventListener('load', () => {
-      for (let i = 0; i < xhr.response.length; i++) {
-        const clue = xhr.response[i];
-        if (clue.question !== null && clue.question !== '' &&
+  showLoading();
+  const xhr = new XMLHttpRequest();
+  xhr.open('GET', 'https://jservice.io/api/random/?count=36');
+  xhr.responseType = 'json';
+  xhr.addEventListener('load', () => {
+    for (let i = 0; i < xhr.response.length; i++) {
+      const clue = xhr.response[i];
+      if (clue.question !== null && clue.question !== '' &&
         clue.answer !== null && clue.answer !== '' &&
         clue.value !== null && clue.value !== '') {
-          validatedClues.push(clue);
-        }
+        validatedClues.push(clue);
       }
+    }
 
-      for (let k = 0; k < 9; k++) {
-        const clueData = {
-        };
-        clueData.question = validatedClues[k].question;
-        clueData.answer = validatedClues[k].answer;
-        clueData.points = validatedClues[k].value;
-        clueData.completed = null;
-        clueData.favorite = null;
-        clueData.correct = null;
-        clueData.entryId = nextEntryId;
-        clues.push(clueData);
-        nextEntryId++;
-      }
-    });
-    xhr.send();
+    for (let k = 0; k < 9; k++) {
+      const clueData = {
+      };
+      clueData.question = validatedClues[k].question;
+      clueData.answer = validatedClues[k].answer;
+      clueData.points = validatedClues[k].value;
+      clueData.completed = null;
+      clueData.favorite = null;
+      clueData.correct = null;
+      clueData.entryId = nextEntryId;
+      clues.push(clueData);
+      nextEntryId++;
+    }
+  });
+  xhr.send();
+
+  if (data.clues.length === 0) {
+    showNoResults();
+  } else {
+    showGrid();
   }
-  showGrid();
 };
 
 const showLoading = () => {
@@ -79,6 +83,21 @@ const showLoading = () => {
   if ($loadingContainer.classList.contains('hidden')) {
     $loadingContainer.classList.remove('hidden');
   }
+  if (!$noResultsContainer.classList.contains('hidden')) {
+    $noResultsContainer.classList.add('hidden');
+  }
+};
+
+const showNoResults = () => {
+  if (!$gridButtonContainer.classList.contains('hidden')) {
+    $gridButtonContainer.classList.add('hidden');
+  }
+  if (!$loadingContainer.classList.contains('hidden')) {
+    $loadingContainer.classList.add('hidden');
+  }
+  if ($noResultsContainer.classList.contains('hidden')) {
+    $noResultsContainer.classList.remove('hidden');
+  }
 };
 
 const showGrid = () => {
@@ -87,6 +106,9 @@ const showGrid = () => {
   }
   if (!$loadingContainer.classList.contains('hidden')) {
     $loadingContainer.classList.add('hidden');
+  }
+  if (!$noResultsContainer.classList.contains('hidden')) {
+    $noResultsContainer.classList.add('hidden');
   }
 };
 
