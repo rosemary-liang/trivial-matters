@@ -146,6 +146,18 @@
   stroke: black;
 }
 
+.title {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 80px;
+  padding-top: 1rem;
+}
+
+.title > h1 {
+  font-size: 2.5rem;
+}
+
 /* buttons */
 
 button.clue:hover {
@@ -155,10 +167,13 @@ button.clue:hover {
 button.fa {
   background-color: transparent;
   border: none;
-  cursor: pointer;
 }
 
 #answered {
   background-color: white;
   border: 2px solid #efeefc;
+}
+
+button {
+  cursor: pointer;
 }

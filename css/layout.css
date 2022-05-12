@@ -1,9 +1,18 @@
 .container-outer {
-  width: 520px;
+  width: 100vw;
+  min-height: 100vh;
+}
+
+.container-purple {
+  height: 100vh;
 }
 
 .container {
-  width: 500px;
+  width: 100%;
+}
+
+.nav-view {
+  width: 99vw;
 }
 
 .card {
@@ -15,7 +24,7 @@
 }
 
 .card-in-list {
-  width: 470px;
+  width: 100%;
 }
 
 .column-third {
@@ -81,7 +90,7 @@ nav {
 
 #yes,
 #no {
-  padding: 0.5rem 3.75rem;
+  padding: 0.5rem 3rem;
   font-weight: 500;
   font-size: 0.9rem;
   color: white;
@@ -221,26 +230,26 @@ nav {
   padding: 0 7rem;
 }
 
+button.clue {
+  cursor: pointer;
+  width: 100px;
+  height: 120px;
+  margin: 0.25rem;
+  text-align: right;
+  padding-top: 40px;
+  padding-right: 25px;
+  font-weight: 500;
+  font-family: Roboto, sans-serif;
+  font-size: 2rem;
+  color: #6a5ae0;
+  background-color: #efeefc;
+  border: none;
+  border-radius: 30px;
+}
+
 /* media rule */
 
 @media screen and (max-width: 768px) {
-  .title {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 80px;
-    padding-top: 1rem;
-  }
-
-  .title > h1 {
-    font-size: 2.5rem;
-  }
-
-  .container-outer {
-    width: 420px;
-    min-height: 800px;
-  }
-
   nav {
     height: 2.5rem;
     margin-top: 0.5rem;
@@ -254,16 +263,8 @@ nav {
     border-radius: 30px;
   }
 
-  .container {
-    width: 380px;
-  }
-
   .font-size-09-rem {
     font-size: 0.88rem;
-  }
-
-  .card-in-list {
-    width: 350px;
   }
 
   .margin-b-1-rem {
@@ -280,23 +281,6 @@ nav {
 
   .clues-container > p {
     font-weight: 700;
-  }
-
-  button.clue {
-    cursor: pointer;
-    width: 110px;
-    height: 120px;
-    margin: 0.25rem;
-    text-align: right;
-    padding-top: 40px;
-    padding-right: 25px;
-    font-weight: 500;
-    font-family: Roboto, sans-serif;
-    font-size: 2rem;
-    color: #6a5ae0;
-    background-color: #efeefc;
-    border: none;
-    border-radius: 30px;
   }
 
   .card-text-content > p,
@@ -325,20 +309,6 @@ nav {
     border: none;
   }
 
-  #yes,
-  #no {
-    padding: 0.75rem 3.75rem;
-    font-weight: 500;
-    font-size: 1rem;
-    color: white;
-    background-color: #5fd5c1;
-    border-radius: 15px;
-  }
-
-  #no {
-    background-color: #ff8fa2;
-  }
-
   button.return {
     cursor: pointer;
     padding: 0.6rem 1.5rem;
@@ -360,6 +330,10 @@ nav {
 /* media rule large screen */
 
 @media screen and (min-width: 768px) {
+  .container-outer {
+    width: 520px;
+  }
+
   button.clue {
     cursor: pointer;
     width: 150px;
