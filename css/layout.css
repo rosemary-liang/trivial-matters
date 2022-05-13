@@ -339,6 +339,13 @@ button.return {
     border: none;
   }
 
+  #yes,
+  #no {
+    padding: 0.75rem 3rem;
+    font-weight: 500;
+    font-size: 1rem;
+  }
+
   .padding-h-7-rem {
     padding: 0 7rem;
   }
