@@ -1,12 +1,11 @@
 # ajax-project
-A dynamic HTML, CSS, and JavaScript solo project.
+A dynamic HTML, CSS, and JavaScript project for trivia enthusiasts who want to practice their trivia skills.
 
 ## Technologies Used
 
 - JavaScript
 - CSS3
 - HTML5
-- CSS3
 
 ## Live Demo
 
@@ -23,40 +22,21 @@ Try the application live at [https://rosemary-liu.github.io/ajax-project/](https
 
 ## Preview
 
-![SGT React](assets/sgt-react.gif)
+![Trivial Matters - Clues](images/demo-clues.gif)
+![Trivial Matters - Favorites](images/demo-favorites.gif)
 
 ## Development
 
 
 ### System Requirements
 
-- Node.js 10 or higher
-- NPM 6 or higher
-- MongoDB 4 or higher
+- None
 
 ### Getting Started
 
 1. Clone the repository.
 
     ```shell
-    git clone https://github.com/Learning-Fuze/sgt-react
-    cd sgt-react
-    ```
-
-1. Install all dependencies with NPM.
-
-    ```shell
-    npm install
-    ```
-
-1. Import the example database to MongoDB.
-
-    ```shell
-    mongoimport --db sgt-react database/dump.json
-    ```
-
-1. Start the project. Once started you can view the application by opening http://localhost:3000 in your browser.
-
-    ```shell
-    npm run dev
+    git clone https://github.com/rosemary-liu/trivial-matters.git
+    cd trivial-matters
     ```
