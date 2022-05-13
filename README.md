@@ -26,6 +26,10 @@ Try the application live at [https://rosemary-liu.github.io/ajax-project/](https
 ![Trivial Matters - Clues](images/demo-clues.gif)
 ![Trivial Matters - Favorites](images/demo-favorites.gif)
 
+## Stretch Features
+
+- Users can view clues grid organized by points in ascending.
+
 ## Development
 
 ### Getting Started
