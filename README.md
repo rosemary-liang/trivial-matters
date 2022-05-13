@@ -17,7 +17,7 @@ Try the application live at [https://rosemary-liu.github.io/ajax-project/](https
 - User can click on a card to view and answer a question.
 - User can view a list of cards of questions answered correctly.
 - User can add a question to their favorites.
-- User can remove a questions from their favorites.
+- User can remove a question from their favorites.
 - User can view a list of cards of questions that were favorited.
 - User can generate a new set of questions after all questions in current session have been answered.
 
