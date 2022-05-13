@@ -31,14 +31,19 @@
           <div class="nav-view padding-05-rem container margin-nav-view " data-view="grid">
             <div class="clues-container-bg bg-white border-radius-10-px padding-05-rem">
               <!-- if data.length === 0, then show spinner` -->
-              <div class="row loading-container margin-auto display-flex justify-content-center padding-1-rem">
-      
-                <p class="roboto  margin-h-1-rem">Loading...</p>
+              <div class="row margin-auto display-flex justify-content-center padding-1-rem" data-container="loading">
+                <p class="roboto  margin-h-1-rem text-align-center ">Loading...</p>
               </div>
-              <div class="row no-results-container margin-auto display-flex justify-content-center padding-1-rem">
-                <p class="roboto  margin-h-1-rem">No questions retrieved from the server, please try again.</p>
+              <div class="row margin-auto display-flex justify-content-center padding-1-rem" data-container="no-results">
+                <p class="roboto  margin-h-1-rem text-align-center ">No questions retrieved from the server, please try again.</p>
               </div>
-              <div class="row grid-container button-container margin-auto display-flex flex-wrap space-around ">
+              <div class="row margin-auto display-flex flex-direction-column justify-content-center padding-1-rem"
+                data-container="connection-error">
+                <p class="roboto  margin-h-1-rem text-align-center  margin-b-1-rem">Sorry, there was an error connecting to the network!</p>
+                <p class="roboto  margin-h-1-rem text-align-center ">Please check
+                  your internet connection and try again.</p>
+              </div>
+              <div class="row grid-container button-container margin-auto display-flex flex-wrap space-around" data-container="grid">
                 <div class="column-third  ">
                   <button class="clue grow">1</button>
                 </div>

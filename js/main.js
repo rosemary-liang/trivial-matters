@@ -4,8 +4,7 @@
 // dom queries
 
 const $gridButtonContainer = document.querySelector('.button-container');
-const $loadingContainer = document.querySelector('.loading-container');
-const $noResultsContainer = document.querySelector('.no-results-container');
+const $dataContainers = document.querySelectorAll('[data-container]');
 const $buttons = document.querySelectorAll('button.clue');
 const $views = document.querySelectorAll('.view');
 const $backButton = document.querySelector('.back-to-grid');
@@ -39,7 +38,7 @@ const $finalScore = document.querySelector('#final-score');
 const getClues = () => {
   let { clues, nextEntryId } = data;
   const validatedClues = [];
-  showLoading();
+  handleLoadingContainers('loading');
   const xhr = new XMLHttpRequest();
   xhr.open('GET', 'https://jservice.io/api/random/?count=36');
   xhr.responseType = 'json';
@@ -67,48 +66,30 @@ const getClues = () => {
       nextEntryId++;
     }
   });
+  xhr.addEventListener('error', event => {
+    handleLoadingContainers('connection-error');
+  });
   xhr.send();
 
-  if (data.clues.length === 0) {
-    showNoResults();
+  if (!data.clues.length) {
+    handleLoadingContainers('no-results');
   } else {
-    showGrid();
+    handleLoadingContainers('grid');
   }
 };
 
-const showLoading = () => {
-  if (!$gridButtonContainer.classList.contains('hidden')) {
-    $gridButtonContainer.classList.add('hidden');
-  }
-  if ($loadingContainer.classList.contains('hidden')) {
-    $loadingContainer.classList.remove('hidden');
-  }
-  if (!$noResultsContainer.classList.contains('hidden')) {
-    $noResultsContainer.classList.add('hidden');
-  }
-};
-
-const showNoResults = () => {
-  if (!$gridButtonContainer.classList.contains('hidden')) {
-    $gridButtonContainer.classList.add('hidden');
-  }
-  if (!$loadingContainer.classList.contains('hidden')) {
-    $loadingContainer.classList.add('hidden');
-  }
-  if ($noResultsContainer.classList.contains('hidden')) {
-    $noResultsContainer.classList.remove('hidden');
-  }
-};
-
-const showGrid = () => {
-  if ($gridButtonContainer.classList.contains('hidden')) {
-    $gridButtonContainer.classList.remove('hidden');
-  }
-  if (!$loadingContainer.classList.contains('hidden')) {
-    $loadingContainer.classList.add('hidden');
-  }
-  if (!$noResultsContainer.classList.contains('hidden')) {
-    $noResultsContainer.classList.add('hidden');
+const handleLoadingContainers = container => {
+  for (let i = 0; i < $dataContainers.length; i++) {
+    const containers = $dataContainers[i];
+    if (containers.getAttribute('data-container') === container) {
+      if (containers.classList.contains('hidden')) {
+        containers.classList.remove('hidden');
+      }
+    } else {
+      if (!containers.classList.contains('hidden')) {
+        containers.classList.add('hidden');
+      }
+    }
   }
 };
 
