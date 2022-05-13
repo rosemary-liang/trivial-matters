@@ -36,45 +36,47 @@ const $finalScore = document.querySelector('#final-score');
 // function definitions
 
 const getClues = () => {
-  let { clues, nextEntryId } = data;
-  const validatedClues = [];
-  const xhr = new XMLHttpRequest();
-  xhr.open('GET', 'https://jservice.io/api/random/?count=36');
-  xhr.responseType = 'json';
-  xhr.addEventListener('load', () => {
-    for (let i = 0; i < xhr.response.length; i++) {
-      const clue = xhr.response[i];
-      if (clue.question !== null && clue.question !== '' &&
+  if (data.clues.length === 0) {
+    let { nextEntryId } = data;
+    const validatedClues = [];
+    const xhr = new XMLHttpRequest();
+    xhr.open('GET', 'https://jservice.io/api/random/?count=36');
+    xhr.responseType = 'json';
+    xhr.addEventListener('load', () => {
+      for (let i = 0; i < xhr.response.length; i++) {
+        const clue = xhr.response[i];
+        if (clue.question !== null && clue.question !== '' &&
         clue.answer !== null && clue.answer !== '' &&
         clue.value !== null && clue.value !== '') {
-        validatedClues.push(clue);
+          validatedClues.push(clue);
+        }
       }
-    }
 
-    for (let k = 0; k < 9; k++) {
-      const clueData = {
-      };
-      clueData.question = validatedClues[k].question;
-      clueData.answer = validatedClues[k].answer;
-      clueData.points = validatedClues[k].value;
-      clueData.completed = null;
-      clueData.favorite = null;
-      clueData.correct = null;
-      clueData.entryId = nextEntryId;
-      clues.push(clueData);
-      nextEntryId++;
-    }
-    if (data.clues.length === 0) {
-      handleLoadingContainers('no-results');
-    }
-    if (data.clues.length === 9) {
-      handleLoadingContainers('grid');
-    }
-  });
-  xhr.addEventListener('error', event => {
-    handleLoadingContainers('connection-error');
-  });
-  xhr.send();
+      for (let k = 0; k < 9; k++) {
+        const clueData = {
+        };
+        clueData.question = validatedClues[k].question;
+        clueData.answer = validatedClues[k].answer;
+        clueData.points = validatedClues[k].value;
+        clueData.completed = null;
+        clueData.favorite = null;
+        clueData.correct = null;
+        clueData.entryId = nextEntryId;
+        data.clues.push(clueData);
+        nextEntryId++;
+      }
+      if (data.clues.length === 0) {
+        handleLoadingContainers('no-results');
+      }
+      if (data.clues.length === 9) {
+        handleLoadingContainers('grid');
+      }
+    });
+    xhr.addEventListener('error', event => {
+      handleLoadingContainers('connection-error');
+    });
+    xhr.send();
+  }
 
 };
 
@@ -541,11 +543,10 @@ const reRenderFavorites = () => {
 };
 
 const resetAll = () => {
-  let { clues, score, nextEntryId } = data;
+  let { score, nextEntryId } = data;
   resetExistingCards('correct');
   resetExistingCards('favorite');
-  clues = [];
-  data.clues = clues;
+
   score = 0;
   data.score = score;
   nextEntryId = 1;
