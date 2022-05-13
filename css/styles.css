@@ -1,3 +1,7 @@
+i {
+  cursor: pointer;
+}
+
 .caveat {
   font-family: Caveat, cursive;
 }
@@ -124,8 +128,8 @@
   color: black;
 }
 
-.line-height-2-rem {
-  line-height: 2rem;
+.nav-height {
+  height: 3rem;
 }
 
 /* font-awesome */
@@ -146,6 +150,18 @@
   stroke: black;
 }
 
+.title {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 80px;
+  padding-top: 1rem;
+}
+
+.title > h1 {
+  font-size: 2.5rem;
+}
+
 /* buttons */
 
 button.clue:hover {
@@ -155,10 +171,21 @@ button.clue:hover {
 button.fa {
   background-color: transparent;
   border: none;
-  cursor: pointer;
 }
 
 #answered {
   background-color: white;
   border: 2px solid #efeefc;
+}
+
+button {
+  cursor: pointer;
+}
+
+/* media rule large screen */
+
+@media screen and (min-width: 768px) {
+  .line-height-2-rem {
+    line-height: 4rem;
+  }
 }

@@ -14,23 +14,36 @@
 </head>
 <body>
   <div class="container-outer margin-auto">
-    <div class="container-outer margin-05-rem bg-purple border-radius-1-rem">
-      <div class="container display-flex flex-direction-column margin-auto align-items-center bg-purple border-radius-1-rem" data-view="grid">
+    <div class="container container-purple bg-purple border-radius-1-rem">
+      <div class="container display-flex flex-direction-column margin-auto align-items-center bg-purple border-radius-1-rem padding-1-rem" data-view="grid">
 
         <header class="container display-flex flex-direction-column align-content-center align-items-center margin-auto border-radius-05-rem">
           <div class="title bg-purple font-white border-radius-1-rem">
             <h1 class="roboto font-size-2-rem margin-0 font-weight-500 padding-1-rem">trivial matters</h1>
           </div>
-          <nav class="bg-dark-purple container display-flex space-between align-items-center line-height-2-rem  padding-1-rem border-radius-10-px">
+          <nav class=" nav-height bg-dark-purple container display-flex space-between align-items-center line-height-2-rem  padding-1-rem border-radius-10-px">
             <button class="roboto border-none bg-transparent font-white cursor-pointer grow font-weight-500 font-size-09-rem" id="nav-favorites">Favorites</button>
             <button class="roboto border-none bg-transparent font-white cursor-pointer grow font-weight-500 font-size-09-rem" id="nav-questions-correct">Questions Correct: <span class="q-correct">0</span></button>
             <p class="roboto border-none bg-transparent font-white cursor-pointer font-weight-500 font-size-09-rem" id="nav-score">Score: <span class="score">0</span>
           </nav>
         </header>
-        <main>
-          <div class="nav-view container margin-nav-view " data-view="grid">
+        <main class="container display-flex flex-direction-column align-content-center align-items-center margin-auto border-radius-05-rem">
+          <div class="nav-view padding-05-rem container margin-nav-view " data-view="grid">
             <div class="clues-container-bg bg-white border-radius-10-px padding-05-rem">
-              <div class="row grid-container button-container margin-auto display-flex flex-wrap space-around ">
+              <!-- if data.length === 0, then show spinner` -->
+              <div class="row margin-auto display-flex justify-content-center padding-1-rem" data-container="loading">
+                <p class="roboto  margin-h-1-rem text-align-center ">Loading...</p>
+              </div>
+              <div class="row margin-auto display-flex justify-content-center padding-1-rem" data-container="no-results">
+                <p class="roboto  margin-h-1-rem text-align-center ">No questions retrieved from the server, please try again.</p>
+              </div>
+              <div class="row margin-auto display-flex flex-direction-column justify-content-center padding-1-rem"
+                data-container="connection-error">
+                <p class="roboto  margin-h-1-rem text-align-center  margin-b-1-rem">Sorry, there was an error connecting to the network!</p>
+                <p class="roboto  margin-h-1-rem text-align-center ">Please check
+                  your internet connection and try again.</p>
+              </div>
+              <div class="row grid-container button-container margin-auto display-flex flex-wrap space-around" data-container="grid">
                 <div class="column-third  ">
                   <button class="clue grow">1</button>
                 </div>
@@ -61,11 +74,11 @@
               </div>
             </div>
           </div>
-          <div class="nav-view hidden margin-nav-view" data-view="clue">
+          <div class="nav-view  padding-05-rem container hidden display-flex flex-direction-column align-items-center justify-content-center margin-nav-view " data-view="clue">
             <div class="container card bg-white border-radius-10-px padding-1-rem margin-v-1-rem">
               <div class="card-header-container display-flex space-between margin-b-1-rem padding-h-05-rem ">
                 <div class="return-button display-flex flex-start">
-                  <button class="back-to-grid bg-transparent border-none cursor-pointer grow"><i class="fas fa-arrow-left font-size-15-rem"></i></button>
+                  <button class="back-to-grid bg-transparent border-none cursor-pointer grow"><i class="fas fa-arrow-left font-size-2-rem"></i></button>
                 </div>
                 <div class="favorite display-flex flex-end hidden">
                   <button class="fa"><i class="fa-solid fa-star font-size-15-rem grow fa-star-gray"></i></button>
@@ -105,7 +118,7 @@
             </div>
           </div>
           <div
-            class="nav-view container hidden display-flex flex-direction-column align-items-center justify-content-center margin-nav-view"
+            class="nav-view  padding-05-rem container hidden display-flex flex-direction-column align-items-center justify-content-center margin-nav-view"
             data-view="questions-correct">
             <div class=" bg-white container border-radius-10-px min-height-300px">
               <div class="container-questions-correct  container content padding-1-rem-except-bottom">
@@ -113,7 +126,7 @@
                   <div class="back-button-container position-absolute">
                     <button
                       class="back-to-questions-correct roboto border-none bg-transparent font-size-1-rem font-black font-weight-500 grow cursor-pointer"><i
-                        class="fas fa-arrow-left font-size-15-rem"></i></button>
+                        class="fas fa-arrow-left font-size-2-rem"></i></button>
                   </div>
                   <div class="nav-buttons container  padding-h-275-rem">
                     <p class="roboto font-weight-500 font-size-125-rem margin-0 text-align-center">Questions Correct</p>
@@ -124,13 +137,13 @@
             </div>
           </div>
           <div
-            class="nav-view container hidden display-flex flex-direction-column align-items-center justify-content-center margin-nav-view"
+            class="nav-view  padding-05-rem container hidden display-flex flex-direction-column align-items-center justify-content-center margin-nav-view"
             data-view="favorites">
             <div class=" bg-white container border-radius-10-px min-height-300px">
               <div class="container-favorites  container content padding-1-rem-except-bottom">
                 <div class="nav-buttons-container display-flex margin-b-1-rem">
                   <div class="back-button-container position-absolute">
-                    <button class="back-to-questions-fav roboto border-none bg-transparent font-size-1-rem font-black font-weight-500 grow cursor-pointer"><i class="fas fa-arrow-left font-size-15-rem"></i></button>
+                    <button class="back-to-questions-fav roboto border-none bg-transparent font-size-1-rem font-black font-weight-500 grow cursor-pointer"><i class="fas fa-arrow-left font-size-2-rem"></i></button>
                   </div>
                   <div class="nav-buttons container  padding-h-275-rem">
                     <p class="roboto font-weight-500 font-size-125-rem margin-0 text-align-center">Favorites</p>

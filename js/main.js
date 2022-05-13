@@ -4,6 +4,7 @@
 // dom queries
 
 const $gridButtonContainer = document.querySelector('.button-container');
+const $dataContainers = document.querySelectorAll('[data-container]');
 const $buttons = document.querySelectorAll('button.clue');
 const $views = document.querySelectorAll('.view');
 const $backButton = document.querySelector('.back-to-grid');
@@ -37,35 +38,58 @@ const $finalScore = document.querySelector('#final-score');
 const getClues = () => {
   let { clues, nextEntryId } = data;
   const validatedClues = [];
-  if (clues.length === 0) {
-    const xhr = new XMLHttpRequest();
-    xhr.open('GET', 'https://jservice.io/api/random/?count=36');
-    xhr.responseType = 'json';
-    xhr.addEventListener('load', () => {
-      for (let i = 0; i < xhr.response.length; i++) {
-        const clue = xhr.response[i];
-        if (clue.question !== null && clue.question !== '' &&
+  handleLoadingContainers('loading');
+  const xhr = new XMLHttpRequest();
+  xhr.open('GET', 'https://jservice.io/api/random/?count=36');
+  xhr.responseType = 'json';
+  xhr.addEventListener('load', () => {
+    for (let i = 0; i < xhr.response.length; i++) {
+      const clue = xhr.response[i];
+      if (clue.question !== null && clue.question !== '' &&
         clue.answer !== null && clue.answer !== '' &&
         clue.value !== null && clue.value !== '') {
-          validatedClues.push(clue);
-        }
+        validatedClues.push(clue);
       }
+    }
 
-      for (let k = 0; k < 9; k++) {
-        const clueData = {
-        };
-        clueData.question = validatedClues[k].question;
-        clueData.answer = validatedClues[k].answer;
-        clueData.points = validatedClues[k].value;
-        clueData.completed = null;
-        clueData.favorite = null;
-        clueData.correct = null;
-        clueData.entryId = nextEntryId;
-        clues.push(clueData);
-        nextEntryId++;
+    for (let k = 0; k < 9; k++) {
+      const clueData = {
+      };
+      clueData.question = validatedClues[k].question;
+      clueData.answer = validatedClues[k].answer;
+      clueData.points = validatedClues[k].value;
+      clueData.completed = null;
+      clueData.favorite = null;
+      clueData.correct = null;
+      clueData.entryId = nextEntryId;
+      clues.push(clueData);
+      nextEntryId++;
+    }
+  });
+  xhr.addEventListener('error', event => {
+    handleLoadingContainers('connection-error');
+  });
+  xhr.send();
+
+  if (!data.clues.length) {
+    handleLoadingContainers('no-results');
+  } else {
+    handleLoadingContainers('grid');
+  }
+};
+
+const handleLoadingContainers = container => {
+  for (let i = 0; i < $dataContainers.length; i++) {
+    const containers = $dataContainers[i];
+    if (containers.getAttribute('data-container') === container) {
+      if (containers.classList.contains('hidden')) {
+        containers.classList.remove('hidden');
       }
-    });
-    xhr.send();
+    } else {
+      if (!containers.classList.contains('hidden')) {
+        containers.classList.add('hidden');
+      }
+    }
   }
 };
 
