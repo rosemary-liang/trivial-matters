@@ -24,7 +24,7 @@ Try the application live at [https://rosemary-liu.github.io/ajax-project/](https
 ## Preview
 
 ![Trivial Matters - Clues](images/demo-clues.gif)
-![Trivial Matters - Favorites](images/demo-favorites.gif)
+![Trivial Matters - Favorites](images/favorites.gif)
 
 ## Stretch Features
 
