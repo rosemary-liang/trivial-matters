@@ -1,4 +1,4 @@
-# ajax-project
+# trivial-matters
 A dynamic HTML, CSS, and JavaScript project for trivia enthusiasts who want to practice their trivia skills.
 
 ## Technologies Used
@@ -26,11 +26,6 @@ Try the application live at [https://rosemary-liu.github.io/ajax-project/](https
 ![Trivial Matters - Favorites](images/demo-favorites.gif)
 
 ## Development
-
-
-### System Requirements
-
-- None
 
 ### Getting Started
 
