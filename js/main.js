@@ -65,11 +65,11 @@ const getClues = () => {
         data.clues.push(clueData);
         nextEntryId++;
       }
-      if (data.clues.length === 0) {
-        handleLoadingContainers('no-results');
-      }
+
       if (data.clues.length === 9) {
         handleLoadingContainers('grid');
+      } else {
+        handleLoadingContainers('no-results');
       }
     });
     xhr.addEventListener('error', event => {
@@ -543,16 +543,13 @@ const reRenderFavorites = () => {
 };
 
 const resetAll = () => {
-  let { score, nextEntryId } = data;
   resetExistingCards('correct');
   resetExistingCards('favorite');
-
-  score = 0;
-  data.score = score;
-  nextEntryId = 1;
-  data.nextEntryId = nextEntryId;
+  data.clues = [];
+  data.score = 0;
+  data.nextEntryId = 1;
   countCorrect();
-  $pointsHeader.textContent = score;
+  $pointsHeader.textContent = data.score;
   handleLoadingContainers('loading');
   getClues();
   removeClueId();
@@ -619,7 +616,6 @@ const showReset = () => {
 };
 
 // function calls
-
 getClues();
 renderCards('favorite');
 renderCards('correct');
