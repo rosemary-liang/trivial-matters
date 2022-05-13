@@ -28,7 +28,7 @@ Try the application live at [https://rosemary-liu.github.io/ajax-project/](https
 
 ## Stretch Features
 
-- Users can view clues grid organized by points in ascending.
+- Users can view clues grid organized by points in ascending value.
 
 ## Development
 
