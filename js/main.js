@@ -38,7 +38,6 @@ const $finalScore = document.querySelector('#final-score');
 const getClues = () => {
   let { clues, nextEntryId } = data;
   const validatedClues = [];
-  handleLoadingContainers('loading');
   const xhr = new XMLHttpRequest();
   xhr.open('GET', 'https://jservice.io/api/random/?count=36');
   xhr.responseType = 'json';
@@ -65,17 +64,18 @@ const getClues = () => {
       clues.push(clueData);
       nextEntryId++;
     }
+    if (data.clues.length === 0) {
+      handleLoadingContainers('no-results');
+    }
+    if (data.clues.length === 9) {
+      handleLoadingContainers('grid');
+    }
   });
   xhr.addEventListener('error', event => {
     handleLoadingContainers('connection-error');
   });
   xhr.send();
 
-  if (!data.clues.length) {
-    handleLoadingContainers('no-results');
-  } else {
-    handleLoadingContainers('grid');
-  }
 };
 
 const handleLoadingContainers = container => {
@@ -191,15 +191,17 @@ const countCorrect = () => {
 const handleYesOrNo = (event, yesOrNo) => {
   let { clues, currentlyAnswering, score } = data;
   buttonTarget = event.target;
-  currentlyAnswering.completed = true;
-  if (yesOrNo === 'yes') {
-    currentlyAnswering.correct = true;
-    score += currentlyAnswering.points;
-    data.score = score;
-    countCorrect();
-    $pointsHeader.textContent = score;
-  } else if (yesOrNo === 'no') {
-    currentlyAnswering.correct = false;
+  if (!currentlyAnswering.completed) {
+    currentlyAnswering.completed = true;
+    if (yesOrNo === 'yes') {
+      currentlyAnswering.correct = true;
+      score += currentlyAnswering.points;
+      data.score = score;
+      countCorrect();
+      $pointsHeader.textContent = score;
+    } else {
+      currentlyAnswering.correct = false;
+    }
   }
 
   currentlyAnswering = null;
@@ -550,6 +552,7 @@ const resetAll = () => {
   data.nextEntryId = nextEntryId;
   countCorrect();
   $pointsHeader.textContent = score;
+  handleLoadingContainers('loading');
   getClues();
   removeClueId();
   grayStar($starIcon);
