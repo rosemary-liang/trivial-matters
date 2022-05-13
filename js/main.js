@@ -551,10 +551,10 @@ const resetAll = () => {
   countCorrect();
   $pointsHeader.textContent = data.score;
   handleLoadingContainers('loading');
-  getClues();
   removeClueId();
   grayStar($starIcon);
   navToGrid();
+  getClues();
 };
 
 const resetExistingCards = type => {
