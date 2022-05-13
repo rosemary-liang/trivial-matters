@@ -36,3 +36,9 @@ Try the application live at [https://rosemary-liu.github.io/ajax-project/](https
     git clone https://github.com/rosemary-liu/trivial-matters.git
     cd trivial-matters
     ```
+2. Install all dependencies with NPM.
+
+    ```shell
+    npm install
+    ```
+3. Open the project. Once opened, you can view the application by opening the `index.html` file in your browser.
