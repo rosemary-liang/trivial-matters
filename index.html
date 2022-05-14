@@ -4,8 +4,23 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AJAX Project</title>
+  <!--  Essential META Tags -->
+  <meta name="og:title" content="Trivial Matters">
+  <meta name="og:type" content="article" />
+  <meta name="og:image" content="https://rosemary-liu.github.io/trivial-matters/images/trivialmatters.png">
+  <meta name="og:url" content="https://rosemary-liu.github.io/trivial-matters/">
+  <meta name="twitter:card" content="trivial matters">
+  <!--  Non-Essential, But Recommended -->
+  <meta name="og:description" content="A dynamic HTML, CSS, and JavaScript project for trivia enthusiasts who want to practice their trivia skills.">
+  <meta name="og:site_name" content="Trivial Matters">
+  <meta name="twitter:image:alt" content="trivial matters">
+
+  <title>Trivial Matters</title>
   <link rel="icon" href="images/favicon.ico">
+  <link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="images/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="images/favicon/favicon-16x16.png">
+  <link rel="manifest" href="images/favicon/site.webmanifest">
   <link rel="stylesheet" href="css/reset.css">
   <link rel="stylesheet" href="css/styles.css">
   <link rel="stylesheet" href="css/layout.css">
@@ -42,7 +57,6 @@
           class="container display-flex flex-direction-column align-content-center align-items-center margin-auto border-radius-05-rem">
           <div class="nav-view padding-05-rem container margin-nav-view " data-view="grid">
             <div class="clues-container-bg bg-white border-radius-10-px padding-05-rem">
-              <!-- if data.length === 0, then show spinner` -->
               <div class="row margin-auto display-flex justify-content-center padding-1-rem hidden" data-container="loading">
                 <p class="roboto  margin-h-1-rem text-align-center ">Loading...</p>
               </div>

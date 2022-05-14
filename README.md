@@ -9,7 +9,7 @@ A dynamic HTML, CSS, and JavaScript project for trivia enthusiasts who want to p
 
 ## Live Demo
 
-Try the application live at [https://rosemary-liu.github.io/ajax-project/](https://rosemary-liu.github.io/ajax-project/)
+Try the application live at [https://rosemary-liu.github.io/trivial-matters/](https://rosemary-liu.github.io/trivial-matters/)
 
 ## Features
 
