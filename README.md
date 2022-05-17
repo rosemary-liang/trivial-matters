@@ -6,7 +6,7 @@ A dynamic HTML, CSS, and JavaScript project for trivia enthusiasts who want to p
 - JavaScript
 - CSS3
 - HTML5
-- jService.io API
+- [https://jservice.io/](https://jservice.io/)
 
 ## Live Demo
 
